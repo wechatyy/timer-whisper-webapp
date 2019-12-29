@@ -1,4 +1,5 @@
 <!--index.wxml-->
 <view class="container">
 悄悄话
+<van-button type="primary">按钮</van-button>
 </view>
