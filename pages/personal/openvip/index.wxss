@@ -1,5 +1,4 @@
 /* pages/personal/openvip/index.wxss */
-
 page{
   background-color: #EDEDED;
 }

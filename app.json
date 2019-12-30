@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/personal/personal",
     "pages/personal/openvip/index",
     "pages/personal/devlop/index",
-    "pages/personal/personal",
     "pages/index/index"
   ],
   "window": {

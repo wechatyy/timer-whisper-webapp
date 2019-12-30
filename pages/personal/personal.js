@@ -24,6 +24,16 @@ Page({
       url: '/pages/feedback/index',
     })
   },
+  onOpenVip(){
+    wx.navigateTo({
+      url: '/pages/personal/openvip/index',
+    })
+  },
+  onDevLop() {
+    wx.navigateTo({
+      url: '/pages/personal/devlop/index',
+    })
+  },
   onHelpClick(){
     
   },
