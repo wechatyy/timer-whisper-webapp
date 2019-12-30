@@ -1,4 +1,4 @@
-
+// pages/personal/devlop/index.js
 Page({
 
   /**
@@ -13,19 +13,6 @@ Page({
    */
   onLoad: function (options) {
 
-  },
-  onToolClick(){
-    wx.navigateTo({
-      url: '/pages/intimate/index',
-    })
-  },
-  onVersionClick(){
-    wx.navigateTo({
-      url: '/pages/feedback/index',
-    })
-  },
-  onHelpClick(){
-    
   },
 
   /**

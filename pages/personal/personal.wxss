@@ -1,0 +1,271 @@
+page {
+  background: #ededed;
+}
+
+.mine {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  background: #ededed;
+}
+
+.mine-navbar {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.mine-navbar-img {
+  height: 40rpx;
+  width: 36rpx;
+}
+
+.mine-navbar-button {
+  line-height: normal;
+  border-radius: 0;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  height: 40rpx;
+  width: 200rpx;
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.mine-navbar-button::after {
+  border: 0;
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+}
+
+.mine-navbar-text {
+  font-size: 20rpx;
+  color: #1e2737;
+  margin-left: 16rpx;
+}
+
+.mine-body {
+}
+
+.mine-container {
+  height: 270rpx;
+  background: #fff;
+  padding: 60rpx 0 60rpx 40rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.mine-containe_img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 16rpx;
+  background: #eee;
+}
+
+.mine-containe_name {
+  margin-left: 40rpx;
+  font-size: 44rpx;
+  color: #1e2737;
+  font-weight: 500;
+}
+
+.mine-tool-box {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.mine-tool-item {
+  height: 112rpx;
+  display: flex;
+}
+
+.mine-tool-item_img {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 36rpx 40rpx 0;
+}
+
+.mine-tool-item_img.quick {
+  width: 28rpx;
+  margin: 36rpx 46rpx 0;
+}
+
+.mine-tool-item_msg {
+  line-height: 112rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border-bottom: 2rpx solid #ddd;
+  margin-right: 28rpx;
+}
+
+.mine-tool-item_msg image {
+  float: right;
+  width: 10rpx;
+  height: 20rpx;
+  margin-top: 46rpx;
+}
+
+.mine-tool-item_msg.noBorder {
+  border-bottom: none;
+}
+
+.mine-tool-item text {
+  font-size: 32rpx;
+  color: #1e2737;
+}
+
+.mine-version {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.mine-version-clock {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.mine-version-box {
+  width: 220rpx;
+  height: 24rpx;
+  margin-top: 48rpx;
+  color: #999;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.mine-version-num {
+  padding-right: 20rpx;
+  border-right: 2rpx solid #d8d8d8;
+}
+
+.mine-version-msg {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 24rpx;
+  color: #999;
+  font-size: 20rpx;
+  text-align: center;
+  bottom: 42rpx;
+}
+
+.mine .tw-navbar-title {
+  margin-left: -46rpx;
+}
+
+.mine .at-tab-bar .at-tab-bar__icon {
+  font-size: 28rpx;
+}
+
+.mine .at-tab-bar .at-tab-bar__item {
+  padding: 0;
+}
+
+.mine .help1 {
+  position: fixed;
+  z-index: 999;
+  top: 176rpx;
+  right: 80rpx;
+  width: 400rpx;
+  height: 110rpx;
+  background: #000;
+  opacity: 0.8;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 16rpx;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.mine .help1 text {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: 400;
+}
+
+.mine .help1 image {
+  margin-left: 20rpx;
+  width: 88rpx;
+  height: 56rpx;
+}
+
+.tw-navbar {
+  background: #fff;
+}
+
+.sign-tabbar-form {
+  position: absolute;
+  left: 34%;
+  top: 0;
+  height: 108rpx;
+  width: 33%;
+  z-index: 801;
+}
+
+.sign-tabbar-form .btn {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: 0 0;
+}
+
+.sign-tabbar-form .btn::after {
+  border: 0;
+}
