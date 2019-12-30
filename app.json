@@ -3,7 +3,16 @@
     "pages/personal/personal",
     "pages/personal/openvip/index",
     "pages/personal/devlop/index",
-    "pages/index/index"
+    "pages/login/index",
+    "pages/tellsPeople/index",
+    "pages/friendInformation/index",
+    "pages/chatRecord/index",
+    "pages/served/index",
+    "pages/choosePeople/index",
+    "pages/chooseFriend/index",
+    "pages/feedback/index", 
+    "pages/message/index" 
+
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -17,7 +26,7 @@
     "list": [
       {
         "text": "收话人",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/tellsPeople/index",
         "iconPath": "assets/images/tabs/tells_people.png",
         "selectedIconPath": "assets/images/tabs/tells_people_act.png"
       },
