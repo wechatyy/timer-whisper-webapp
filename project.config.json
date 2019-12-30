@@ -63,6 +63,62 @@
 					"pathName": "pages/login/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "悄悄话页面",
+					"pathName": "pages/tellsPeople/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "意见反馈页面",
+					"pathName": "pages/feedback/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "聊天推送页面",
+					"pathName": "pages/message/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择新的收话人页面",
+					"pathName": "pages/chooseFriend/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择收话人",
+					"pathName": "pages/choosePeople/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "消息待送达页面",
+					"pathName": "pages/served/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "查找收话内容",
+					"pathName": "pages/chatRecord/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "好友详情页面",
+					"pathName": "pages/friendInformation/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

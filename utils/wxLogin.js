@@ -1,4 +1,4 @@
-import {GETTOKEN, API_HOST, API_VERSION} from "./config";
+import {API_LOGIN, API_HOST, API_VERSION} from "./config";
 let isLogining=false;
 let retrySuccess=false;
 let eventList=[]

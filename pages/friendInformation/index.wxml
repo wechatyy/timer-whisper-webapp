@@ -1,4 +1,52 @@
-<!--index.wxml-->
-<view class="container">
-
+<view class="information">
+  <view class="information-msg">
+    <image class="information-msg_img" src="{{imgurl}}"></image>
+    <view class="information-msg_box">
+      <view class="information-msg_name">{{friendname}}</view>
+      <view class="information-msg_status">
+        <image class="{{sex == 1 ? 'information-msg_sex2' : 'information-msg_sex'}}" src="{{sex == 1 ? '/assets/images/common/sex2.png':'/assets/images/common/sex.png'}}"></image>
+        <block wx:if="{{intimate != 'null'}}">
+          <image class="information-msg_rela" src="/assets/images/common/relationship.png"></image>
+        </block>
+        <block wx:if="{{intimate != 'null'}}">
+          <text class="information-msg_msg">{{intimate}}</text>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class="information-num">接收定时悄悄话剩余条数：{{count}}条</view>
+  <view class="information-tool">
+    <view class="information-tool-switch">
+      <view class="information-tool-title">置顶收话人列表</view>
+      <view class="tool-switch-box">
+        <wux-switch color="balanced" value="{{top}}" bindchange="onSwitchChange" data-e-change-so="this" data-e-change-a-a="top"></wux-switch>
+      </view>
+    </view>
+    <view class="information-tool-switch">
+      <view class="information-tool-title">消息拒收</view>
+      <view class="tool-switch-box">
+        <wux-switch color="balanced" value="{{refuse}}" bindchange="onSwitchChange" data-e-change-so="this" data-e-change-a-a="refuse"></wux-switch>
+      </view>
+    </view>
+  </view>
+  <view class="information-handle" bindtap="onSearchMessage" data-e-tap-so="this">查找收话内容</view>
+  <view >
+    <view class="information-handle diff" bindtap="onClearMessage" data-e-tap-so="this">
+      清空收话记录
+    </view>
+    <view class="information-handle diff2" bindtap="onDeleteFriend" data-e-tap-so="this">删除</view>
+  </view>
+  <view class="information-button" bindtap="onButtonClick" data-e-tap-so="this">
+    给{{sex == 1 ? '他' : '她'}}说悄悄话
+  </view>
+  <!-- // 弹窗 -->
+  <!-- <at-action-sheet compid="{{$compid__13}}">
+    <view class="information-enter" bindtap="onActionClick" data-e-tap-so="this">确定</view>
+  </at-action-sheet>
+  <at-action-sheet compid="{{$compid__14}}">
+    <view class="information-enter" bindtap="onActionMsgClick" data-e-tap-so="this">清空收话记录</view>
+  </at-action-sheet>
+  <at-action-sheet compid="{{$compid__15}}">
+    <view class="information-enter" bindtap="onActionDeleteClick" data-e-tap-so="this">删除收话人</view>
+  </at-action-sheet> -->
 </view>

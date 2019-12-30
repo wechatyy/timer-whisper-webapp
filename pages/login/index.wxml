@@ -3,5 +3,5 @@
         <view class="login-line"></view>
         <view class="login-msg">登陆后开发者将会获取一些权限</view>
         <view class="login-msg2">· 获取的的公开信息（昵称、头像等）</view>
-        <button class="login-button" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" bindtap="getUserInfo" data-e-getuserinfo-so="this" data-e-tap-so="this">微信登陆</button>
+        <button class="login-button" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" >微信登陆</button>
     </view>
