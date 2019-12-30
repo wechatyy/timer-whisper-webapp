@@ -1,3 +1,20 @@
-<!--index.wxml-->
-<view class="container">
-</view>
+<block>
+  <view class="tells">
+    <view class="tells-search">
+      <wux-index  bindchange="onChange"  >
+        <wux-index-item key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="_anonIdx4">
+          <view class="tells-list-item" wx:key="ii" bindtap="onItemClick" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" data-e-tap-so="this" data-e-tap-a-a="{{vi}}">
+            <image class="list_img" src="{{vi.imgurl}}"></image>
+            <view class="list_msg">{{vi.friendname}}</view>
+          </view>
+        </wux-index-item>
+      </wux-index>
+    </view>
+    <custom-tab-bar className="sign-tabbar">
+      <form report-submit="{{true}}" bindsubmit="onSubmit" class="sign-tabbar-form" data-e-submit-so="this">
+        <button form-type="submit" class="btn"></button>
+      </form>
+      <at-tab-bar compid="{{$compid__9}}"></at-tab-bar>
+    </custom-tab-bar>
+  </view>
+</block>

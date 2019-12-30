@@ -1,0 +1,64 @@
+
+.wux-swipe {
+  overflow: hidden;
+  position: relative
+}
+.wux-swipe__cover {
+  position: absolute;
+  z-index: 2;
+  background: 0 0;
+  height: 100%;
+  width: 100%;
+  top: 0
+}
+.wux-swipe__actions {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-transition: all .25s;
+  -o-transition: all .25s;
+  transition: all .25s
+}
+.wux-swipe__actions--left {
+  left: 0
+}
+.wux-swipe__actions--right {
+  right: 0
+}
+.wux-swipe__action {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  overflow: hidden
+}
+.wux-swipe__text {
+  padding: 0 16rpx
+}
+.wux-swipe__content {
+  position: relative;
+  background-color: #fff;
+  -webkit-transition: all .25s;
+  -o-transition: all .25s;
+  transition: all .25s
+}
+.wux-swipe--swiping .wux-swipe__actions,
+.wux-swipe--swiping .wux-swipe__content {
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none
+}
