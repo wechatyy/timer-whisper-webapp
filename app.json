@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/personal/openvip/index",
+    "pages/personal/devlop/index",
     "pages/personal/personal",
-    "pages/index/index",
-    "pages/personal/devlop/index"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
