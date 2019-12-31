@@ -10,11 +10,5 @@
         </wux-index-item>
       </wux-index>
     </view>
-    <custom-tab-bar className="sign-tabbar">
-      <form report-submit="{{true}}" bindsubmit="onSubmit" class="sign-tabbar-form" data-e-submit-so="this">
-        <button form-type="submit" class="btn"></button>
-      </form>
-      <at-tab-bar compid="{{$compid__9}}"></at-tab-bar>
-    </custom-tab-bar>
   </view>
 </block>

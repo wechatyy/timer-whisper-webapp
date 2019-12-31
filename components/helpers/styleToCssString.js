@@ -1,12 +1,9 @@
-'use strict';
 
 /**
  * CSS properties which accept numbers but are not in units of "px".
  */
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+
 var isUnitlessNumber = {
   boxFlex: true,
   boxFlexGroup: true,

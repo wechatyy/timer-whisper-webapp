@@ -1,8 +1,4 @@
-'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 /**
  * 获取系统信息
  */
@@ -35,6 +31,6 @@ var isIPhoneX = function isIPhoneX(_ref) {
   );
 };
 
-var checkIPhoneX = exports.checkIPhoneX = function checkIPhoneX(isForce) {
+exports.checkIPhoneX = function checkIPhoneX(isForce) {
   return isIPhoneX(getSystemInfo(isForce));
 };
