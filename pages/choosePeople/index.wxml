@@ -1,4 +1,41 @@
-<!--index.wxml-->
-<view class="container">
-选择好友
-</view>
+<view class="tells3">
+        <view class="tells3-search">
+            <block wx:if="{{isShowBg}}">
+                <view class="tells3-search_cover"></view>
+            </block>
+            <van-search value="{{ searchvalue }}" placeholder="请输入搜索关键词" />
+            <view class="tells3-choose" bindtap="onChooseNew" data-e-tap-so="this">
+                <view class="tells3-choose-msg">选择新的收话人</view>
+                <image src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132"></image>
+            </view>
+            <block wx:if="{{!isSearch}}">
+                <view>
+                    <view class="tells3-top" style="height:32px;overflow:hidden;padding-bottom:8px" wx:key="i"   wx:for="{{loopArray2}}" wx:for-item="v" wx:for-index="i">
+                        <view class="tells3-top-title" bindtap="onShowItem" data-e-tap-so="this" data-e-tap-a-a="{{v.$original.intimateid}}" data-e-tap-a-b="{{v.$original.intimateid}}">{{v.$original.intimate}}
+                            <view class="triangle" style="transform:rotate(-90deg);margin-top:0px"></view>
+                        </view>
+                        <view class="tells3-list-item" wx:key="vi" bindtap="onItemClick" wx:for="{{v.$original.friendList}}" wx:for-item="vf" wx:for-index="vi" data-e-tap-so="this" data-e-tap-a-a="{{vf}}">
+                            <image class="list_img" src="{{vf.imgurl}}"></image>
+                            <view class="list_msg">{{vf.friendname}}</view>
+                        </view>
+                    </view>
+                    <view class="tells3-top">
+                        <view class="tells3-top-title">最近收话人</view>
+                        <view class="tells3-list-item" wx:key="id" bindtap="onItemClick" wx:for="{{nearFriend}}" wx:for-item="v" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
+                            <image class="list_img" src="{{v.imgurl}}"></image>
+                            <view class="list_msg">{{v.friendname}}</view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{isSearch}}">
+                <view class="tells3-search-isSearch">
+                    <view class="tells3-search-isSearch-title">搜索结果</view>
+                    <view class="tells3-list-item" bindtap="onItemClick" wx:key="id" wx:for="{{searchData}}" wx:for-item="v" wx:for-index="_anonIdx4" >
+                        <image class="list_img" src="{{v.imgurl}}"></image>
+                        <view class="list_msg">{{v.friendname}}</view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>

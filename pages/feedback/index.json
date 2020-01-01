@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "意见反馈",
+  "usingComponents": {
+    "van-uploader": "../../components/vant/uploader/index"
+  }
 }

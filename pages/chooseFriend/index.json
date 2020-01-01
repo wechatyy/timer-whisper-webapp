@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "wux-index": "../../components/index/index",
+    "wux-index-item": "../../components/index-item/index"
+  },
+  "navigationBarTitleText": "选择新的收话人"
 }

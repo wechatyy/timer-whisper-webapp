@@ -1,18 +1,17 @@
 {
   "pages": [
+    "pages/message/index",
+    "pages/chooseFriend/index",
+    "pages/served/index",
+    "pages/friendInformation/index",
+    "pages/choosePeople/index",
+    "pages/chatRecord/index",
+    "pages/tellsPeople/index",
+    "pages/feedback/index",
     "pages/personal/personal",
     "pages/personal/openvip/index",
     "pages/personal/devlop/index",
-    "pages/login/index",
-    "pages/tellsPeople/index",
-    "pages/friendInformation/index",
-    "pages/chatRecord/index",
-    "pages/served/index",
-    "pages/choosePeople/index",
-    "pages/chooseFriend/index",
-    "pages/feedback/index", 
-    "pages/message/index" 
-
+    "pages/login/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
