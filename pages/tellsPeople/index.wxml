@@ -1,9 +1,23 @@
 <block>
   <view class="tells">
     <view class="tells-search">
-      <wux-index  bindchange="onChange"  >
-        <wux-index-item key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="_anonIdx4">
-          <view class="tells-list-item" wx:key="ii" bindtap="onItemClick" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" data-e-tap-so="this" data-e-tap-a-a="{{vi}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <image src="" style="width: 50px; height: 50px; display: block" />
+            <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view>联系人名称</view>
+            <view style="font-size: 13px;color: #888888;">摘要信息</view>
+          </view>
+        </view>
+      </view>
+      
+      <wux-index bindchange="onChange">
+        <wux-index-item key="{{v.title}}" name="{{v.title}}" wx:for="{{5}}" wx:for-item="v" wx:for-index="index">
+        {{index}}
+          <view class="tells-list-item" wx:key="ii" bindtap="onItemClick" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" >
             <image class="list_img" src="{{vi.imgurl}}"></image>
             <view class="list_msg">{{vi.friendname}}</view>
           </view>
