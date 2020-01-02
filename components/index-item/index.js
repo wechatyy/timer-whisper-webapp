@@ -1,4 +1,11 @@
 
+
+
+var _classNames = require("../helpers/classNames.js");
+
+var _classNames2 = _interopRequireDefault(_classNames);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 Component({
   /**
    * 组件的属性列表
@@ -15,7 +22,7 @@ Component({
   },
   computed: {
     classes: ['prefixCls', function (prefixCls) {
-      var wrap = (0, _classNames2.default)(prefixCls);
+      var wrap = 'wux-index-item';
       var hd = prefixCls + "__hd";
       var bd = prefixCls + "__bd";
       return {

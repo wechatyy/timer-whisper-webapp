@@ -15,8 +15,7 @@
       </view>
       
       <wux-index bindchange="onChange">
-        <wux-index-item key="{{v.title}}" name="{{v.title}}" wx:for="{{5}}" wx:for-item="v" wx:for-index="index">
-        {{index}}
+        <wux-index-item wx:key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="index">
           <view class="tells-list-item" wx:key="ii" bindtap="onItemClick" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" >
             <image class="list_img" src="{{vi.imgurl}}"></image>
             <view class="list_msg">{{vi.friendname}}</view>

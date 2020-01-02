@@ -30,7 +30,7 @@
     </view>
   </view>
   <view class="information-handle" bindtap="onSearchMessage" data-e-tap-so="this">查找收话内容</view>
-  <view >
+  <view style="background:#fff">
     <view class="information-handle diff" bindtap="onClearMessage" data-e-tap-so="this">
       清空收话记录
     </view>
@@ -40,13 +40,33 @@
     给{{sex == 1 ? '他' : '她'}}说悄悄话
   </view>
   <!-- // 弹窗 -->
-  <!-- <at-action-sheet compid="{{$compid__13}}">
-    <view class="information-enter" bindtap="onActionClick" data-e-tap-so="this">确定</view>
-  </at-action-sheet>
-  <at-action-sheet compid="{{$compid__14}}">
-    <view class="information-enter" bindtap="onActionMsgClick" data-e-tap-so="this">清空收话记录</view>
-  </at-action-sheet>
-  <at-action-sheet compid="{{$compid__15}}">
-    <view class="information-enter" bindtap="onActionDeleteClick" data-e-tap-so="this">删除收话人</view>
-  </at-action-sheet> -->
+  <view class="weui-demo-dialog {{isDeleteOpened ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="onActionClose"></view>
+    <view class="weui-actionsheet {{isDeleteOpened ? 'weui-actionsheet_toggle' : ''}}" catchtap="stopEvent">
+      <view class="weui-actionsheet__title">
+        <view class="weui-actionsheet__title-text">将“彭彭”从列表删除，同时删除与该收话人的收话记录</view>
+      </view>
+      <view class="weui-actionsheet__menu">
+        <view class="weui-actionsheet__cell weui-actionsheet__cell_warn" bindtap="deleteFriend">
+          删除收话人
+        </view>
+      </view>
+      <view class="weui-actionsheet__action">
+        <view class="weui-actionsheet__cell" bindtap="onActionClose">取消</view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-demo-dialog {{isClearOpened ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="onActionClose"></view>
+    <view class="weui-actionsheet {{isClearOpened ? 'weui-actionsheet_toggle' : ''}}" catchtap="stopEvent">
+      <view class="weui-actionsheet__menu">
+        <view class="weui-actionsheet__cell weui-actionsheet__cell_warn" bindtap="deleteMessage">
+          清空收话记录
+        </view>
+      </view>
+      <view class="weui-actionsheet__action">
+        <view class="weui-actionsheet__cell" bindtap="onActionClose">取消</view>
+      </view>
+    </view>
+  </view>
 </view>
