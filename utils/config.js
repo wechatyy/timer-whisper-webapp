@@ -11,8 +11,8 @@ const API = {
     API_DEL_FRIEND:`/friend/deleteFriend`, // 删除好友
     API_UPDATE_FRIEND:`/friend/updateFriend`, // 更新好友
     API_FIND_FRIEND:'/friend/findFriend', // 获取好友列表
-    API_FIND_FRIEND:'/uploadFile', // 上传文件
-    API_UPLOAD_FILE:'/updateFriendLab', // 修改标签
+    API_UPLOAD_FILE:'/uploadFile', // 上传文件
+    API_UPDATA_FRIENDLAB:'/updateFriendLab', // 修改标签
     API_INSTER_MESSAGE:'/insterMessage', // 新增消息
     API_DEL_MESSAGE:'/deleteMessage', // 删除消息
     API_NEAR_FRIEND:'/nearFriend', // 最近好友聊天列表
@@ -22,6 +22,8 @@ const API = {
     API_QUERY_NOTICE:'/queryNotice', // 查询通知
     API_MESSAGE_REMAIN_NUM:'/messageRemainNum', // 根据用户id查询用户剩余的次数
     API_QUERY_UN_SEND_LIST:'/queryUnSendList', // 查询未送达的
+    API_FEEDBACK_ADDFEED:'/feedback/addFeed', // 意见反馈
+    
 };
 
 module.exports = API

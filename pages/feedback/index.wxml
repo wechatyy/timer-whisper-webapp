@@ -8,10 +8,10 @@
       </view>
       <view class="feedback-image-title">
         <text>相关截图（选填）</text>
-        <text>0/3</text>
+        <text>{{imgNum}}/3</text>
       </view>
       <view class="feedback-image-box">
-       <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" max-count="3" />
+       <van-uploader file-list="{{ feedbackimg }}" bind:delete="delImgs" bind:after-read="afterRead" max-count="3" />
       </view>
     </view>
     <view class="feedback-phone">

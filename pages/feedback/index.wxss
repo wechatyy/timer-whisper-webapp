@@ -125,3 +125,7 @@
   width: 120rpx !important;
   height: 120rpx !important;
 }
+.van-uploader__preview-image{
+  width: 120rpx !important;
+  height: 120rpx !important;
+}

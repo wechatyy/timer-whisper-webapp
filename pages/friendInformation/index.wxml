@@ -19,13 +19,15 @@
     <view class="information-tool-switch">
       <view class="information-tool-title">置顶收话人列表</view>
       <view class="tool-switch-box">
-        <wux-switch color="balanced" value="{{top}}" bindchange="onSwitchChange" data-e-change-so="this" data-e-change-a-a="top"></wux-switch>
+      <van-switch checked="{{ istop }}" bind:change="onSwitchChange" />
+        <!-- <wux-switch color="balanced" value="{{top}}" bindchange="onSwitchChange" data-e-change-so="this" data-e-change-a-a="top"></wux-switch> -->
       </view>
     </view>
     <view class="information-tool-switch">
       <view class="information-tool-title">消息拒收</view>
       <view class="tool-switch-box">
-        <wux-switch color="balanced" value="{{refuse}}" bindchange="onSwitchChange" data-e-change-so="this" data-e-change-a-a="refuse"></wux-switch>
+      <van-switch checked="{{ isreject }}" bind:change="onSwitchReject" />
+        <!-- <wux-switch color="balanced" value="{{refuse}}" bindchange="onSwitchChange" data-e-change-so="this" data-e-change-a-a="refuse"></wux-switch> -->
       </view>
     </view>
   </view>

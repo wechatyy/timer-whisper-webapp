@@ -1,17 +1,17 @@
 {
   "pages": [
+    "pages/login/index",
+    "pages/friendInformation/index",
+    "pages/feedback/index",
     "pages/tellsPeople/index",
     "pages/message/index",
     "pages/chooseFriend/index",
     "pages/served/index",
-    "pages/friendInformation/index",
     "pages/choosePeople/index",
     "pages/chatRecord/index",
-    "pages/feedback/index",
     "pages/personal/personal",
     "pages/personal/openvip/index",
-    "pages/personal/devlop/index",
-    "pages/login/index"
+    "pages/personal/devlop/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,5 +1,5 @@
 
-import { API_HOST,API_FIND_FRIEND} from '../../utils/config.js'
+import { API_HOST, API_FIND_FRIEND} from '../../utils/config.js'
 Page({
   // data: {
   //   searchValue: '',
@@ -196,7 +196,8 @@ Page({
     "$compid__7": "38",
     "$compid__8": "39",
     "$compid__9": "40",
-    "$taroCompReady": true
+    "$taroCompReady": true,
+    userId:''
   },
   getFriendList() {
     wx.request({
@@ -226,13 +227,46 @@ Page({
       }
     })
   },
-  onItemClick(item) {
+  onItemClick(e) {
+    console.log('item', e)
+    let item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/friendInformation/index?id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
+      url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
     })
   },
-  onLoad: function () {
-
+  onLoad: function (options) {
+    let _this = this;
+    if (options){
+      _this.setData({
+        userId: options.userId
+      })
+    }
+    if (!wx.getStorageSync('token')){
+      _this.showModalfc()
+    }
+  },
+  showModalfc(){
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '你还未登录，登录后可获得完整体验 ',
+      confirmText: '一键登录',
+      showCancel: false,
+      success: function success(res) {
+        // 点击一键登录，去授权页面
+        if (res.confirm) {
+          if (_this.data.userId){
+            wx.navigateTo({
+              url: "/pages/login/index?userId=" + _this.data.userId
+            })
+          }else{
+            wx.navigateTo({
+              url: "/pages/login/index"
+            })
+          }
+        }
+      }
+    })
   },
 
 })

@@ -1,4 +1,4 @@
-
+import { API_HOST, API_UPLOAD_FILE, API_UPDATE_FRIEND, API_DEL_FRIEND, API_DEL_MESSAGE, API_MESSAGE_REMAIN_NUM } from '../../utils/config.js'
 
 Page({
   data: {
@@ -18,13 +18,29 @@ Page({
     count: 0
   },
 
-  onLoad: function () {
-
+  onLoad: function (options) {
+    if (options){
+      this.setData({
+        userid: options.userid,
+        friendid: options.friendid,
+        friendname: options.friendname,
+        id: options.id,
+        imgurl: options.imgurl,
+        intimate: options.intimate,
+        intimateid: options.intimateid,
+        isreject: options.isreject == 1 ? true : false,
+        istop: options.istop == 1 ? true : false,
+        sex: options.sex
+      },()=>{
+        this.messageRemainNum(options.friendid)
+      }) 
+    }
+    
   },
-  updateFriend(data, callback) {
-    const { id, intimateid, friendid } = this.state;
+  updateFriend() {
+    const { id, intimateid, friendid } = this.data;
     wx.request({
-      url: `${baseUrl}/friend/updateFriend`,
+      url: `${API_HOST}${API_UPDATE_FRIEND}`,
       method: "POST",
       header: {
         token: wx.getStorageSync('token')
@@ -32,13 +48,12 @@ Page({
       data: {
         id: id,
         intimateid: intimateid,
-        istop: data.istop ? 1 : 0,
-        isreject: data.isreject ? 1 : 0,
+        istop: this.data.istop ? 1 : 0,
+        isreject: this.data.isreject ? 1 : 0,
         friendid: friendid
       },
       success: res => {
         if (res.data.code === 0) {
-          callback();
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -51,13 +66,13 @@ Page({
 
   deleteFriend() {
     wx.request({
-      url: `${baseUrl}/friend/deleteFriend`,
+      url: `${API_HOST}${API_DEL_FRIEND}`,
       method: "POST",
       header: {
         token: wx.getStorageSync('token')
       },
       data: {
-        friendid: this.state.friendid
+        friendid: this.data.friendid
       },
       success: res => {
         if (res.data.code === 0) {
@@ -76,7 +91,7 @@ Page({
 
   messageRemainNum(friendid) {
     wx.request({
-      url: `${baseUrl}/messageRemainNum`,
+      url: `${API_HOST}${API_MESSAGE_REMAIN_NUM}`,
       header: {
         token: wx.getStorageSync('token')
       },
@@ -99,20 +114,26 @@ Page({
   },
 
   deleteMessage() {
+    let _this = this;
     wx.request({
-      url: `${baseUrl}/deleteMessage`,
+      url: `${API_HOST}${API_DEL_MESSAGE}`,
       method: "Post",
       header: {
         token: wx.getStorageSync('token')
       },
       data: {
-        friendID: this.state.friendid
+        friendID: this.data.friendid
       },
       success: res => {
         if (res.data.code === 0) {
           wx.showToast({
             title: "清空成功",
-            icon: 'none'
+            icon: 'none',
+            success:()=>{
+              _this.setData({
+                isClearOpened: false
+              })
+            }
           })
         } else {
           wx.showToast({
@@ -124,23 +145,20 @@ Page({
     })
   },
 
-  onSwitchChange(flag, e) {
-    if (flag === 'refuse') {
-      this.setData({
-        isOpened: true
-      })
-    } else {
-      this.updateFriend({
-        istop: e.detail.value,
-        isreject: this.state.refuse
-      }, () => {
-        this.setData({
-          [flag]: e.detail.value
-        })
-      });
-    }
+  onSwitchChange(e) {
+    this.setData({
+      istop: e.detail
+    },()=>{
+      this.updateFriend();
+    })
   },
-
+  onSwitchReject(e){
+    this.setData({
+      isreject: e.detail
+    }, () => {
+      this.updateFriend();
+    })
+  },
   onActionCancel() {
     this.setData({
       isOpened: false,
@@ -191,7 +209,7 @@ Page({
 
   onButtonClick() {
     wx.navigateTo({
-      url: `/pages/message/index?friendid=${this.state.friendid}&name=${this.state.friendname}&nowImage=${this.state.imgurl}`
+      url: `/pages/message/index?friendid=${this.data.friendid}&name=${this.data.friendname}&nowImage=${this.data.imgurl}`
     })
   },
 
