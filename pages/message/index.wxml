@@ -1,68 +1,91 @@
 <view class="message">
   <view class="message-body" style="height:603px;">
     <view class="message-body-content">
-      <scroll-view class="message-content" scroll-into-view="msg-0" style="height:499px;overflow:scroll">
-        <view class="message-content-item" id="msg-0">
-          <image bindtap="onImageClick" class="message-content-item_img" data-e-tap-a-a="[object Object]" data-e-tap-so="this" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132" role="img">
-          </image>
+      <scroll-view class="message-content" 
+      scroll-into-view="msg-{{state.length}}" 
+      style="height:{{systeminfo.windowHeight - paddingTop - 44 - textareaHeight - (isChoose ? 100 : 0) - 44}}px;overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
+        <view  
+          wx:for="{{messageList}}" 
+          wx:key="{{item.id}}" 
+          wx:for-index="index" 
+          class="message-content-item {{item.userid == userId?'right':''}}" id="{{'msg-' + index}}">
+          <image bindtap="onImageClick" data-item="{{item}}" class="message-content-item_img"  src="{{item.userid != userId ? item.imgurl : item.userImgurl}}" role="img"></image>
           <view class="message-content-item_msg">
-            <view class="triangle">
-            </view>
+            <view class="triangle"></view>
             <view class="message-content-title">
-              <text class="message-content-time">2020年01月01日 14:08 </text>
+              <text class="message-content-time">{{tools.tool_timed(item,item.plantime)}}</text>
             </view>
-            <view class="message-content-msg">垃圾 </view>
-          </view>
-        </view>
-        <view class="message-content-item right">
-          <image bindtap="onImageClick" class="message-content-item_img" src="https://wx.qlogo.cn/mmopen/vi_32/BJnAbDL1SbWxICTBcYyD2CneFhibmzKjOOKwPr6EdJx2z9icTuo4mqyRyyqyE8BjSMULS2DN4Gr7mib0WMmh5y9Nw/132" role="img">
-          </image>
-          <view class="message-content-item_msg">
-            <view class="triangle">
+            <view wx:if="{{item.messagetype === 1}}" class="message-content-msg">{{item.messagecontent}}</view>
+            <view wx:if="{{item.messagetype === 2}}" class="message-content-voice" bindtap="onPlayVoice" data-item="{{item}}">
+              <image wx:if="{{item.userid!=userId}}" class="message-content-play" src="{{isPlayVoice?'../../assets/images/common/voice_black.gif':'../../assets/images/common/voice2.png'}}"></image>
+              <image wx:if="{{item.userid==userId}}" class="message-content-play" src="{{isPlayVoice?'../../assets/images/common/voice-right.png':'../../assets/images/common/voice-right.png'}}"></image>
+              <text class='message-content-length'>{{item.voicetime}}</text>
+              <view class="message-content-point"></view>
             </view>
-            <view class="message-content-title">
-              <text class="message-content-time"> 2020年01月01日 14:28 </text>
+              <view wx:if="{{item.messagetype === 3}}" class="message-content-img">
+              <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{item.messagecontent.split(',')}}">
+                <image class="message-content-img_img"  mode='widthFix' src="{{imgItem}}"></image>
+              </block>
             </view>
-            <view class="message-content-msg">搜狗你理解手机你也想去姑姑保底Dior集体我去搜过敏破骨灰朱镕基</view>
           </view>
         </view>
       </scroll-view>
-      <view class="message-input" style="bottom:0">
+      <view class="message-input" style="{{isFocus ? 'position: fixed; left: 0; bottom: bottomStyle; paddingBottom: 0 ;' : 'bottom: 0; '}}">
         <view class="message-input-box">
-          <image bindtap="onSwitchModel" class="message-input-textIcon" src="/assets/images/common/voice.png" role="img">
-          </image>
-          <view class="message-input-speak">
-            <view bindtap="ontextareaViewClick" class="message-input-text" style="height:60">
-            </view>
+          <image bindtap="onSwitchModel" class="message-input-textIcon"  src="{{isVoice?'../../assets/images/common/text.png':'/assets/images/common/voice.png'}}" role="img"></image>
+          <view wx:if="{{isVoice}}" onLongPress="{{handleRecordStart}}" onTouchMove="{{handleTouchMove}}" onTouchEnd="{{handleRecordStop}}" class="message-input-speak">
+          {{voiceMsgVal}}
+          </view>
+          <view  class="message-input-speak" wx:else>
+          <textarea
+              wx:if="{{isShowTextarea}}"
+              class='message-input-text'
+              adjust-position="{{false}}"
+              bindFocus="openKeyboard"
+              bindBlur="outKeyboard"
+              auto-height
+              style="maxHeight: 150px"
+              bindLineChange="onLineChange"
+              bindConfirm="onConfirm"
+              bindInput="onInput"
+              auto-focus="{{autoFocus}}"
+              value="{{inputValue}}"
+              maxlength="200">
+          </textarea>
+          <view
+            calss='message-input-text'
+            style="height: {{textareaHeight}}"
+            bindtap="ontextareaViewClick"
+            >{{inputValue}}</view>
             <view class="message-input-numBox">
               <view class="message-input-numBox1">
                 <view>
-                  <text class="message-input-numBox1-box">0</text>
+                  <text class="message-input-numBox1-box">{{inputValue.length}}</text>
                 </view>
                 <view>200</view>
               </view>
             </view>
-          </view> 
-          <image bindtap="onShowImage" class="message-input-cameraIcon" data-e-tap-so="this" src="/assets/images/common/camera.png" role="img">
-          </image>
+          </view>
+          <image bindtap="onShowImage" class="message-input-cameraIcon" data-e-tap-so="this" src="/assets/images/common/camera.png" role="img"></image>
         </view>
         <block wx:if="{{isChoose}}">
-                        <view class="message-input-choose">
-                            <view class="choose-item" bindtap="onImageToolClick" data-e-tap-so="this" data-e-tap-a-a="album">
-                                <view class="choose-item-img">
-                                    <image src="/assets/images/common/choose_img.png"></image>
-                                </view>
-                                <view class="choose-item-title">图片</view>
-                            </view>
-                            <view class="choose-item" bindtap="onImageToolClick" data-e-tap-so="this" data-e-tap-a-a="camera">
-                                <view class="choose-item-img">
-                                    <image src="/assets/images/common/choose_camera.png"></image>
-                                </view>
-                                <view class="choose-item-title">拍照</view>
-                            </view>
-                        </view>
-                    </block>
+          <view class="message-input-choose">
+            <view class="choose-item" bindtap="onImageToolClick" data-flag="album">
+              <view class="choose-item-img">
+                <image src="/assets/images/common/choose_img.png"></image>
+              </view>
+              <view class="choose-item-title">图片</view>
+            </view>
+            <view class="choose-item" bindtap="onImageToolClick" dada-flag="camera">
+              <view class="choose-item-img">
+                <image src="/assets/images/common/choose_camera.png"></image>
+              </view>
+              <view class="choose-item-title">拍照</view>
+            </view>
+          </view>
+        </block>
       </view>
     </view>
   </view>
 </view>
+<wxs module="tools" src="../../utils/tools.wxs" />

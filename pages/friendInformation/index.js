@@ -72,7 +72,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       data: {
-        friendid: this.data.friendid
+        id: this.data.friendid
       },
       success: res => {
         if (res.data.code === 0) {
