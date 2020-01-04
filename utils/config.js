@@ -11,6 +11,7 @@ const API = {
     API_DEL_FRIEND:`/friend/deleteFriend`, // 删除好友
     API_UPDATE_FRIEND:`/friend/updateFriend`, // 更新好友
     API_FIND_FRIEND:'/friend/findFriend', // 获取好友列表
+    API_FRIEND_QUERYFRIENDS:'/friend/queryFriends',//查询好友列表类型
     API_UPLOAD_FILE:'/uploadFile', // 上传文件
     API_UPDATA_FRIENDLAB:'/updateFriendLab', // 修改标签
     API_INSTER_MESSAGE:'/insterMessage', // 新增消息

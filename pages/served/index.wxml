@@ -1,25 +1,25 @@
- <view class="message">
+<view class="message">
         <view class="message-content">
-            <view class="message-content-item right" >
-                <image class="message-content-item_img" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132"></image>
+            <view class="message-content-item right" wx:key="_anonIdx2" wx:for="{{messageList}}" wx:for-item="v" wx:for-index="_anonIdx2">
+                <image class="message-content-item_img" src="{{v.imgurl}}"></image>
                 <view class="message-content-item_msg">
                     <view class="triangle"></view>
-                    <view class="message-content-title"><text class="message-content-time">2020年01月01日 23:06</text>
+                    <view class="message-content-title"><text class="message-content-time">{{v.plantime}}</text>
                     </view>
-                    <block wx:if="{{messagetype === 1}}">
-                        <view class="message-content-msg">him哦哦上自习温柔哦您why</view>
+                    <block wx:if="{{v.messagetype === 1}}" >
+                        <view class="message-content-msg">{{v.messagecontent}}</view>
                     </block>
-                    <block wx:if="{{messagetype === 2}}">
-                        <view class="message-content-voice" bindtap="onPlayVoice" >
-                            <image class="message-content-play" src="{{v.$loopState__temp4}}"></image><text class="message-content-length">12’’</text>
+                    <block wx:if="{{v.messagetype === 2}}" >
+                        <view class="message-content-voice" bindtap="onPlayVoice" data-item="{{v}}">
+                            <image class="message-content-play" src="{{v.state_temp4}}"></image><text class="message-content-length">{{v.voicetime}}''</text>
                         </view>
                     </block>
-                    <block wx:if="{{messagetype === 3}}">
+                    <block wx:if="{{v.messagetype === 3}}">
                         <view class="message-content-img">
-                            <image class="message-content-img_img" mode="widthFix" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132"></image>
+                            <image class="message-content-img_img" mode="widthFix" src="{{v.messagecontent}}"></image>
                         </view>
                     </block>
                 </view>
             </view>
         </view>
-    </view>
+    </view> 

@@ -1,4 +1,4 @@
-
+import { API_HOST, API_FRIEND_QUERYFRIENDS, API_NEAR_FRIEND} from '../../utils/config.js'
 Page({
 
   /**
@@ -6,142 +6,135 @@ Page({
    */
   data: {
     "searchValue": "",
-    "list": [
-      {
-        "intimateid": 28,
-        "intimate": "情侣",
-        "friendNum": 0,
-        "friendList": []
-      },
-      {
-        "intimateid": 29,
-        "intimate": "家人",
-        "friendNum": 0,
-        "friendList": []
-      },
-      {
-        "intimateid": 30,
-        "intimate": "同事",
-        "friendNum": 1,
-        "friendList": [
-          {
-            "id": 351,
-            "userid": 14,
-            "username": "aleige",
-            "friendid": 7,
-            "friendname": "王。",
-            "sex": 1,
-            "imgurl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132",
-            "intimateid": 30,
-            "cohesion": 0,
-            "istop": 0,
-            "isreject": 0,
-            "isdelete": 0,
-            "deletetime": 0,
-            "createtime": 20200101140642,
-            "intimate": null
-          }
-        ]
-      }
-    ],
+    list: [],
     "isSearch": false,
     "isShowBg": false,
     "searchData": [],
-    "nearFriend": [
-      {
-        "id": 104,
-        "userid": 14,
-        "username": "aleige",
-        "friendid": 7,
-        "friendname": "王。",
-        "sex": 1,
-        "imgurl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132",
-        "messagecontent": "搜狗你理解手机你也想去姑姑保底Dior集体我去搜过敏破骨灰朱镕基",
-        "messagestatus": 2,
-        "plantime": 202001011428,
-        "publishtime": 20200101142800,
-        "formid": "66aa394865d449bca6f6d1a06440ba63",
-        "createtime": 20200101142647,
-        "messagetype": 1,
-        "voicetime": 0
-      }
-    ],
-    "data": [
-      {
-        "id": 351,
-        "userid": 14,
-        "username": "aleige",
-        "friendid": 7,
-        "friendname": "王。",
-        "sex": 1,
-        "imgurl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132",
-        "intimateid": 30,
-        "cohesion": 0,
-        "istop": 0,
-        "isreject": 0,
-        "isdelete": 0,
-        "deletetime": 0,
-        "createtime": 20200101140642,
-        "intimate": null
-      }
-    ],
+    nearFriend: [],
+    "data": [],
     "couples": false,
     "anonymousState__temp": "height:603px;width:375px",
     "anonymousState__temp2": null,
     "anonymousState__temp3": "/assets/images/common/right.png",
-    "loopArray2": [
-      {
-        "$loopState__temp5": "height:32px;overflow:hidden;padding-bottom:8px",
-        "$loopState__temp7": "transform:rotate(-90deg);margin-top:0px",
-        "$original": {
-          "intimateid": 28,
-          "intimate": "情侣",
-          "friendNum": 0,
-          "friendList": []
-        }
-      },
-      {
-        "$original": {
-          "intimateid": 29,
-          "intimate": "家人",
-          "friendNum": 0,
-          "friendList": []
-        }
-      },
-      {
-        "$original": {
-          "intimateid": 30,
-          "intimate": "同事",
-          "friendNum": 1,
-          "friendList": [
-            {
-              "id": 351,
-              "userid": 14,
-              "username": "aleige",
-              "friendid": 7,
-              "friendname": "王。",
-              "sex": 1,
-              "imgurl": "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132",
-              "intimateid": 30,
-              "cohesion": 0,
-              "istop": 0,
-              "isreject": 0,
-              "isdelete": 0,
-              "deletetime": 0,
-              "createtime": 20200101140642,
-              "intimate": null
-            }
-          ]
-        }
-      }
-    ]
+    "loopArray2": []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.queryFriends()
+    this.nearFriend()
+  },
+  //获取朋友
+  queryFriends() {
+    var _this = this;
+    wx.request({
+      url: `${API_HOST}${API_FRIEND_QUERYFRIENDS}`,
+      method: "POST",
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      success: function success(res) {
+        console.log(res.data)
+        let data = []
+        if (res.data.code == 0) {
+          let list = res.data.friends;
+          list.map((item)=>{
+            item.isShow = false
+            if (item.friendList.length>0){
+              item.friendList.map((v)=>{
+                data.push(v) 
+              })  
+            }
+          })
+          _this.setData({
+            list: list,
+            data: data
+          });
+        }else{
+          wx.navigateTo({
+            url: '/pages/login/index',
+          })
+        }
+      }
+    });
+  },
+  onShowItem(e){
+    let index = e.currentTarget.dataset.index;
+    let key = `list[${index}].isShow`
+    this.setData({
+      [key]: !this.data.list[index].isShow
+    })
+  },
+  //获取经常联系人
+  nearFriend() { 
+    let _this = this
+    wx.request({
+      url: `${API_HOST}${API_NEAR_FRIEND}`,
+      method: "POST",
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      success: function success(res) {
+        if (res.data.code == 0) {
+          _this.setData({
+            nearFriend: res.data.data
+          });
+        }
+      }
+    });
+  },
+  onItemClick(e){
+    let item = e.currentTarget.dataset.item
+    console.log(item)
+    wx.navigateBack({
+      delta: 1
+    });
+  },
+  //搜索
+  onSearch(event){
+   let val = event.detail;
+   if(val){
+     this.setData({
+       isSearch:true,
+       searchValue:val
+     },()=>{
+       this.onActionClick()
+     })
+   }else{
+     wx.showToast({
+       title: '请输入关键词',
+       icon:'none'
+     })
+   }
+  },
+  //取消
+  onCancel(){
+    this.setData({
+      isSearch:false,
+      searchValue:''
+    })
+  },
+  onActionClick(){
+    let val = this.data.searchValue
+    let data = this.data.data
+    let searchData = data.filter(function (v) {
+      return v.friendname.indexOf(val.toLocaleLowerCase()) > -1;
+    });
+    this.setData({
+      isSearch: true,
+      searchData: searchData
+    });
+  },
+  changSearch(e){
+    let val = e.detail
+    if(!val){
+      this.setData({
+        isSearch: false
+      })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
