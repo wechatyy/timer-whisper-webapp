@@ -1,6 +1,18 @@
 
-import { API_HOST, API_QUERY_MESSAGE_LIST,API_UPLOAD_FILE} from '../../utils/config.js'
+import { API_HOST, API_QUERY_MESSAGE_LIST, API_UPLOAD_FILE,API_INSTER_MESSAGE} from '../../utils/config.js'
 import {toast} from '../../utils/modal'
+import { $wuxCalendar } from '../../components/wux/index'
+let date = new Date();
+let Year = date.getFullYear();
+let Month = date.getMonth();
+let Day = date.getDate();
+let Hours = date.getHours();
+let Minutes = date.getMinutes();
+let weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+let displayTime = `${Year}-${Month + 1}-${Day}`
+let timenav = `${Year}年${Month + 1}月${Day}日` 
+let weeknew = weekDay[date.getDay()]
+let timeHours = `${Hours}:${Minutes}`
 Page({
 
   /**
@@ -43,7 +55,14 @@ Page({
     isShowVoiceA: false,
     nowImage: "",
     length: 0,
-    options:{}
+    options:{},
+    displayTime: displayTime,
+    weekDayNew: weeknew,
+    dateNew: timenav,
+    timeHours: timeHours,
+    isCurDate:false,
+    bidisplayTime:'',
+    ismessageModal:false
   },
   ontextareaViewClick () {
     this.setData({
@@ -59,7 +78,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       data: {
-        friendID: this.data.options.friendid
+        friendID: this.data.options.friendID
       },
       success: res => {
         console.log(res);
@@ -74,6 +93,9 @@ Page({
           }, 200)
         } else {
           toast(res.data.msg)
+          wx.navigateTo({
+            url: '/pages/login/index',
+          })
         }
       },
       fail: () => {
@@ -146,12 +168,18 @@ Page({
       })
     },
     onConfirm() {
+      let _this = this;
+      console.log(this.data.inputValue)
       if (this.data.inputValue.trim().length !== 0) {
         this.setData({
           isShowModal: true,
           isInputEnter: true,
           isShowTextarea: false,
+          isImageEnter:false,
           autoFocus: false,
+        },()=>{
+          console.log(2342342)
+          _this.onMessageModal(true);
         })
       }
     },
@@ -171,11 +199,13 @@ Page({
       }
     },
     onInput(e) {
+      console.log(e)
       this.setData({
         inputValue: e.detail.value.slice(0, 200)
       })
-    },
+    }, 
     ontextareaViewClick() {
+      console.log(1321)
       this.setData({
         isShowTextarea: true,
         autoFocus: true,
@@ -187,6 +217,7 @@ Page({
       })
     },
     onImageToolClick(e) {
+      let _this = this;
       let flag =e.currentTarget.dataset.flag
       wx.chooseImage({
         sourceType: [flag],
@@ -212,10 +243,15 @@ Page({
               },
               complete: () => {
                 if (successNum === tempFilePaths.length) {
-                  this.setData({
-                    isImageEnter: true,
+                  console.log(123)
+                  _this.setData({
+                    isInputEnter: false,
+                    isVoiceEnter: false, 
+                    isImageEnter: true, 
                     isShowModal: true,
                     imageValue: urlArr
+                  },()=>{
+                    _this.isModalshow()
                   })
                 }
               }
@@ -224,17 +260,133 @@ Page({
         }
       })
     },
+  timed(timeStr) { 
+    return  timeStr.slice(0, 4) + '年' + timeStr.slice(5, 7) + '月' + timeStr.slice(8, 10) + '日 ' 
+},
+  openCalendar(){
+    console.log(this.data.displayTime)
+    var weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    $wuxCalendar().open({
+      value:'',
+      minDate: this.data.displayTime,
+      onChange: (values, displayValues) => {
+        let newData = new Date(displayValues[0]).getDay()
+        let weekDayNew = weekDay[newData]
+        let dateNew = this.timed(displayValues[0])
+        console.log('onChange', values, displayValues)
+        this.setData({
+          bidisplayTime: displayValues[0],
+          weekDayNew: weekDayNew,
+          dateNew: dateNew,
+          isCurDate: true
+        })
+      },
+    })
+  },
+  onCurrentDate(e){
+    let val = e.detail
+    this.setData({
+      timeHours: val,
+      isCurDate: false
+    })
+  },
+  onCurrCel(){
+    this.setData({
+      isCurDate: false
+    })
+  },
+  onSendMessage() {
+    var _this = this; 
+    var messageContent = "";
+    var messageType = "";
+    if (this.data.isInputEnter) {
+      messageContent = this.data.inputValue;
+      messageType = 1;
+    } else if (this.data.isVoiceEnter) {
+      messageContent = this.data.voiceValue;
+      messageType = 2;
+    } else {
+      messageContent = this.data.imageValue.join(',');
+      messageType = 3;
+    }   
+    var nowDate = new Date().getTime();
+    var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime:displayTime} ${timeHours}`;
+    var selectDate = new Date(dataStr).getTime();
+    console.log(nowDate, selectDate, dataStr);
+    console.log(nowDate <= selectDate);
+    if (selectDate <= nowDate) {
+      wx.showToast({
+        title: '请勿选择之前的时间',
+        icon: 'none'
+      })
+      return false;
+    }
+    wx.request({
+      url: `${API_HOST}${API_INSTER_MESSAGE}`,
+      method: "POST",
+      header: {
+        token:wx.getStorageSync('token')
+      },
+      data: {
+        friendID: this.data.options.friendID,
+        friendName: this.data.options.friendName,
+        imgUrl: this.data.options.imgUrl,
+        sex: this.data.options.sex,
+        messageContent: messageContent,
+        messageType: messageType,
+        voiceTime: this.data.duration / 1000,
+        planTime: selectDate
+      },
+      success: function success(res) {
+        
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '发送成功',
+          })
+          _this.onMessageModal(false)
+        } else {
+          wx.navigateTo({
+            url: '/pages/login/index',
+          })
+          // _this5.props.onCancel(true);
+        }
+      },
+      fail: function fail() {
+        wx.showToast({
+          title: '失败',
+          icon: 'none'
+        })
+        this.onMessageModal(false)
+      },
+      complete:(com)=>{
+        console.log()
+      }
+    });
+    // this.props.onCancel();
+  },
+  onMessageModal(is){
+    this.setData({
+      ismessageModal:is
+    })
+  },
+  isModalshow() {
+    this.setData({
+      ismessageModal: true
+    })
+  },
+  isModalhide() {
+    this.setData({
+      ismessageModal: false
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
+    console.log(options); 
     this.setData({
       options,
-      userId: wx.getStorageSync('userId'),
-      friendID: options.friendid,
-      firendName: options.name,
-      nowImage: options.nowImage
+      userId: wx.getStorageSync('userId')
     })
 
     this.queryMessageList()

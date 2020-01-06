@@ -209,7 +209,7 @@ Page({
 
   onButtonClick() {
     wx.navigateTo({
-      url: `/pages/message/index?friendid=${this.data.friendid}&name=${this.data.friendname}&nowImage=${this.data.imgurl}`
+      url: `/pages/message/index?friendID=${this.data.friendid}&friendName=${this.data.friendname}&imgUrl=${this.data.imgurl}&sex=${this.data.sex}`
     })
   },
 

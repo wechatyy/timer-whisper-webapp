@@ -1,6 +1,6 @@
 const API_ENVIRONMENT = ({
-    env: 'https://www.vhjkdcv.cn/api',
-    prod: 'https://www.vhjkdcv.cn/api',
+  env: 'https://whisper.dsqqh.com/api',
+  prod: 'https://whisper.dsqqh.com/api',
 })['env'] || '';
 
 const API = {

@@ -1,13 +1,13 @@
 {
   "pages": [
+    "pages/tellsPeople/index",
+    "pages/message/index",
+    "pages/login/index",
+    "pages/served/index",    
     "pages/choosePeople/index",
     "pages/chooseFriend/index",
-    "pages/tellsPeople/index",
-    "pages/login/index",
     "pages/friendInformation/index",
     "pages/feedback/index",
-    "pages/message/index",
-    "pages/served/index",
     "pages/chatRecord/index",
     "pages/personal/personal",
     "pages/personal/openvip/index",

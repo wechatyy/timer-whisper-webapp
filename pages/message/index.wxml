@@ -1,15 +1,9 @@
 <view class="message">
   <view class="message-body" style="height:603px;">
     <view class="message-body-content">
-      <scroll-view class="message-content" 
-      scroll-into-view="msg-{{state.length}}" 
-      style="height:{{systeminfo.windowHeight - paddingTop - 44 - textareaHeight - (isChoose ? 100 : 0) - 44}}px;overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
-        <view  
-          wx:for="{{messageList}}" 
-          wx:key="{{item.id}}" 
-          wx:for-index="index" 
-          class="message-content-item {{item.userid == userId?'right':''}}" id="{{'msg-' + index}}">
-          <image bindtap="onImageClick" data-item="{{item}}" class="message-content-item_img"  src="{{item.userid != userId ? item.imgurl : item.userImgurl}}" role="img"></image>
+      <scroll-view class="message-content" scroll-into-view="msg-{{state.length}}" style="height:{{systeminfo.windowHeight - paddingTop - 44 - textareaHeight - (isChoose ? 100 : 0) - 44}}px;overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
+        <view wx:for="{{messageList}}" wx:key="{{item.id}}" wx:for-index="index" class="message-content-item {{item.userid == userId?'right':''}}" id="{{'msg-' + index}}">
+          <image bindtap="onImageClick" data-item="{{item}}" class="message-content-item_img" src="{{item.userid != userId ? item.imgurl : item.userImgurl}}" role="img"></image>
           <view class="message-content-item_msg">
             <view class="triangle"></view>
             <view class="message-content-title">
@@ -22,9 +16,9 @@
               <text class='message-content-length'>{{item.voicetime}}</text>
               <view class="message-content-point"></view>
             </view>
-              <view wx:if="{{item.messagetype === 3}}" class="message-content-img">
+            <view wx:if="{{item.messagetype === 3}}" class="message-content-img">
               <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{item.messagecontent.split(',')}}">
-                <image class="message-content-img_img"  mode='widthFix' src="{{imgItem}}"></image>
+                <image class="message-content-img_img" mode='widthFix' src="{{imgItem}}"></image>
               </block>
             </view>
           </view>
@@ -32,39 +26,30 @@
       </scroll-view>
       <view class="message-input" style="{{isFocus ? 'position: fixed; left: 0; bottom: bottomStyle; paddingBottom: 0 ;' : 'bottom: 0; '}}">
         <view class="message-input-box">
-          <image bindtap="onSwitchModel" class="message-input-textIcon"  src="{{isVoice?'../../assets/images/common/text.png':'/assets/images/common/voice.png'}}" role="img"></image>
+          <image bindtap="onSwitchModel" class="message-input-textIcon" src="{{isVoice?'../../assets/images/common/text.png':'/assets/images/common/voice.png'}}" role="img"></image>
           <view wx:if="{{isVoice}}" onLongPress="{{handleRecordStart}}" onTouchMove="{{handleTouchMove}}" onTouchEnd="{{handleRecordStop}}" class="message-input-speak">
-          {{voiceMsgVal}}
+            {{voiceMsgVal}}
           </view>
-          <view  class="message-input-speak" wx:else>
-          <textarea
-              wx:if="{{isShowTextarea}}"
-              class='message-input-text'
-              adjust-position="{{false}}"
-              bindFocus="openKeyboard"
-              bindBlur="outKeyboard"
-              auto-height
-              style="maxHeight: 150px"
-              bindLineChange="onLineChange"
-              bindConfirm="onConfirm"
-              bindInput="onInput"
-              auto-focus="{{autoFocus}}"
-              value="{{inputValue}}"
-              maxlength="200">
-          </textarea>
-          <view
-            calss='message-input-text'
-            style="height: {{textareaHeight}}"
-            bindtap="ontextareaViewClick"
-            >{{inputValue}}</view>
-            <view class="message-input-numBox">
-              <view class="message-input-numBox1">
-                <view>
-                  <text class="message-input-numBox1-box">{{inputValue.length}}</text>
+          <view class="message-input-speak" bindtap="ontextareaViewClick" wx:else>
+            <block wx:if="{{isShowTextarea}}">
+              <view bindtap="onConfirm">weqweqweq</view>
+              <textarea wx:if="{{isShowTextarea}}" class='message-input-text' adjust-position="{{false}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="maxHeight: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput"
+                auto-focus="{{autoFocus}}" value="{{inputValue}}" maxlength="200">
+              </textarea>
+              
+            </block>
+            <block wx:else>
+              <view calss='message-input-text' style="height: {{40}}">{{inputValue}}</view>
+              <view class="message-input-numBox">
+                <view class="message-input-numBox1">
+                  <view>
+                    <text class="message-input-numBox1-box">{{inputValue.length}}</text>
+                  </view>
+                  <view>200</view>
                 </view>
-                <view>200</view>
               </view>
-            </view>
+
+            </block>
           </view>
           <image bindtap="onShowImage" class="message-input-cameraIcon" data-e-tap-so="this" src="/assets/images/common/camera.png" role="img"></image>
         </view>
@@ -76,7 +61,7 @@
               </view>
               <view class="choose-item-title">图片</view>
             </view>
-            <view class="choose-item" bindtap="onImageToolClick" dada-flag="camera">
+            <view class="choose-item" bindtap="onImageToolClick" data-flag="camera">
               <view class="choose-item-img">
                 <image src="/assets/images/common/choose_camera.png"></image>
               </view>
@@ -87,5 +72,53 @@
       </view>
     </view>
   </view>
-</view>
-<wxs module="tools" src="../../utils/tools.wxs" />
+  <view class="messageCover" wx:if="{{ismessageModal}}"></view>
+  <view class="messageModal" wx:if="{{ismessageModal}}">
+    <view class="messageModal-body">
+      <view bindtap="playVoice" class="messageModal-body-voice" data-e-tap-so="this">
+        <image class="messageModal-body-play" src="/assets/images/common/voice2.png" role="img">
+        </image>
+        <text class="messageModal-body-length">
+          3"
+          </text>
+        <view class="triangle">
+        </view>
+      </view>
+      <view bindtap="onChooseFriend" class="messageModal-body-add" data-e-tap-so="this">
+        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132" role="img">
+        </image>
+        <text style="color:rgba(30,39,55,1)">
+                  王。
+                  </text>
+      </view>
+      <view class="messageModal-body-line">
+      </view>
+      <view class="messageModal-body-timeTitle">送达时间</view>
+
+        <view class="messageModal-body-time"  bindtap="openCalendar" data-e-tap-so="this">{{dateNew}}</view>
+      <view class="messageModal-body-timeTitle">{{weekDayNew}}</view>
+      <view  class="messageModal-body-time"  bindtap="openCalendar" data-e-tap-so="this">{{timeHours}}</view>
+  
+      
+      <view class="messageModal-body-line">
+      </view>
+      <view class="messageModal-body-button">
+        <image bindtap="isModalhide" src="/assets/images/common/cancel.png" role="img">
+        </image>
+        <image bindtap="onSendMessage" data-e-tap-so="this" src="/assets/images/common/send.png" role="img">
+        </image>
+      </view>
+    </view>
+     </view>
+  </view>
+  <wxs module="tools" src="../../utils/tools.wxs" />
+  <wux-calendar id="wux-calendar" />
+  <van-popup show="{{isCurDate}}"  position="bottom" bind:close="onClose">
+    <van-datetime-picker
+        type="time"
+        value="{{ timeHours }}" 
+        bind:confirm="onCurrentDate"
+        bind:cancel="onCurrCel"
+      />
+  </van-popup>
+  
