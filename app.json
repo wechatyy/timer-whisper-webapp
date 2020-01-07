@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/tellsPeople/index",
     "pages/message/index",
+    "pages/tellsPeople/index",
     "pages/login/index",
     "pages/served/index",    
     "pages/choosePeople/index",

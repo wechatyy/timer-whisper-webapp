@@ -27,16 +27,17 @@
       <view class="message-input" style="{{isFocus ? 'position: fixed; left: 0; bottom: bottomStyle; paddingBottom: 0 ;' : 'bottom: 0; '}}">
         <view class="message-input-box">
           <image bindtap="onSwitchModel" class="message-input-textIcon" src="{{isVoice?'../../assets/images/common/text.png':'/assets/images/common/voice.png'}}" role="img"></image>
-          <view wx:if="{{isVoice}}" onLongPress="{{handleRecordStart}}" onTouchMove="{{handleTouchMove}}" onTouchEnd="{{handleRecordStop}}" class="message-input-speak">
+          <view wx:if="{{isVoice}}" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" class="message-input-speak">
             {{voiceMsgVal}}
           </view>
+          <!-- <view class="message-input-speak" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" >{{voiceMsgVal}}</view>  -->
           <view class="message-input-speak" bindtap="ontextareaViewClick" wx:else>
             <block wx:if="{{isShowTextarea}}">
               <view bindtap="onConfirm">weqweqweq</view>
               <textarea wx:if="{{isShowTextarea}}" class='message-input-text' adjust-position="{{false}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="maxHeight: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput"
                 auto-focus="{{autoFocus}}" value="{{inputValue}}" maxlength="200">
               </textarea>
-              
+
             </block>
             <block wx:else>
               <view calss='message-input-text' style="height: {{40}}">{{inputValue}}</view>
@@ -75,31 +76,37 @@
   <view class="messageCover" wx:if="{{ismessageModal}}"></view>
   <view class="messageModal" wx:if="{{ismessageModal}}">
     <view class="messageModal-body">
-      <view bindtap="playVoice" class="messageModal-body-voice" data-e-tap-so="this">
-        <image class="messageModal-body-play" src="/assets/images/common/voice2.png" role="img">
-        </image>
-        <text class="messageModal-body-length">
-          3"
-          </text>
-        <view class="triangle">
+      <block wx:if="{{isInputEnter}}">
+        <scroll-view class="messageModal-body-msg" scroll-y="{{true}}">{{inputValue}}</scroll-view>
+      </block>
+      <block wx:if="{{isVoiceEnter}}">
+        <view class="messageModal-body-voice" bindtap="playVoice">
+          <image class="messageModal-body-play" src='{{isVoice ? isPlayVoice ? "/assets/images/common/voice_black.gif" : "/assets/images/common/voice2.png" : null}}'></image>
+          <text class="messageModal-body-length">{{isVoice ? duration: null}}"</text>
+          <view class="triangle"></view>
         </view>
-      </view>
+      </block>
+      <block wx:if="{{isImageEnter}}">
+        <scroll-view scroll-y="{{true}}" class="messageModal-body-msg">
+          <image class="messageModal-body-img" mode="widthFix" src="{{v}}" wx:for="{{imageValue}}" wx:for-item="v" wx:for-index="_anonIdx2"></image>
+        </scroll-view>
+      </block> 
       <view bindtap="onChooseFriend" class="messageModal-body-add" data-e-tap-so="this">
-        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKDCWHRAKvs83YbLibBgVCHMhFfXiahmro1TEQvvtSrEsnWE8NNOrLzd11ZBLp64CgpjYzHCibDt9oOg/132" role="img">
+        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{options.imgUrl}}" role="img">
         </image>
         <text style="color:rgba(30,39,55,1)">
-                  王。
+                  {{options.friendName}}
                   </text>
       </view>
       <view class="messageModal-body-line">
       </view>
       <view class="messageModal-body-timeTitle">送达时间</view>
 
-        <view class="messageModal-body-time"  bindtap="openCalendar" data-e-tap-so="this">{{dateNew}}</view>
+      <view class="messageModal-body-time" bindtap="openCalendar" data-e-tap-so="this">{{dateNew}}</view>
       <view class="messageModal-body-timeTitle">{{weekDayNew}}</view>
-      <view  class="messageModal-body-time"  bindtap="openCalendar" data-e-tap-so="this">{{timeHours}}</view>
-  
-      
+      <view class="messageModal-body-time" bindtap="openCalendar" data-e-tap-so="this">{{timeHours}}</view>
+
+
       <view class="messageModal-body-line">
       </view>
       <view class="messageModal-body-button">
@@ -109,16 +116,14 @@
         </image>
       </view>
     </view>
-     </view>
   </view>
-  <wxs module="tools" src="../../utils/tools.wxs" />
-  <wux-calendar id="wux-calendar" />
-  <van-popup show="{{isCurDate}}"  position="bottom" bind:close="onClose">
-    <van-datetime-picker
-        type="time"
-        value="{{ timeHours }}" 
-        bind:confirm="onCurrentDate"
-        bind:cancel="onCurrCel"
-      />
-  </van-popup>
-  
+</view>
+<wxs module="tools" src="../../utils/tools.wxs" />
+<wux-calendar id="wux-calendar" />
+<van-popup show="{{isCurDate}}" position="bottom" bind:close="onClose">
+  <van-datetime-picker type="time" value="{{ timeHours }}" bind:confirm="onCurrentDate" bind:cancel="onCurrCel" />
+</van-popup>
+
+<view class="voice-popup" wx:if="{{isShowVoiceA}}">
+  <image src="/assets/images/common/voice_b.gif"></image>
+</view>

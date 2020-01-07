@@ -13,6 +13,7 @@ let displayTime = `${Year}-${Month + 1}-${Day}`
 let timenav = `${Year}年${Month + 1}月${Day}日` 
 let weeknew = weekDay[date.getDay()]
 let timeHours = `${Hours}:${Minutes}`
+var recorderManager = wx.getRecorderManager();
 Page({
 
   /**
@@ -120,6 +121,22 @@ Page({
         isPlayVoice: false,
       })
     })
+  },
+  playVoice(){
+    let _this = this; 
+    this.setData({
+      isPlayVoice: true
+    }); 
+    console.log(123) 
+    const InnerAudioContext = wx.createInnerAudioContext()
+    InnerAudioContext.src = this.data.voiceValue;
+    InnerAudioContext.play();
+    InnerAudioContext.onEnded(function () {
+      _this.setState({
+        isPlayVoice: false
+      });
+    });
+
   },
   onImageClick(item) {
     // wx.navigateTo({
@@ -334,7 +351,7 @@ Page({
         sex: this.data.options.sex,
         messageContent: messageContent,
         messageType: messageType,
-        voiceTime: this.data.duration / 1000,
+        voiceTime: this.data.duration,
         planTime: selectDate
       },
       success: function success(res) {
@@ -378,6 +395,152 @@ Page({
     this.setData({
       ismessageModal: false
     })
+  },
+  handleRecordStart(e) {
+    console.log(e)
+    this.setData({
+      startPoint: e.touches[0],
+      touchStart: e.timeStamp,
+      voiceMsgVal: '松开 结束',
+      isShowVoiceA: true,
+      is_clock: true
+    })
+    
+    // this.setData({
+    //   is_clock: true,
+    //   startPoint: e.touches[0],
+    //   voiceMsgVal: '松开 结束',
+    //   isShowVoiceA: true
+    // });
+    var options = {
+      format: 'mp3'
+    };
+    recorderManager.start(options);
+  },
+  handleTouchMove(e) {
+    console.log(e)
+    // console.log(Math.abs(e.touches[e.touches.length - 1].clientY - this.state.startPoint.clientY) > 25)
+    if (Math.abs(e.touches[e.touches.length - 1].clientY - this.data.startPoint.clientY) > 25) {
+      this.setData({
+        is_clock: false,
+        voiceMsgVal: '说出悄悄话',
+        isShowVoiceA: false
+      });
+    }
+  },
+  handleRecordStop(e) {
+    console.log(e)
+    let _this = this;
+    this.setData({
+      touchEnd: e.timeStamp,
+      voiceMsgVal: '说出悄悄话',
+      isShowVoiceA: false
+    })
+    // let touchTimes = this.data.touchEnd - this.data.touchStart;
+    recorderManager.stop();
+    if (this.data.is_clock){
+      recorderManager.onStop(function (res) {
+        if (res.duration < 2000) {
+         wx.showToast({
+            title: '录音时间太短，请长按录音',
+            icon: 'none',
+            duration: 2000
+          });
+        } else {
+          var tempFilePath = res.tempFilePath; 
+          console.log(tempFilePath);
+         wx.showLoading({
+            title: '语音检索中'
+          });
+          wx.uploadFile({
+            url: `${API_HOST}`+ "/uploadFile",
+            filePath: tempFilePath,
+            name: 'file',
+            header: {
+              token: wx.getStorageSync('token')
+            },
+            success: function success(uploadRes) {
+              setTimeout(function () {
+               wx.hideLoading();
+              }, 500);
+              var url = JSON.parse(uploadRes.data).url;
+              _this.setData({
+                voiceValue: API_HOST.replace('api', '') + "/" + url,
+                isVoiceEnter: true,
+                isShowModal: true,
+                duration: Math.ceil(res.duration/1000)
+              },()=>{
+                _this.isModalshow()
+              });
+            }
+          });
+        }
+      });
+      // if (touchTimes>2000){
+      //     wx.showLoading({
+      //       title: '语音检索中'
+      //     })
+
+
+      // }else{
+      //   wx.showToast({
+      //       title: '录音时间太短，请长按录音',
+      //       icon: 'none',
+      //       duration: 1000
+      //     });
+      // }
+    }
+    // var _this5 = this;
+
+    // this.setState({
+    //   voiceMsgVal: '说出悄悄话'
+    // });
+    // var _state = this.state,
+    //   recorderManager = _state.recorderManager,
+    //   is_clock = _state.is_clock;
+
+    // recorderManager.stop();
+    // if (is_clock == true) {
+    //   this.setState({
+    //     isShowVoiceA: false
+    //   });
+    //   recorderManager.onStop(function (res) {
+    //     if (res.duration < 2000) {
+    //       _index2.default.showToast({
+    //         title: '录音时间太短，请长按录音',
+    //         icon: 'none',
+    //         duration: 1000
+    //       });
+    //     } else {
+    //       var tempFilePath = res.tempFilePath;
+
+    //       console.log(tempFilePath);
+    //       _index2.default.showLoading({
+    //         title: '语音检索中'
+    //       });
+    //       _index2.default.uploadFile({
+    //         url: _api.baseUrl + "/uploadFile",
+    //         filePath: tempFilePath,
+    //         name: 'file',
+    //         header: {
+    //           token: _index2.default.getStorageSync('token')
+    //         },
+    //         success: function success(uploadRes) {
+    //           setTimeout(function () {
+    //             _index2.default.hideLoading();
+    //           }, 500);
+    //           var url = JSON.parse(uploadRes.data).url;
+    //           _this5.setState({
+    //             voiceValue: _api.baseUrl.replace('api', '') + "/" + url,
+    //             isVoiceEnter: true,
+    //             isShowModal: true,
+    //             duration: Math.ceil(res.duration)
+    //           });
+    //         }
+    //       });
+    //     }
+    //   });
+    // }
   },
   /**
    * 生命周期函数--监听页面加载

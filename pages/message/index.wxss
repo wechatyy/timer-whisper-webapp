@@ -709,8 +709,8 @@ page {
   font-size: 28rpx;
   position: absolute;
   left: 76rpx;
-  /* top: 20rpx; */
-  top: -30rpx;
+  top: 20rpx;
+  /* top: -30rpx; */
 }
 
 .messageModal-body-imgurl {
