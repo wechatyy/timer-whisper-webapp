@@ -71,7 +71,18 @@ Page({
       autoFocus: true
     });
   },
+  formatDate(time) {
+    let now = new Date(time)
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var date = now.getDate();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    return year + "-" + month + "-" + date + " " + hour + ":" + minute;
+  } ,
   queryMessageList() {
+    let _this = this
     wx.request({
       url: `${API_HOST}${API_QUERY_MESSAGE_LIST}`,
       method: "POST",
@@ -80,10 +91,17 @@ Page({
       },
       data: {
         friendID: this.data.options.friendID
+        // friendID: 6
+
       },
       success: res => {
-        console.log(res);
         if (res.data.code == 0) {
+          res.data.data.forEach((item,index)=>{
+            item.plantime = _this.formatDate(item.plantime)
+            if (item.messagetype == 3 ){
+              item.messagecontent = item.messagecontent.split(',')
+            }
+          })
           this.setData({
             messageList: res.data.data,
           })
@@ -132,7 +150,7 @@ Page({
     InnerAudioContext.src = this.data.voiceValue;
     InnerAudioContext.play();
     InnerAudioContext.onEnded(function () {
-      _this.setState({
+      _this.setData({
         isPlayVoice: false
       });
     });
@@ -158,15 +176,16 @@ Page({
   },
     // input聚焦时触发
     openKeyboard(e) {
-      setTimeout(() => {
-        const isFocus = true
-        const bottomStyle = e.target.height + 'px'  //软键盘的高度
-        this.setData({
-          bottomStyle,
-          isFocus,
-          isChoose: false,
-        })
-      }, 1)
+      let _this = this
+      setTimeout(function () {
+        // var isFocus = true;
+       // var bottomStyle = e.target.height + 'px'; //软键盘的高度
+        _this.setData({
+         // bottomStyle: bottomStyle,
+          // isFocus: isFocus,
+          isChoose: false
+        });
+      }, 1);
     },
     //输入框失去焦点时触发
     outKeyboard() {
@@ -361,6 +380,10 @@ Page({
             title: '发送成功',
           })
           _this.onMessageModal(false)
+          _this.queryMessageList()
+          _this.setData({
+            inputValue:''
+          })
         } else {
           wx.navigateTo({
             url: '/pages/login/index',
@@ -476,71 +499,12 @@ Page({
           });
         }
       });
-      // if (touchTimes>2000){
-      //     wx.showLoading({
-      //       title: '语音检索中'
-      //     })
-
-
-      // }else{
-      //   wx.showToast({
-      //       title: '录音时间太短，请长按录音',
-      //       icon: 'none',
-      //       duration: 1000
-      //     });
-      // }
     }
-    // var _this5 = this;
-
-    // this.setState({
-    //   voiceMsgVal: '说出悄悄话'
-    // });
-    // var _state = this.state,
-    //   recorderManager = _state.recorderManager,
-    //   is_clock = _state.is_clock;
-
-    // recorderManager.stop();
-    // if (is_clock == true) {
-    //   this.setState({
-    //     isShowVoiceA: false
-    //   });
-    //   recorderManager.onStop(function (res) {
-    //     if (res.duration < 2000) {
-    //       _index2.default.showToast({
-    //         title: '录音时间太短，请长按录音',
-    //         icon: 'none',
-    //         duration: 1000
-    //       });
-    //     } else {
-    //       var tempFilePath = res.tempFilePath;
-
-    //       console.log(tempFilePath);
-    //       _index2.default.showLoading({
-    //         title: '语音检索中'
-    //       });
-    //       _index2.default.uploadFile({
-    //         url: _api.baseUrl + "/uploadFile",
-    //         filePath: tempFilePath,
-    //         name: 'file',
-    //         header: {
-    //           token: _index2.default.getStorageSync('token')
-    //         },
-    //         success: function success(uploadRes) {
-    //           setTimeout(function () {
-    //             _index2.default.hideLoading();
-    //           }, 500);
-    //           var url = JSON.parse(uploadRes.data).url;
-    //           _this5.setState({
-    //             voiceValue: _api.baseUrl.replace('api', '') + "/" + url,
-    //             isVoiceEnter: true,
-    //             isShowModal: true,
-    //             duration: Math.ceil(res.duration)
-    //           });
-    //         }
-    //       });
-    //     }
-    //   });
-    // }
+  },
+  onChooseFriend(){
+    wx.navigateTo({
+      url: "/pages/choosePeople/index"
+    });
   },
   /**
    * 生命周期函数--监听页面加载
