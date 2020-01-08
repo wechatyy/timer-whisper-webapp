@@ -33,7 +33,7 @@
           <!-- <view class="message-input-speak" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" >{{voiceMsgVal}}</view>  -->
           <view class="message-input-speak" bindtap="ontextareaViewClick" wx:else>
             <block wx:if="{{isShowTextarea}}">
-              <view bindtap="onConfirm">weqweqweq</view>
+              <view bindtap="onConfirm">发送按钮</view>
               <textarea wx:if="{{isShowTextarea}}" class='message-input-text' adjust-position="{{false}}" adjust-position="{{false}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="maxHeight: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput"
                 auto-focus="{{autoFocus}}" value="{{inputValue}}" maxlength="200">
               </textarea>
