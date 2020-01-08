@@ -1,41 +1,79 @@
-<page>
-  <view class="mine">
-    <view class="mine-body">
-      <view class="mine-container">
-        <image class="mine-containe_img" src="https://wx.qlogo.cn/mmopen/vi_32/BJnAbDL1SbWxICTBcYyD2CneFhibmzKjOOKwPr6EdJx2z9icTuo4mqyRyyqyE8BjSMULS2DN4Gr7mib0WMmh5y9Nw/132" role="img"></image>
-        <view class="mine-containe_name">aleige</view>
-      </view>
-      <view class="mine-tool-box">
-        <view bindtap="onToolClick" class="mine-tool-item" data-e-tap-so="this">
-          <image class="mine-tool-item_img" src="/assets/images/common/relationship.png" role="img"></image>
-          <view class="mine-tool-item_msg">
-            <text>亲密关系</text>
-            <image src="/assets/images/common/right.png" role="img"></image>
-          </view>
-        </view>
-        <view class="mine-tool-item">
-          <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
-          <view bindtap="onHelpClick" class="mine-tool-item_msg " data-e-tap-so="this">
-            <text>快捷使用</text>
-            <image src="/assets/images/common/right.png" role="img"></image>
-          </view>
-        </view>
-         <view class="mine-tool-item">
-          <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
-          <view bindtap="onOpenVip" class="mine-tool-item_msg " data-e-tap-so="this">
-            <text>开通会员</text>
-            <image src="/assets/images/common/right.png" role="img"></image>
-          </view>
-        </view>
-         <view class="mine-tool-item">
-          <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
-          <view bindtap="onDevLop" class="mine-tool-item_msg noBorder" data-e-tap-so="this">
-            <text>特殊定制</text>
-            <image src="/assets/images/common/right.png" role="img"></image>
-          </view>
-        </view>
-      </view>
-      <view bindtap="onVersionClick" class="mine-version-msg" data-e-tap-so="this">意见反馈</view>
+<view class="mine">
+  <view class="mine-body">
+    <view class="mine-container">
+      <image class="mine-containe_img" src="https://wx.qlogo.cn/mmopen/vi_32/BJnAbDL1SbWxICTBcYyD2CneFhibmzKjOOKwPr6EdJx2z9icTuo4mqyRyyqyE8BjSMULS2DN4Gr7mib0WMmh5y9Nw/132" role="img"></image>
+      <view class="mine-containe_name">aleige</view>
     </view>
+    <view class="mine-tool-box">
+      <view bindtap="onToolClick" class="mine-tool-item" data-e-tap-so="this">
+        <image class="mine-tool-item_img" src="/assets/images/common/relationship.png" role="img"></image>
+        <view class="mine-tool-item_msg">
+          <text>亲密关系</text>
+          <image src="/assets/images/common/right.png" role="img"></image>
+        </view>
+      </view>
+      <view class="mine-tool-item">
+        <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
+        <view bindtap="onHelpClick" class="mine-tool-item_msg " data-e-tap-so="this">
+          <text>快捷使用</text>
+          <image src="/assets/images/common/right.png" role="img"></image>
+        </view>
+      </view>
+      <view class="mine-tool-item">
+        <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
+        <view bindtap="onOpenVip" class="mine-tool-item_msg " data-e-tap-so="this">
+          <text>开通会员</text>
+          <image src="/assets/images/common/right.png" role="img"></image>
+        </view>
+      </view>
+      <view class="mine-tool-item">
+        <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
+        <view bindtap="onDevLop" class="mine-tool-item_msg noBorder" data-e-tap-so="this">
+          <text>特殊定制</text>
+          <image src="/assets/images/common/right.png" role="img"></image>
+        </view>
+      </view>
+    </view>
+    <view bindtap="onVersionClick" class="mine-version-msg" data-e-tap-so="this">意见反馈</view>
   </view>
-</page>
+
+<view class="layer" wx:if="{{layers}}"></view>
+</view>
+<view wx:if="{{isShowHelp}}" bindtap="onHideHelp" class="help1" data-e-tap-so="this">
+  <text>
+1、点击右上角的
+</text>
+  <image src="/assets/images/common/dian.png" role="img"></image>
+</view>
+
+<view wx:if="{{isShowHelp}}" bindtap="onHideHelp" class="help1" data-e-tap-so="this">
+  <text>
+1、点击右上角的
+</text>
+  <image src="/assets/images/common/dian.png" role="img"></image>
+</view>
+
+<view wx:if="{{isShowFuc}}" bindtap="onHideFc" class="help2" data-e-tap-so="this">
+  <text>
+2、点击左下角的“浮窗”
+</text>
+  <image src="/assets/images/common/yuan.png" role="img"></image>
+  <view class="gotowill" bindtap="onHideFc" >
+    去试试
+  </view>
+</view>
+
+<view wx:if="{{isShowTd}}" bindtap="onHideTd" class="help3" data-e-tap-so="this">
+  <text>
+    3、点击右侧边缘的 “浮窗(如右侧图)”标志， 即可进入小程序。 
+</text>
+  <text>
+4、拖动“浮窗(如右侧图)”，可将其放置在页面的任意位置。
+</text>
+  <view class="yidong">
+    <image src="/assets/images/common/yidong.png" role="img"></image>
+  </view>
+  <view class="gotowill" bindtap="onHideTd" >
+    去试试
+  </view>
+</view>

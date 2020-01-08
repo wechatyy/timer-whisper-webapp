@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isShowHelp:false,
+    isShowFuc:false,
+    isShowTd:false,
+    layers:false
   },
 
   /**
@@ -35,9 +38,30 @@ Page({
     })
   },
   onHelpClick(){
-    
+    this.setData({
+      isShowHelp: true
+    });
   },
-
+  onHideHelp(){
+    this.setData({
+      isShowHelp: false,
+      isShowFuc:true,
+      layers: true
+    });
+  },
+  onHideFc(){
+    this.setData({
+      isShowFuc: false,
+      isShowTd: true,
+      layers: true
+    });
+  },
+  onHideTd(){
+    this.setData({ 
+      isShowTd: false,
+      layers: false
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

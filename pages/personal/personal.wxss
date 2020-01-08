@@ -22,7 +22,7 @@ page {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 1;
 }
 
 .mine-navbar-img {
@@ -42,7 +42,7 @@ page {
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 10;
+  z-index: 2;
 }
 
 .mine-navbar-button::after {
@@ -59,11 +59,7 @@ page {
   font-size: 20rpx;
   color: #1e2737;
   margin-left: 16rpx;
-}
-
-.mine-body {
-}
-
+} 
 .mine-container {
   height: 270rpx;
   background: #fff;
@@ -256,7 +252,7 @@ page {
   top: 0;
   height: 108rpx;
   width: 33%;
-  z-index: 801;
+  z-index: 2;
 }
 
 .sign-tabbar-form .btn {
@@ -268,4 +264,114 @@ page {
 
 .sign-tabbar-form .btn::after {
   border: 0;
+}
+
+.help1 {
+  position: fixed;
+  z-index: 10;
+  top: 30rpx;
+  right: 80rpx;
+  width: 400rpx;
+  height: 110rpx;
+  background: black;
+  opacity: 0.8; 
+  display: flex;  
+  align-items: center;
+  border-radius: 16rpx; 
+  justify-content: center;
+  line-height: 1rpx;
+}
+
+.help1 text {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 400;
+}
+
+.help1 image {
+  margin-left: 20rpx;
+  width: 88rpx;
+  height: 56rpx;
+}
+
+.help2{
+  position: fixed;
+  z-index: 10;
+  top:40vh;
+  left:10vw;
+  width: 500rpx;
+  height: 110rpx;
+  background: black;
+  opacity: 0.8; 
+  display: flex;  
+  align-items: center;
+  border-radius: 16rpx; 
+  justify-content: center;
+  line-height: 1rpx;
+}
+.help2 text {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 400;
+}
+
+.help2 image {
+  margin-left: 20rpx;
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.help3{
+  position: fixed;
+  z-index: 10;
+  top:20vh;
+  left:5vw;
+  width: 400rpx;
+  /* height: 500rpx; */
+  background: black;
+  opacity: 0.8; 
+  display: flex;  
+  /* align-items: center; */
+  border-radius: 16rpx; 
+  flex-direction: column;
+  padding:0 40rpx 40rpx 40rpx;
+  /* justify-content: center; */
+}
+.help3 text {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 400;
+}
+.help3 view{
+  color: #fff;
+}
+.help3 image {
+  margin-left: 20rpx;
+  width: 88rpx;
+  height: 88rpx;
+}
+.yidong{
+  position: fixed;
+  right: 0;
+  top: 30vh;
+  /* background-color:#fff; */
+  z-index: 10;
+}
+.gotowill{
+  position:absolute;
+  bottom: -100rpx;
+  right: 0;
+  padding:10rpx 30rpx;
+  border-radius:40rpx;
+  border:1px dashed #fff;
+  line-height: 40rpx !important;
+  color: #fff;
+}
+.layer{
+  position: absolute;
+  z-index: 8;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.6;
 }
