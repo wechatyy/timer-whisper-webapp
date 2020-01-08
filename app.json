@@ -1,5 +1,6 @@
 {
   "pages": [
+
     "pages/tellsPeople/index",
     "pages/message/index",
     "pages/login/index",
@@ -9,9 +10,9 @@
     "pages/friendInformation/index",
     "pages/feedback/index",
     "pages/chatRecord/index",
-    "pages/personal/personal",
     "pages/personal/openvip/index",
-    "pages/personal/devlop/index"
+    "pages/personal/devlop/index",
+    "pages/personal/personal"
   ],
   "window": {
     "backgroundTextStyle": "light",
