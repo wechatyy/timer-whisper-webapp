@@ -17,15 +17,19 @@ Page({
   },
 
   postLogin(code, userData) {
+    console.log(userData);
     let _this = this
     const { avatarUrl, gender, nickName } = userData.userInfo;
+    const {encryptedData,iv} = userData
     wx.request({
       url: `${API_HOST}${API_LOGIN}?code=${code}`,
       method: "POST",
       data: {
         username: nickName,
         avatarUrl: avatarUrl,
-        gender: gender
+        gender: gender,
+        encryptedData,
+        iv
       },
       success: res => {
         wx.setStorageSync('token', res.data.token.token)

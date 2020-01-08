@@ -20,7 +20,7 @@
             <image src="/assets/images/common/right.png" role="img"></image>
           </view>
         </view>
-         <view class="mine-tool-item">
+         <!-- <view class="mine-tool-item">
           <image class="mine-tool-item_img quick" src="/assets/images/common/quick.png" role="img"></image>
           <view bindtap="onOpenVip" class="mine-tool-item_msg " data-e-tap-so="this">
             <text>开通会员</text>
@@ -33,7 +33,7 @@
             <text>特殊定制</text>
             <image src="/assets/images/common/right.png" role="img"></image>
           </view>
-        </view>
+        </view> -->
       </view>
       <view bindtap="onVersionClick" class="mine-version-msg" data-e-tap-so="this">意见反馈</view>
     </view>
