@@ -1,5 +1,5 @@
 
-import { API_HOST, API_FIND_FRIEND} from '../../utils/config.js'
+import { API_HOST, API_FIND_FRIEND,API_BIND_FRIEND} from '../../utils/config.js'
 var jsPinYin = require("../../npm/js-pinyin/index.js");
 Page({
   data: {
@@ -282,15 +282,14 @@ Page({
   },
   onLoad: function (options) {
     this.getSystemInfo()
-    let _this = this;
-    if (options){
-      _this.setData({
+    if (options.userId){
+      this.setData({
         userId: options.userId
       })
+      this.bindFriendFc(options.userId)
     }
- 
     if (!wx.getStorageSync('token')){
-      _this.showModalfc()
+      this.showModalfc()
     }else {
       this.getFriendList()
     }
@@ -340,6 +339,22 @@ Page({
       }
     })
   },
+    //绑定好友
+    bindFriendFc(userId){
+      wx.request({
+        url: `${API_HOST}${API_BIND_FRIEND}`,
+        method: "POST",
+        header: {
+          token:  wx.getStorageSync('token')
+        },
+        data: {
+          friendId: userId
+        },
+        success: res => {
+          console.log(res)
+        }
+      })
+    },
   onShareAppMessage(){
     return {
       title: "定时悄悄话",
