@@ -1,18 +1,12 @@
 <block>
   <view class="tells">
     <view class="tells-search">
-      <!-- <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-            <image src="" style="width: 50px; height: 50px; display: block" />
-            <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view>
+          <official-account></official-account>
+          <view style="position:relative;" class="tells-list-item" bindtap="{{isAuth?'':'showModalfc'}}" >
+            <image class="list_img" src=""></image>
+            <view class="list_msg">邀请好友</view>
+            <button wx:if="{{isAuth}}" open-type='share'  class="btn-cover"></button>
           </view>
-          <view class="weui-cell__bd">
-            <view>联系人名称</view>
-            <view style="font-size: 13px;color: #888888;">摘要信息</view>
-          </view>
-        </view>
-      </view> -->
       
       <wux-index bindchange="onChange">
         <wux-index-item wx:key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="index">

@@ -59,16 +59,16 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "登录",
+					"name": "pages/login/index",
 					"pathName": "pages/login/index",
-					"query": "",
+					"query": "userId=20",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "悄悄话页面",
+					"id": 1,
+					"name": "pages/tellsPeople/index",
 					"pathName": "pages/tellsPeople/index",
-					"query": "",
+					"query": "userId=19",
 					"scene": null
 				},
 				{

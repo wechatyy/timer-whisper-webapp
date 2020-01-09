@@ -3,6 +3,7 @@ import { API_HOST, API_FIND_FRIEND,API_BIND_FRIEND} from '../../utils/config.js'
 var jsPinYin = require("../../npm/js-pinyin/index.js");
 Page({
   data: {
+    isAuth:false,
     userId:'',
     searchValue: '',
     paddingTop: 0,
@@ -209,9 +210,9 @@ Page({
       header: {
         token: wx.getStorageSync('token')
       },
-      fail: res => {
+      success: res => {
         let data = res.data.data;
-
+console.log(data);
         const isTopArr = data.filter(v => v.istop);
         const listData = this.data_letter_sort(data.filter(v => !v.istop), 'friendname')
         let list = [];
@@ -280,18 +281,26 @@ Page({
       url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
     })
   },
-  onLoad: function (options) {
+  onLoad:async function (options) {
     this.getSystemInfo()
     if (options.userId){
       this.setData({
         userId: options.userId
       })
-      this.bindFriendFc(options.userId)
+      try {
+        await this.bindFriendFc(options.userId)
+      } catch (error) {}
     }
     if (!wx.getStorageSync('token')){
-      this.showModalfc()
+      this.setData({
+        isAuth:false
+      })
+      // this.showModalfc()
     }else {
       this.getFriendList()
+      this.setData({
+        isAuth:true
+      })
     }
   },
   getSystemInfo(){
@@ -342,7 +351,7 @@ Page({
     //绑定好友
     bindFriendFc(userId){
       wx.request({
-        url: `${API_HOST}${API_BIND_FRIEND}`,
+        url: `${API_HOST}${API_BIND_FRIEND}?friendId=${this.data.userId}`,
         method: "POST",
         header: {
           token:  wx.getStorageSync('token')
@@ -358,7 +367,7 @@ Page({
   onShareAppMessage(){
     return {
       title: "定时悄悄话",
-      path: "/pages/signin/index?userId=" + wx.getStorageSync('userId'),
+      path: "/pages/tellsPeople/index?userId=" + wx.getStorageSync('userId'),
       imageUrl: "/assets/images/common/sharePng.png",
     };
   }

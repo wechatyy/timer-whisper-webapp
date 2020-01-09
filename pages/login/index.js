@@ -44,15 +44,13 @@ Page({
   },
   onLoad: function (options) {
     if (options){
-      this.setData({
-        userId: options.userId
-      })
+      this.setData({ userId: options.userId})
     }
   },
   //绑定好友
   bindFriendFc(token){
     wx.request({
-      url: `${API_HOST}${API_BIND_FRIEND}`,
+      url: `${API_HOST}${API_BIND_FRIEND}?friendId=${this.data.userId}`,
       method: "POST",
       header: {
         token: token
