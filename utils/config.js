@@ -24,6 +24,8 @@ const API = {
     API_MESSAGE_REMAIN_NUM:'/messageRemainNum', // 根据用户id查询用户剩余的次数
     API_QUERY_UN_SEND_LIST:'/queryUnSendList', // 查询未送达的
     API_FEEDBACK_ADDFEED:'/feedback/addFeed', // 意见反馈
+    API_VIP_LIST :'/viplist',//会员列表
+    API_CUSTOM_LIST:'/customlist'//定制列表
     
 };
 

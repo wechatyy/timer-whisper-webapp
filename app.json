@@ -1,7 +1,8 @@
 {
   "pages": [
-
     "pages/tellsPeople/index",
+    "pages/personal/openvip/index",
+    "pages/personal/devlop/index",
     "pages/message/index",
     "pages/login/index",
     "pages/served/index",    
@@ -10,8 +11,6 @@
     "pages/friendInformation/index",
     "pages/feedback/index",
     "pages/chatRecord/index",
-    "pages/personal/openvip/index",
-    "pages/personal/devlop/index",
     "pages/personal/personal"
   ],
   "window": {
