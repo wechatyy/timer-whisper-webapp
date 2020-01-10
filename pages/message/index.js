@@ -12,7 +12,7 @@ let weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周�
 let displayTime = `${Year}-${Month + 1}-${Day}`
 let timenav = `${Year}年${Month + 1}月${Day}日` 
 let weeknew = weekDay[date.getDay()]
-let timeHours = `${Hours}:${Minutes}`
+let timeHours = `${Hours}:${Minutes}:00`
 var recorderManager = wx.getRecorderManager();
 Page({
 
@@ -321,6 +321,7 @@ Page({
   },
   onCurrentDate(e){
     let val = e.detail
+    console.log(e);
     this.setData({
       timeHours: val,
       isCurDate: false
@@ -346,8 +347,10 @@ Page({
       messageType = 3;
     }   
     var nowDate = new Date().getTime();
-    var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime:displayTime} ${timeHours}`;
-    var selectDate = new Date(dataStr).getTime();
+    var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime:_this.dta.displayTime} ${_this.data.timeHours}:00`;
+    console.log(displayTime,timeHours);
+    console.log(dataStr);
+    var selectDate = new Date(dataStr.replace(/-/g, '/')).getTime();
     console.log(nowDate, selectDate, dataStr);
     console.log(nowDate <= selectDate);
     if (selectDate <= nowDate) {

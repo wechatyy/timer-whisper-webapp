@@ -52,7 +52,7 @@ baseComponent({
     useFunc: true,
     data: defaults,
     computed: {
-        classes: ['prefixCls, direction', function(prefixCls, direction) {
+        classes: ['prefixCls, direction', function (prefixCls, direction) {
             const wrap = classNames(prefixCls, {
                 [`${prefixCls}--${direction}`]: direction,
             })
@@ -111,7 +111,10 @@ baseComponent({
             this.monthsTranslate = 0
             this.isH = options.direction === 'horizontal'
 
-            this.$$setData({ in: true, ...options }).then(() => this.init())
+            this.$$setData({
+                in: true,
+                ...options
+            }).then(() => this.init())
             this.setValue(options.value)
 
             if (typeof this.fns.onOpen === 'function') {
@@ -122,7 +125,9 @@ baseComponent({
          * 关闭日历
          */
         close() {
-            this.$$setData({ in: false })
+            this.$$setData({
+                in: false
+            })
 
             if (typeof this.fns.onClose === 'function') {
                 this.fns.onClose.call(this)
@@ -140,7 +145,14 @@ baseComponent({
                 months.forEach((month) => this.fns.onMonthAdd.call(this, month))
             }
 
-            return this.$$setData({ weeks, months, monthsTranslate, wrapperTranslate: '' }).then(() => this.$$setData({...this.updateCurrentMonthYear() }))
+            return this.$$setData({
+                weeks,
+                months,
+                monthsTranslate,
+                wrapperTranslate: ''
+            }).then(() => this.$$setData({
+                ...this.updateCurrentMonthYear()
+            }))
         },
         /**
          * 设置月份的位置信息
@@ -162,7 +174,10 @@ baseComponent({
          * @param {String} dir 方向
          */
         updateCurrentMonthYear(dir) {
-            const { months, monthNames } = this.data
+            const {
+                months,
+                monthNames
+            } = this.data
 
             if (typeof dir === 'undefined') {
                 const currentMonth = parseInt(months[1].month, 10)
@@ -212,9 +227,13 @@ baseComponent({
                 this.isMoved = true
             }
 
-            this.$$setData({ swiping: true })
+            this.$$setData({
+                swiping: true
+            })
 
-            const { prefixCls } = this.data
+            const {
+                prefixCls
+            } = this.data
             const query = wx.createSelectorQuery().in(this)
             query.select(`.${prefixCls}__months-content`).boundingClientRect((rect) => {
 
@@ -225,7 +244,10 @@ baseComponent({
                 this.move = getTouchPosition(e)
                 this.touchesDiff = this.isH ? this.move.x - this.start.x : this.move.y - this.start.y
 
-                const { width, height } = rect
+                const {
+                    width,
+                    height
+                } = rect
                 const percentage = this.touchesDiff / (this.isH ? width : height)
                 const currentTranslate = (this.monthsTranslate + percentage) * 100
                 const transform = getTransform(currentTranslate, this.isH)
@@ -243,7 +265,9 @@ baseComponent({
             if (!this.data.touchMove || !this.isMoved || this.isRendered) return
 
             this.isMoved = false
-            this.$$setData({ swiping: false })
+            this.$$setData({
+                swiping: false
+            })
 
             if (Math.abs(this.touchesDiff) < 30) {
                 this.resetMonth()
@@ -301,7 +325,14 @@ baseComponent({
          * @param {String} month 月份
          */
         setYearMonth(year = this.data.currentYear, month = this.data.currentMonth) {
-            const { months, monthsTranslate, maxDate, minDate, currentYear, currentMonth } = this.data
+            const {
+                months,
+                monthsTranslate,
+                maxDate,
+                minDate,
+                currentYear,
+                currentMonth
+            } = this.data
             const targetDate = year < currentYear ? new Date(year, month + 1, -1).getTime() : new Date(year, month).getTime()
 
             // 判断是否存在最大日期
@@ -366,7 +397,12 @@ baseComponent({
          * 下一月
          */
         nextMonth() {
-            const { months, monthsTranslate, maxDate, currentMonth } = this.data
+            const {
+                months,
+                monthsTranslate,
+                maxDate,
+                currentMonth
+            } = this.data
             const nextMonth = parseInt(months[months.length - 1].month, 10)
             const nextYear = parseInt(months[months.length - 1].year, 10)
             const nextDate = new Date(nextYear, nextMonth)
@@ -411,7 +447,12 @@ baseComponent({
          * 上一月
          */
         prevMonth() {
-            const { months, monthsTranslate, minDate, currentMonth } = this.data
+            const {
+                months,
+                monthsTranslate,
+                minDate,
+                currentMonth
+            } = this.data
             const prevMonth = parseInt(months[0].month, 10)
             const prevYear = parseInt(months[0].year, 10)
             const prevDate = new Date(prevYear, prevMonth + 1, -1)
@@ -471,7 +512,10 @@ baseComponent({
          * @param {Boolean} rebuildBoth 重置
          */
         onMonthChangeEnd(dir = 'next', rebuildBoth = false) {
-            const { currentYear, currentMonth } = this.data
+            const {
+                currentYear,
+                currentMonth
+            } = this.data
             let nextMonthHTML, prevMonthHTML, newMonthHTML, months = [...this.data.months]
 
             if (!rebuildBoth) {
@@ -490,7 +534,10 @@ baseComponent({
             const monthsTranslate = this.setMonthsTranslate(this.monthsTranslate)
 
             this.isRendered = true
-            this.$$setData({ months, monthsTranslate }).then(() => (this.isRendered = false))
+            this.$$setData({
+                months,
+                monthsTranslate
+            }).then(() => (this.isRendered = false))
 
             if (typeof this.fns.onMonthAdd === 'function') {
                 this.fns.onMonthAdd.call(this, dir === 'next' ? months[months.length - 1] : months[0])
@@ -504,7 +551,12 @@ baseComponent({
          * 设置星期
          */
         setWeekHeader() {
-            const { weekHeader, firstDay, dayNamesShort, weekendDays } = this.data
+            const {
+                weekHeader,
+                firstDay,
+                dayNamesShort,
+                weekendDays
+            } = this.data
             const weeks = []
 
             if (weekHeader) {
@@ -707,7 +759,9 @@ baseComponent({
          * 设置选择值
          */
         setValue(value) {
-            this.$$setData({ value }).then(() => this.updateValue())
+            this.$$setData({
+                value
+            }).then(() => this.updateValue())
         },
         /**
          * 更新日历
@@ -745,8 +799,9 @@ baseComponent({
             }
 
             this.$$setData(changedPath)
-
-            if (typeof this.fns.onChange === 'function') {
+console.log(changedPath);
+console.log(this.data.value);
+            if (typeof this.fns.onChange === 'function' && this.data.value) {
                 this.fns.onChange.call(this, this.data.value, this.data.value.map((n) => this.formatDate(n)))
             }
         },

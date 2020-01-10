@@ -68,7 +68,7 @@
 					"id": 1,
 					"name": "pages/tellsPeople/index",
 					"pathName": "pages/tellsPeople/index",
-					"query": "userId=19",
+					"query": "",
 					"scene": null
 				},
 				{

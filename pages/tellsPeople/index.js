@@ -17,7 +17,8 @@ Page({
     noticeNumberData: {
       messageCount: 0,
       messageNumCount: 0
-    }
+    },
+    indexHeight:'100vh'
   
     
   },
