@@ -14,7 +14,7 @@
       </view>
     </view>
   </view>
-  <view class="information-num">接收定时悄悄话剩余条数：{{count}}条</view>
+  <view class="information-handle" bindtap="onSearchMessage">备注</view>
   <view class="information-tool">
     <view class="information-tool-switch">
       <view class="information-tool-title">置顶收话人列表</view>

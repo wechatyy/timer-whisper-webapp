@@ -1,18 +1,36 @@
 <block>
   <view class="tells">
     <view class="tells-search">
+      <view class="tells-head">
+        <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
+          <image class="list_img" src=""></image>
+          <view class="list_msg">添加朋友</view>
+          <button wx:if="{{isAuth}}" open-type='share' class="btn-cover"></button>
+        </view>
+        <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
+          <image class="list_img" src=""></image>
+          <view class="list_msg">快速定时</view>
+        </view>
+        <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
+          <image class="list_img" src=""></image>
+          <view class="list_msg">前往公众号</view>
           <official-account></official-account>
-          <view style="position:relative;" class="tells-list-item" bindtap="{{isAuth?'':'showModalfc'}}" >
-            <image class="list_img" src=""></image>
-            <view class="list_msg">邀请好友</view>
-            <button wx:if="{{isAuth}}" open-type='share'  class="btn-cover"></button>
+        </view>
+      </view>
+      <block wx:if="{{isTopArr.length !== 0}}">
+          <view class="tells-top">
+              <view class="tells-top-title">置顶收话人</view>
+              <view class="tells-list-item" wx:key="friendid" bindtap="onItemClick" wx:for="{{isTopArr}}" wx:for-item="v" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
+                  <image class="list_img" src="{{v.imgurl}}"></image>
+                  <view class="list_msg">{{v.friendname}}</view>
+              </view>
           </view>
-      
+      </block>
       <wux-index height="{{indexHeight}}" bindchange="onChange">
         <wux-index-item wx:key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="index">
-          <view class="tells-list-item" wx:key="ii" bindtap="onItemClick" data-item="{{vi}}" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" >
-            <image class="list_img" src="{{vi.imgurl}}"></image>
-            <view class="list_msg">{{vi.friendname}}</view>
+          <view class="tells-list-item" wx:key="ii"  wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii">
+            <image class="list_img"  bindtap="onItemClickToFriendInfo" data-item="{{vi}}" src="{{vi.imgurl}}"></image>
+            <view class="list_msg"   bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.friendname}}</view>
           </view>
         </wux-index-item>
       </wux-index>

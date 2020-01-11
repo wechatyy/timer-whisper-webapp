@@ -205,7 +205,6 @@ Page({
     },
     onConfirm() {
       let _this = this;
-      console.log(this.data.inputValue)
       if (this.data.inputValue.trim().length !== 0) {
         this.setData({
           isShowModal: true,
@@ -214,7 +213,6 @@ Page({
           isImageEnter:false,
           autoFocus: false,
         },()=>{
-          console.log(2342342)
           _this.onMessageModal(true);
         })
       }

@@ -19,6 +19,7 @@ Page({
   },
 
   onLoad: function (options) {
+    console.log(options);
     if (options){
       this.setData({
         userid: options.userid,
@@ -31,8 +32,6 @@ Page({
         isreject: options.isreject == 1 ? true : false,
         istop: options.istop == 1 ? true : false,
         sex: options.sex
-      },()=>{
-        this.messageRemainNum(options.friendid)
       }) 
     }
     
@@ -54,6 +53,8 @@ Page({
       },
       success: res => {
         if (res.data.code === 0) {
+        } else if(res.data.code === 50001){
+          _this.showModalfc()
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -65,6 +66,7 @@ Page({
   },
 
   deleteFriend() {
+    let _this =this
     wx.request({
       url: `${API_HOST}${API_DEL_FRIEND}`,
       method: "POST",
@@ -79,6 +81,8 @@ Page({
           wx.navigateBack({
             delta: 1
           })
+        } else if(res.data.code === 50001){
+          _this.showModalfc()
         } else {
           wx.showToast({
             title: res.data.msg,
@@ -88,30 +92,52 @@ Page({
       }
     })
   },
-
-  messageRemainNum(friendid) {
-    wx.request({
-      url: `${API_HOST}${API_MESSAGE_REMAIN_NUM}`,
-      header: {
-        token: wx.getStorageSync('token')
-      },
-      data: {
-        userId: friendid
-      },
-      success: res => {
-        if (res.data.code === 0) {
-          this.setData({
-            count: res.data.count
-          })
-        } else {
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'none'
-          })
+  showModalfc(){
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '你还未登录，登录后可获得完整体验 ',
+      confirmText: '一键登录',
+      showCancel: false,
+      success: function success(res) {
+        // 点击一键登录，去授权页面
+        if (res.confirm) {
+          if (_this.data.userId){
+            wx.navigateTo({
+              url: "/pages/login/index?userId=" + _this.data.id
+            })
+          }else{
+            wx.navigateTo({
+              url: "/pages/login/index"
+            })
+          }
         }
       }
     })
   },
+  // messageRemainNum(friendid) {
+  //   wx.request({
+  //     url: `${API_HOST}${API_MESSAGE_REMAIN_NUM}`,
+  //     header: {
+  //       token: wx.getStorageSync('token')
+  //     },
+  //     data: {
+  //       userId: friendid
+  //     },
+  //     success: res => {
+  //       if (res.data.code === 0) {
+  //         this.setData({
+  //           count: res.data.count
+  //         })
+  //       } else {
+  //         wx.showToast({
+  //           title: res.data.msg,
+  //           icon: 'none'
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
 
   deleteMessage() {
     let _this = this;
@@ -135,6 +161,8 @@ Page({
               })
             }
           })
+        }else if(res.data.code === 50001){
+          _this.showModalfc()
         } else {
           wx.showToast({
             title: res.data.msg,

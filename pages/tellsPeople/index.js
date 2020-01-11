@@ -18,7 +18,7 @@ Page({
       messageCount: 0,
       messageNumCount: 0
     },
-    indexHeight:'100vh'
+    indexHeight:'calc(100vh- 348rpx)'
   
     
   },
@@ -212,25 +212,30 @@ Page({
         token: wx.getStorageSync('token')
       },
       success: res => {
-        let data = res.data.data;
-console.log(data);
-        const isTopArr = data.filter(v => v.istop);
-        const listData = this.data_letter_sort(data.filter(v => !v.istop), 'friendname')
-        let list = [];
-        Object.keys(listData).forEach(v => {
-          list.push({
-            title: v,
-            key: v,
-            items: listData[v]
-          })
-        })
-        list = list.filter(v => v.items.length > 0)
-        this.setData({
-          isTopArr: isTopArr,
-          list: list,
-          data
-        })
-      }
+        if(res.data.code == 50001) {
+          wx.setStorageSync('token','')
+          this.setData({isAuth:false})
+        }
+        if(res.data.code === 0) {
+          let data = res.data.data;
+            const isTopArr = data.filter(v => v.istop);
+            const listData = this.data_letter_sort(data.filter(v => !v.istop), 'friendname')
+            let list = [];
+            Object.keys(listData).forEach(v => {
+              list.push({
+                title: v,
+                key: v,
+                items: listData[v]
+              })
+            })
+            list = list.filter(v => v.items.length > 0)
+            this.setData({
+              isTopArr: isTopArr,
+              list: list,
+              data
+            })
+        }
+      },
     })
   },
   data_letter_sort(data, field) {
@@ -276,10 +281,16 @@ console.log(data);
 
     return json_sort;
   },
-  onItemClick(e) {
+  onItemClickToFriendInfo(e) {
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
       url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
+    })
+  },
+  onItemClickToMessage(e){
+    let item = e.currentTarget.dataset.item;
+    wx.navigateTo({
+      url: `/pages/message/index?friendID=${item.friendid}&friendName=${item.friendname}&imgUrl=${item.imgurl}&sex=${item.sex}`
     })
   },
   onLoad:async function (options) {
@@ -292,16 +303,15 @@ console.log(data);
         await this.bindFriendFc(options.userId)
       } catch (error) {}
     }
+
+  },
+  onShow:async function (){
     if (!wx.getStorageSync('token')){
-      this.setData({
-        isAuth:false
-      })
+      this.setData({isAuth:false})
       // this.showModalfc()
     }else {
       this.getFriendList()
-      this.setData({
-        isAuth:true
-      })
+      this.setData({isAuth:true})
     }
   },
   getSystemInfo(){

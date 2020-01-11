@@ -15,6 +15,66 @@ page {
   height: 100%;
 }
 
+
+
+.tells-top-title {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 64rpx;
+  line-height: 64rpx;
+  background: #ecedee;
+  padding-left: 28rpx;
+  color: #767778;
+  font-size: 24rpx;
+}
+.tells-head {
+  padding-top: 30rpx;
+}
+.tells-nav-item {
+  height: 106rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0 0 28rpx;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: white;
+}
+
+.tells-nav-item .list_img {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background: #eee;
+}
+
+.tells-nav-item .list_msg {
+  margin-left: 28rpx;
+  border-bottom: 2rpx solid #EEEEEE;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #191A1B;
+  font-size: 34rpx;
+  height: 104rpx;
+  border-bottom: 1px solid #f2f2f2;
+}
+
 .tells-navbar {
   background: #ededed;
   position: fixed;
@@ -241,3 +301,8 @@ page {
 .sign-tabbar-form .btn::after {
   border: none;
 }
+
+
+
+
+
