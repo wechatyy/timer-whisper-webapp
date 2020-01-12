@@ -20,6 +20,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    callBack_id: '',
+    callBack_img: '',
+    callBack_name: '',
     paddingTop: 0,
     systeminfo: {},
     tabBarHeight: 0,
@@ -90,7 +93,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       data: {
-        friendID: this.data.options.friendID
+        friendID: this.data.friendID
         // friendID: 6
 
       },
@@ -352,7 +355,7 @@ Page({
       messageType = 3;
     }   
     var nowDate = new Date().getTime();
-    var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime:_this.dta.displayTime} ${_this.data.timeHours}:00`;
+    var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime:_this.data.displayTime} ${_this.data.timeHours}:00`;
     console.log(displayTime,timeHours);
     console.log(dataStr);
     var selectDate = new Date(dataStr.replace(/-/g, '/')).getTime();
@@ -372,10 +375,10 @@ Page({
         token:wx.getStorageSync('token')
       },
       data: {
-        friendID: this.data.options.friendID,
-        friendName: this.data.options.friendName,
-        imgUrl: this.data.options.imgUrl,
-        sex: this.data.options.sex,
+        friendID: this.data.friendID,
+        friendName: this.data.friendName,
+        imgUrl: this.data.imgUrl,
+        sex: this.data.sex,
         messageContent: messageContent,
         messageType: messageType,
         voiceTime: this.data.duration,
@@ -521,6 +524,10 @@ Page({
     console.log(options); 
     this.setData({
       options,
+      friendID: options.friendID,
+      friendName: options.friendName,
+      imgUrl: options.imgUrl,
+      sex: options.sex,
       userId: wx.getStorageSync('userId')
     })
 

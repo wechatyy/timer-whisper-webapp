@@ -95,11 +95,12 @@ Page({
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2];
     prevPage.setData({
-      id: item.friendid,
+      friendID: item.friendid,
+      friendName: item.friendname,
       imgUrl: item.imgurl,
-      name: item.friendname
+      sex: item.sex,
     });
-    console.log(prevPage);
+    console.log(item);
     wx.navigateBack({
       delta: 1
     });

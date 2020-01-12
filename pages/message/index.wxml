@@ -93,11 +93,9 @@
         </scroll-view>
       </block> 
       <view bindtap="onChooseFriend" class="messageModal-body-add" data-e-tap-so="this">
-        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{options.imgUrl}}" role="img">
+        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{imgUrl}}" role="img">
         </image>
-        <text style="color:rgba(30,39,55,1)">
-                  {{options.friendName}}
-                  </text>
+        <text style="color:rgba(30,39,55,1)">{{friendName}}</text>
       </view>
       <view class="messageModal-body-line">
       </view>
