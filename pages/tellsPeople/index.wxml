@@ -30,7 +30,7 @@
         <wux-index-item wx:key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="index">
           <view class="tells-list-item" wx:key="ii"  wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii">
             <image class="list_img"  bindtap="onItemClickToFriendInfo" data-item="{{vi}}" src="{{vi.imgurl}}"></image>
-            <view class="list_msg"   bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.friendname}}</view>
+            <view class="list_msg"   bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.remarkname||vi.friendname}}</view>
           </view>
         </wux-index-item>
       </wux-index>

@@ -1,10 +1,10 @@
-<block wx:if="{{$taroCompReady}}">
+<block>
     <view class="tells2" >
         <view class="tells2-search">
             <block wx:if="{{isShowBg}}">
                 <view class="tells2-search_cover"></view>
             </block>
-            <block wx:if="{{!isSearch && isTopArr.length !== 0}}">
+            <block wx:if="{{isTopArr.length !== 0}}">
                 <view class="tells2-top">
                     <view class="tells2-top-title">置顶收话人</view>
                     <view class="tells2-list-item" wx:key="friendid" bindtap="onItemClick" wx:for="{{isTopArr}}" wx:for-item="v" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
@@ -13,17 +13,17 @@
                     </view>
                 </view>
             </block>
-            <block wx:if="{{!isSearch}}">
-                <wux-index height="{{anonymousState__temp3}}" bindchange="onChange" __fn_onChange="{{true}}" data-e-change-so="this">
+            <block>
+                <wux-index height="100vh">
                     <wux-index-item key="{{v.title}}" name="{{v.title}}" wx:for="{{list}}" wx:for-item="v" wx:for-index="_anonIdx4">
-                        <view class="tells2-list-item" wx:key="ii" bindtap="onItemClick" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" data-e-tap-so="this" data-e-tap-a-a="{{vi}}">
+                        <view class="tells2-list-item" wx:key="ii" data-item="{{vi}}" bindtap="onItemClick" wx:for="{{v.items}}" wx:for-item="vi" wx:for-index="ii" >
                             <image class="list_img" src="{{vi.imgurl}}"></image>
                             <view class="list_msg">{{vi.friendname}}</view>
                         </view>
                     </wux-index-item>
                 </wux-index>
             </block>
-            <block wx:if="{{isSearch}}">
+            <!-- <block wx:if="{{isSearch}}">
                 <view class="tells2-search-isSearch">
                     <view class="tells2-search-isSearch-title">搜索结果</view>
                     <view class="tells2-list-item" bindtap="onItemClick" wx:key="id" wx:for="{{searchData}}" wx:for-item="v" wx:for-index="_anonIdx6" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
@@ -31,7 +31,7 @@
                         <view class="list_msg">{{v.friendname}}</view>
                     </view>
                 </view>
-            </block>
+            </block> -->
         </view>
     </view>
 </block>

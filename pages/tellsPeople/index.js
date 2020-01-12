@@ -19,8 +19,6 @@ Page({
       messageNumCount: 0
     },
     indexHeight:'calc(100vh- 348rpx)'
-  
-    
   },
   // data:{
   //   "searchValue": "",
@@ -284,21 +282,19 @@ Page({
   onItemClickToFriendInfo(e) {
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/friendInformation/index?userid=${item.id}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
+      url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&remarkname=${item.remarkname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
     })
   },
   onItemClickToMessage(e){
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/message/index?friendID=${item.friendid}&friendName=${item.friendname}&imgUrl=${item.imgurl}&sex=${item.sex}`
+      url: `/pages/message/index?friendID=${item.friendid}&friendName=${item.friendname}&remarkname=${item.remarkname}&imgUrl=${item.imgurl}&sex=${item.sex}`
     })
   },
   onLoad:async function (options) {
     this.getSystemInfo()
     if (options.userId){
-      this.setData({
-        userId: options.userId
-      })
+      this.setData({userId: options.userId})
       try {
         await this.bindFriendFc(options.userId)
       } catch (error) {}

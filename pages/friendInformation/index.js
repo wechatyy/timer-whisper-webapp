@@ -33,6 +33,7 @@ Page({
         userid: options.userid,
         friendid: options.friendid,
         friendname: options.friendname,
+        remarkname:options.remarkname,
         id: options.id,
         imgurl: options.imgurl,
         intimate: options.intimate,
@@ -190,7 +191,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       data: {
-        friendID: this.data.friendid,
+        friendId: this.data.friendid,
         remark:this.data.commVal,
       },
       success: res => {
