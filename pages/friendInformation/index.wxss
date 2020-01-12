@@ -211,3 +211,36 @@
   font-size: 28rpx;
   border-top: 10rpx solid rgba(197, 217, 232, 0.3);
 }
+.ownStlye{
+  width: 100vw;
+  height: 100vh; 
+}
+.openTions{
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx;
+  
+
+}
+.onDoen{
+  padding: 2rpx 20rpx; 
+  border-radius:10rpx; 
+}
+.commoText{
+  margin: 30rpx;
+  padding:30rpx 20rpx 20rpx 20rpx;
+  margin-top:0; 
+  border-top: 1rpx solid #eee;
+}
+.commoText textarea{
+  width: 100%;
+  color: #666;
+}
+.stlylv{
+background-color: #09bb07;
+color: #fff
+}
+.stlyhui{
+background-color: #ccc;
+color: #999;
+}

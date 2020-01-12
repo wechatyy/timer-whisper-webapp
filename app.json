@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tellsPeople/index",
+    "pages/friendInformation/index",
     "pages/personal/openvip/index",
     "pages/personal/devlop/index",
     "pages/message/index",
@@ -8,7 +9,6 @@
     "pages/served/index",    
     "pages/choosePeople/index",
     "pages/chooseFriend/index",
-    "pages/friendInformation/index",
     "pages/feedback/index",
     "pages/chatRecord/index",
     "pages/personal/personal"

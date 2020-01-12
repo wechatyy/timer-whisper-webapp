@@ -14,7 +14,7 @@
       </view>
     </view>
   </view>
-  <view class="information-handle" bindtap="onSearchMessage">备注</view>
+  <view class="information-handle" bindtap="onSetCommen">备注</view>
   <view class="information-tool">
     <view class="information-tool-switch">
       <view class="information-tool-title">置顶收话人列表</view>
@@ -72,3 +72,17 @@
     </view>
   </view>
 </view>
+<van-transition show="{{ isOpens }}" name="slide-up">
+  <van-popup show="{{ isOpens }}" >
+    <view class="ownStlye">
+      <view class="openTions">
+        <view bindtap="onCloseOpens">取消</view>
+        <view>设置备注</view>
+        <view class="onDoen {{isDone?'stlylv':'stlyhui'}} " bindtap="okCommt">完成</view>
+    </view>
+      <view class="commoText">
+        <textarea placeholder="请输入备注信息" value="{{commVal}}" bindinput="changComm"></textarea>
+      </view>
+    </view> 
+  </van-popup>
+</van-transition>
