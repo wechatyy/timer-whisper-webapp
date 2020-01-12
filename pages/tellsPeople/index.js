@@ -284,7 +284,7 @@ Page({
   onItemClickToFriendInfo(e) {
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
+      url: `/pages/friendInformation/index?userid=${item.id}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
     })
   },
   onItemClickToMessage(e){

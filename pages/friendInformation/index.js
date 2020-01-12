@@ -20,6 +20,11 @@ Page({
     commVal:'',
     isDone:false
   },
+  onSearchMessage() {
+    wx.navigateTo({
+      url: "/pages/chatRecord/index"
+    });
+  },
 
   onLoad: function (options) {
     console.log(options);
@@ -77,7 +82,7 @@ Page({
         token: wx.getStorageSync('token')
       },
       data: {
-        id: this.data.friendid
+        id: this.data.id
       },
       success: res => {
         if (res.data.code === 0) {

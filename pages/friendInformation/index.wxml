@@ -2,8 +2,9 @@
   <view class="information-msg">
     <image class="information-msg_img" src="{{imgurl}}"></image>
     <view class="information-msg_box">
-      <view class="information-msg_name">{{friendname}}</view>
-      <view class="information-msg_status">
+      <view class="information-msg_name">{{friendname}}<image class="{{sex == 1 ? 'information-msg_sex2' : 'information-msg_sex'}}" src="{{sex == 1 ? '/assets/images/common/sex2.png':'/assets/images/common/sex.png'}}"></image></view>
+      <view class="information-msg_remark">{{friendname}}</view>
+      <!-- <view class="information-msg_status">
         <image class="{{sex == 1 ? 'information-msg_sex2' : 'information-msg_sex'}}" src="{{sex == 1 ? '/assets/images/common/sex2.png':'/assets/images/common/sex.png'}}"></image>
         <block wx:if="{{intimate != 'null'}}">
           <image class="information-msg_rela" src="/assets/images/common/relationship.png"></image>
@@ -11,7 +12,7 @@
         <block wx:if="{{intimate != 'null'}}">
           <text class="information-msg_msg">{{intimate}}</text>
         </block>
-      </view>
+      </view> -->
     </view>
   </view>
   <view class="information-handle" bindtap="onSetCommen">备注</view>

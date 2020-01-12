@@ -91,7 +91,8 @@ Page({
       data: {
         feedbackcontent: _this.data.feedbackcontent,
         feedbackimg: fileList,
-        contact: _this.data.contact
+        contact: _this.data.contact,
+        isallow: 1
       },
       success: function success(res) {
         console.log(res)
