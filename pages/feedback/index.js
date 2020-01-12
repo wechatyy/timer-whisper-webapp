@@ -100,10 +100,15 @@ Page({
             title: '成功',
             icon: 'none'
           });
-        } else{
+        } else if (res.data.code == 50001){
           wx.navigateTo({
             url: '/pages/login/index',
           })
+        } else{
+          wx.showToast({
+            title: '失败',
+            icon: 'none'
+          });
         }
       }
     });

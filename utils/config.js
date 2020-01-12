@@ -25,7 +25,8 @@ const API = {
     API_QUERY_UN_SEND_LIST:'/queryUnSendList', // 查询未送达的
     API_FEEDBACK_ADDFEED:'/feedback/addFeed', // 意见反馈
     API_VIP_LIST :'/viplist',//会员列表
-    API_CUSTOM_LIST:'/customlist'//定制列表
+    API_CUSTOM_LIST:'/customlist',//定制列表
+    API_EDIT_RENAME:'/friend/updateFriendRemark' // 修改备注
     
 };
 

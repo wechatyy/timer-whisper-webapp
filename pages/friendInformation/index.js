@@ -1,4 +1,4 @@
-import { API_HOST, API_UPLOAD_FILE, API_UPDATE_FRIEND, API_DEL_FRIEND, API_DEL_MESSAGE, API_MESSAGE_REMAIN_NUM } from '../../utils/config.js'
+import { API_HOST, API_EDIT_RENAME, API_UPDATE_FRIEND, API_DEL_FRIEND, API_DEL_MESSAGE, API_MESSAGE_REMAIN_NUM } from '../../utils/config.js'
 
 Page({
   data: {
@@ -175,7 +175,42 @@ Page({
       }
     })
   },
-
+  // 更新备注
+  onEditName() {
+    let _this = this;
+    wx.request({
+      url: `${API_HOST}${API_EDIT_RENAME}`,
+      method: "Post",
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      data: {
+        friendID: this.data.friendid,
+        remark:this.data.commVal,
+      },
+      success: res => {
+        if (res.data.code === 0) {
+          wx.showToast({
+            title: "更新成功成功",
+            icon: 'none',
+            success:()=>{
+              _this.setData({
+                isOpens: false,
+                commVal:''
+              })
+            }
+          })
+        }else if(res.data.code === 50001){
+          _this.showModalfc()
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
   onSwitchChange(e) {
     this.setData({
       istop: e.detail
@@ -281,10 +316,11 @@ Page({
   },
   okCommt(){
     if (this.data.isDone){
-      this.setData({
-        isOpens: false,
-        commVal:''
-      })
+      this.onEditName()
+      // this.setData({
+      //   isOpens: false,
+      //   commVal:''
+      // })
     }else{
       wx.showToast({
         title: '请输入备注',

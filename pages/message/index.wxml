@@ -1,7 +1,8 @@
 <view class="message">
   <view class="message-body" style="margin-bottom:140rpx">
     <view class="message-body-content">
-      <scroll-view class="message-content" scroll-into-view="msg-{{state.length}}" style="height:{{systeminfo.windowHeight - paddingTop - 44 - textareaHeight - (isChoose ? 100 : 0) - 44}}px;overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
+      {{systeminfo.windowHeight}}
+      <scroll-view class="message-content" scroll-into-view="msg-{{state.length}}" style="height:100vh;overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
         <view wx:for="{{messageList}}" wx:key="{{item.id}}" wx:for-index="index" class="message-content-item {{item.userid == userId?'right':''}}" id="{{'msg-' + index}}">
           <image bindtap="onImageClick" data-item="{{item}}" class="message-content-item_img" src="{{item.userid != userId ? item.imgurl : item.userImgurl}}" role="img"></image>
           <view class="message-content-item_msg">
@@ -24,7 +25,7 @@
           </view>
         </view>
       </scroll-view>
-      <view class="message-input" style="{{isFocus ? 'position: fixed; left: 0; bottom: bottomStyle; paddingBottom: 0 ;' : 'bottom: 0; '}}">
+      <view class="message-input {{isFocus?'message-input--focus':''}}">
         <view class="message-input-box">
           <image bindtap="onSwitchModel" class="message-input-textIcon" src="{{isVoice?'../../assets/images/common/text.png':'/assets/images/common/voice.png'}}"></image>
           <view wx:if="{{isVoice}}" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" class="message-input-speak">
@@ -32,15 +33,16 @@
           </view>
           <!-- <view class="message-input-speak" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" >{{voiceMsgVal}}</view>  -->
           <view class="message-input-speak" bindtap="ontextareaViewClick" wx:else>
+            <!--  -->
             <block wx:if="{{isShowTextarea}}">
+              <form bindsubmit="onConfirm" report-submit="true" style="width:100%;">
               <!-- <view bindtap="onConfirm">发送按钮</view> -->
-              <textarea wx:if="{{isShowTextarea}}" class='message-input-text'  adjust-position="{{false}}" adjust-position="{{false}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="maxHeight: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput"
-                auto-focus="{{autoFocus}}" value="{{inputValue}}" maxlength="200">
+              <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="20" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="maxHeight: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
               </textarea>
-
+            </form>
             </block>
             <block wx:else>
-              <view calss='message-input-text' style="height: {{40}}">{{inputValue}}</view>
+              <view calss='message-input-text'>{{inputValue}}</view>
               <view class="message-input-numBox">
                 <view class="message-input-numBox1">
                   <view>
@@ -49,7 +51,6 @@
                   <view>200</view>
                 </view>
               </view>
-
             </block>
           </view>
           <image bindtap="onShowImage" class="message-input-cameraIcon" data-e-tap-so="this" src="/assets/images/common/camera.png" role="img"></image>

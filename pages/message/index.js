@@ -122,6 +122,13 @@ Page({
       }
     })
   },
+  getSystemInfo(){
+    var systemInfo = wx.getSystemInfoSync();
+    this.setData({
+        paddingTop: systemInfo.statusBarHeight,
+        systeminfo: systemInfo
+      });
+  },
   onPlayVoice(e) {
     console.log(e);
     let item = e.currentTarget.dataset.item
@@ -178,11 +185,11 @@ Page({
     openKeyboard(e) {
       let _this = this
       setTimeout(function () {
-        // var isFocus = true;
-       // var bottomStyle = e.target.height + 'px'; //软键盘的高度
+        var isFocus = true;
+       var bottomStyle = e.target.height + 'px'; //软键盘的高度
         _this.setData({
-         // bottomStyle: bottomStyle,
-          // isFocus: isFocus,
+         bottomStyle: bottomStyle,
+          isFocus: isFocus,
           isChoose: false
         });
       }, 1);
@@ -192,7 +199,7 @@ Page({
       const commentContent = this.data.commentContent
       this.setData({
         isFocus: false,
-        bottomStyle: commentContent ? '0' : '-80rpx',
+        bottomStyle: 0,
         isShowTextarea: false,
         autoFocus: false,
         textareaHeight: 60

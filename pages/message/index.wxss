@@ -323,6 +323,7 @@ page {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 20rpx 0;
+  
 }
 
 .message-input {
@@ -342,9 +343,14 @@ page {
   flex-direction: column;
   position: fixed;
   left: 0;
-  padding-bottom: env(safe-area-inset-bottom);
+  bottom:0;
+  
+  
 }
-
+.message-input--focus {
+  position: absolute; 
+  bottom:0;
+}
 .message-input-textIcon {
   width: 52rpx;
   height: 52rpx;
