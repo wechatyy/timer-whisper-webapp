@@ -20,9 +20,9 @@
       <block wx:if="{{isTopArr.length !== 0}}">
           <view class="tells-top">
               <view class="tells-top-title">置顶收话人</view>
-              <view class="tells-list-item" wx:key="friendid" bindtap="onItemClick" wx:for="{{isTopArr}}" wx:for-item="v" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
-                  <image class="list_img" src="{{v.imgurl}}"></image>
-                  <view class="list_msg">{{v.friendname}}</view>
+              <view class="tells-list-item" wx:key="friendid" wx:for="{{isTopArr}}" wx:for-item="v" wx:for-index="_anonIdx2">
+                  <image class="list_img"  bindtap="onItemClickToFriendInfo" data-item="{{v}}" src="{{v.imgurl}}"></image>
+                  <view class="list_msg"  bindtap="onItemClickToMessage" data-item="{{v}}">{{v.friendname}}</view>
               </view>
           </view>
       </block>
