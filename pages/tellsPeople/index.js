@@ -295,9 +295,10 @@ Page({
     this.getSystemInfo()
     if (options.userId){
       this.setData({userId: options.userId})
-      try {
-        await this.bindFriendFc(options.userId)
-      } catch (error) {}
+      this.showModalfbd()
+      // try {
+      //   await this.bindFriendFc(options.userId)
+      // } catch (error) {}
     }
 
   },
@@ -332,6 +333,29 @@ Page({
       tabBarHeight: tabBarHeight
     });
   },
+  showModalfbd(){
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '绑定好友后可互发信息',
+      confirmText: '绑定',
+      showCancel: true,
+      cancelText:'取消',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          if (!wx.getStorageSync('token')){
+            _this.setData({isAuth:false})
+            _this.showModalfc()
+          }else {
+            _this.bindFriendFc()
+          }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   showModalfc(){
     let _this = this;
     wx.showModal({
@@ -364,7 +388,7 @@ Page({
           token:  wx.getStorageSync('token')
         },
         data: {
-          friendId: userId
+          friendId: this.data.userId
         },
         success: res => {
           console.log(res)
