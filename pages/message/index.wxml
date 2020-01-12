@@ -8,7 +8,11 @@
           <view class="message-content-item_msg">
             <view class="triangle"></view>
             <view class="message-content-title">
-              <text class="message-content-time">{{item.messagestatus == 1 ? '将于'+item.plantime+'送达该消息': '该消息送达失败'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 1}}">{{'将于'+item.plantime+'送达该消息'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 2}}">{{'将于'+item.plantime+'送达该消息'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 3}}">{{'消息已接收'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 4}}">{{'消息超时未接收'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 5}}">{{'消息发送失败'}}</text>
             </view>
             <view wx:if="{{item.messagetype === 1}}" class="message-content-msg">{{item.messagecontent}}</view>
             <view wx:if="{{item.messagetype === 2}}" class="message-content-voice" bindtap="onPlayVoice" data-item="{{item}}">
