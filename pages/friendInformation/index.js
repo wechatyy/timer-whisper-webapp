@@ -15,7 +15,10 @@ Page({
     friendname: "",
     intimateid: "",
     friendid: "",
-    count: 0
+    count: 0,
+    isOpens: false,
+    commVal:'',
+    isDone:false
   },
 
   onLoad: function (options) {
@@ -249,10 +252,44 @@ Page({
     })
   },
 
-  onSearchMessage() {
-    wx.navigateTo({
-      url: `/pages/chatRecord/index`
+  onSetCommen() {
+    this.setData({
+      isOpens:true
     })
+  },
+  onCloseOpens(){
+    this.setData({
+      isOpens:false
+    })
+  },
+  changComm(e){
+    console.log(e)
+    let _this = this;
+    _this.setData({
+      commVal: e.detail.value
+    },()=>{
+      if (_this.data.commVal.length>0){
+        _this.setData({
+          isDone:true
+        })
+      }else{
+        _this.setData({
+          isDone: false
+        })
+      }
+    })
+  },
+  okCommt(){
+    if (this.data.isDone){
+      this.setData({
+        isOpens: false,
+        commVal:''
+      })
+    }else{
+      wx.showToast({
+        title: '请输入备注',
+        icon:'none'
+      })
+    }
   }
-
 })
