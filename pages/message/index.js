@@ -35,6 +35,7 @@ Page({
     isInputEnter: false, // 是否是文字
     isVoiceEnter: false, // 是否是音频
     isImageEnter: false, // 是否是图片
+    isMsg4Enter: false, // 是否是第四种
     is_clock: false,
     recorderManager: null,
     startPoint: 0,
@@ -42,11 +43,7 @@ Page({
     autoFocus: false,
     isShowTextarea: false, 
     messageList: [],
-    userId: "",
-    // noticeNumberData: {
-    //   messageCount: 0,
-    //   messageNumCount: 0
-    // },
+    userId: "", 
     duration: 0,
     insertFriendID: 0,
     insertImgUrl: "",
@@ -63,7 +60,10 @@ Page({
     timeHours: timeHours,
     isCurDate:false,
     bidisplayTime:'',
-    ismessageModal:false
+    ismessageModal:false,
+    msg4_input:"",
+    msg4_imgs:[],
+    messagetype:4
   },
   ontextareaViewClick () {
     this.setData({
@@ -218,6 +218,7 @@ Page({
           isInputEnter: true,
           isShowTextarea: false,
           isImageEnter:false,
+          isMsg4Enter: false,
           autoFocus: false,
         },()=>{
           _this.onMessageModal(true);
@@ -231,6 +232,7 @@ Page({
         isInputEnter: false,
         isVoiceEnter: false,
         isImageEnter: false,
+        isMsg4Enter: false,
         inputValue: '',
         voiceValue: '',
         imageValue: [],
@@ -253,9 +255,12 @@ Page({
       })
     },
     onShowImage() {
-      this.setData({
-        isChoose: !this.data.isChoose
+      wx.navigateTo({
+        url: '/pages/editMesg/index',
       })
+      // this.setData({
+      //   isChoose: !this.data.isChoose
+      // })
     },
     onImageToolClick(e) {
       let _this = this;
@@ -289,6 +294,7 @@ Page({
                     isInputEnter: false,
                     isVoiceEnter: false, 
                     isImageEnter: true, 
+                    isMsg4Enter: false,
                     isShowModal: true,
                     imageValue: urlArr
                   },()=>{
@@ -347,10 +353,14 @@ Page({
     } else if (this.data.isVoiceEnter) {
       messageContent = this.data.voiceValue;
       messageType = 2;
-    } else {
+    } else if (this.data.isImageEnter){
       messageContent = this.data.imageValue.join(',');
       messageType = 3;
-    }   
+    } else if (this.data.isMsg4Enter){
+      messageContent = this.data.msg4_input;
+      messageContent = this.data.msg4_imgs.join(',');
+      messageType = 4;
+    }
     var nowDate = new Date().getTime();
     var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime:_this.dta.displayTime} ${_this.data.timeHours}:00`;
     console.log(displayTime,timeHours);
@@ -390,7 +400,8 @@ Page({
           _this.onMessageModal(false)
           _this.queryMessageList()
           _this.setData({
-            inputValue:''
+            inputValue:'',
+
           })
         } else {
           wx.navigateTo({
@@ -513,6 +524,14 @@ Page({
     wx.navigateTo({
       url: "/pages/choosePeople/index"
     });
+  },
+  //查看图片
+  getShowimgs(e){
+    let usrIdex = e.currentTarget.dataset.item
+    wx.previewImage({
+      current: usrIdex, // 当前显示图片的http链接
+      urls: [] // 需要预览的图片http链接列表
+    })
   },
   /**
    * 生命周期函数--监听页面加载

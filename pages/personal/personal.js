@@ -1,3 +1,4 @@
+import { API_HOST, API_CUSTOM_LIST, API_USER_INFO } from '../../utils/config.js'
 
 Page({
 
@@ -15,8 +16,39 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
+  getUser(){ 
+      let _this = this;
+      wx.request({
+        url: `${API_HOST}${API_USER_INFO}`,
+        method: "GET",
+        header: {
+          token: wx.getStorageSync('token')
+        },
+        success: function success(res) {
+          if (res.data.code == 0) {
+            let { userId, username, gender, avatarUrl } = res.data.user
+            _this.setData({
+              userId,
+              username, 
+              gender,
+              avatarUrl
+            })
+          } else {
+           wx.navigateTo({
+             url: '/pages/login/index'
+           })
+          }
+        },
+        fail: function fail() {
+          wx.showToast({
+            title: '失败',
+            icon: 'none'
+          })
+        }
+      });
+    },
   onToolClick(){
     wx.navigateTo({
       url: '/pages/intimate/index',
@@ -73,7 +105,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getUser()
   },
 
   /**

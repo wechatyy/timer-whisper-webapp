@@ -1,0 +1,35 @@
+/* pages/editMesg/index.wxss */
+.title_hd{
+  padding: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.onDoen{
+  padding: 2rpx 20rpx; 
+  border-radius:10rpx; 
+}
+.edit_commen{
+  margin: 30rpx;
+  padding:30rpx 20rpx 20rpx 20rpx;
+  margin-top:0; 
+  border-top: 1rpx solid #eee;
+}
+.edit_commen textarea{
+  width: 100%;
+  color: #666;
+  height: 120rpx;
+}
+.stlylv{
+background-color: #09bb07;
+color: #fff
+}
+.stlyhui{
+background-color: #ccc;
+color: #999;
+}
+.van-uploader__upload{
+  background-color: #eee !important;
+}
+.move_img{
+  margin-top: 30rpx;
+}

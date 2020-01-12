@@ -848,3 +848,14 @@ page {
 .animate-none {
   display: none;
 }
+.strMES{
+  width: 100;
+  border: 1px solid #f2f2f2;
+  padding: 4rpx;
+}
+.moveimges{
+  width:90rpx;
+  height: 90rpx;
+  margin-left:6rpx;
+  margin-bottom: 6rpx;
+}

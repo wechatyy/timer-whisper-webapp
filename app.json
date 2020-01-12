@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tellsPeople/index",
+    "pages/editMesg/index",
     "pages/friendInformation/index",
     "pages/personal/openvip/index",
     "pages/personal/devlop/index",

@@ -1,0 +1,14 @@
+<!--pages/editMesg/index.wxml-->
+<view>
+  <view class="title_hd">
+    <view class="oncol" bindtap="oncloes">取消</view>
+    <view>预览</view>
+    <view class="onDoen {{isDone? 'stlylv' : 'stlyhui'}}" bindtap="onDoen" >发送</view>
+  </view>
+  <view class="edit_commen">
+    <textarea placeholder="输入悄悄话..."  value="{{strInput}}" bindinput="contionsInout"></textarea>
+    <view class="move_img">
+      <van-uploader   file-list="{{ feedbackimg }}" bind:delete="delImgs" bind:after-read="afterRead" max-count="9" />
+    </view>
+  </view>
+</view>

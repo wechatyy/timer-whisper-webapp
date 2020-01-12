@@ -1,8 +1,8 @@
 <view class="mine">
   <view class="mine-body">
     <view class="mine-container">
-      <image class="mine-containe_img" src="https://wx.qlogo.cn/mmopen/vi_32/BJnAbDL1SbWxICTBcYyD2CneFhibmzKjOOKwPr6EdJx2z9icTuo4mqyRyyqyE8BjSMULS2DN4Gr7mib0WMmh5y9Nw/132" role="img"></image>
-      <view class="mine-containe_name">aleige</view>
+      <image class="mine-containe_img" src="{{avatarUrl}}" role="img"></image>
+      <view class="mine-containe_name">{{username}}</view>
     </view>
     <view class="mine-tool-box">
       <view bindtap="onToolClick" class="mine-tool-item" data-e-tap-so="this">
