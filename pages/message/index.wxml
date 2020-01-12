@@ -8,7 +8,11 @@
           <view class="message-content-item_msg">
             <view class="triangle"></view>
             <view class="message-content-title">
-              <text class="message-content-time">{{item.messagestatus == 1 ? '将于'+item.plantime+'送达该消息': '该消息送达失败'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 1}}">{{'将于'+item.plantime+'送达该消息'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 2}}">{{'将于'+item.plantime+'送达该消息'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 3}}">{{'消息已接收'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 4}}">{{'消息超时未接收'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 5}}">{{'消息发送失败'}}</text>
             </view>
             <view wx:if="{{item.messagetype === 1}}" class="message-content-msg">{{item.messagecontent}}</view>
             <view wx:if="{{item.messagetype === 2}}" class="message-content-voice" bindtap="onPlayVoice" data-item="{{item}}">
@@ -46,7 +50,7 @@
             <block wx:if="{{isShowTextarea}}">
               <form bindsubmit="onConfirm" report-submit="true" style="width:100%;">
               <!-- <view bindtap="onConfirm">发送按钮</view> -->
-              <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="20" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="maxHeight: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
+              <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="20" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="max-height: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
               </textarea>
             </form>
             </block>
@@ -108,11 +112,9 @@
         </scroll-view>
       </block> 
       <view bindtap="onChooseFriend" class="messageModal-body-add" data-e-tap-so="this">
-        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{options.imgUrl}}" role="img">
+        <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{imgUrl}}" role="img">
         </image>
-        <text style="color:rgba(30,39,55,1)">
-                  {{options.friendName}}
-                  </text>
+        <text style="color:rgba(30,39,55,1)">{{friendName}}</text>
       </view>
       <view class="messageModal-body-line">
       </view>

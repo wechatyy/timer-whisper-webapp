@@ -2,20 +2,20 @@
   <view class="tells">
     <view class="tells-search">
       <view class="tells-head">
-        <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
-          <image class="list_img" src=""></image>
+        <view style="position:relative;"class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
+          <image class="list_img" src="/assets/images/common/icon-add-fri.png"></image>
           <view class="list_msg">添加朋友</view>
           <button wx:if="{{isAuth}}" open-type='share' class="btn-cover"></button>
         </view>
         <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
-          <image class="list_img" src=""></image>
+          <image style="" class="list_img" src="/assets/images/common/send.png"></image>
           <view class="list_msg">快速定时</view>
         </view>
-        <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
-          <image class="list_img" src=""></image>
+        <!-- <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
+          <image class="list_img" src="/assets/images/common/icon-gongzhon.png"></image>
           <view class="list_msg">前往公众号</view>
           <official-account></official-account>
-        </view>
+        </view> -->
       </view>
       <block wx:if="{{isTopArr.length !== 0}}">
           <view class="tells-top">

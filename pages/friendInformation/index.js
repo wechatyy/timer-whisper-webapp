@@ -202,7 +202,10 @@ Page({
             success:()=>{
               _this.setData({
                 isOpens: false,
-                commVal:''
+                remarkname:this.data.commVal
+              })
+              _this.setData({
+                commVal:'',
               })
             }
           })
