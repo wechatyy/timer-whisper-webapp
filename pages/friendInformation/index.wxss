@@ -76,7 +76,7 @@
 }
 .information-msg_remark {
   font-size: 22rpx;
-  color: 999;
+  color: #999;
   margin-top: 20rpx;
   display: -webkit-box;
   display: -webkit-flex;
