@@ -255,12 +255,12 @@ Page({
       })
     },
     onShowImage() {
-      wx.navigateTo({
-        url: '/pages/editMesg/index',
-      })
-      // this.setData({
-      //   isChoose: !this.data.isChoose
+      // wx.navigateTo({
+      //   url: '/pages/editMesg/index',
       // })
+      this.setData({
+        isChoose: !this.data.isChoose
+      })
     },
     onImageToolClick(e) {
       let _this = this;
