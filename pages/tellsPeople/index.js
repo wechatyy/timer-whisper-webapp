@@ -32,7 +32,7 @@ Page({
       messageCount: 0,
       messageNumCount: 0
     },
-    indexHeight:'calc(100vh- 348rpx)',
+    indexHeight:'calc(100vh - 348rpx)',
     callBack_id: '',
     callBack_img: '',
     callBack_name: '',
@@ -279,10 +279,14 @@ Page({
             friendID: '',
             friendName: ''
           })
-        } else {
+        }else if(res.data.code === 50001){
           wx.navigateTo({
             url: '/pages/login/index',
           })
+        } else {
+          // wx.navigateTo({
+          //   url: '/pages/login/index',
+          // })
           // _this5.props.onCancel(true);
         }
       },

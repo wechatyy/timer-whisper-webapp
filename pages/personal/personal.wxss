@@ -113,7 +113,7 @@ page {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  border-bottom: 2rpx solid #ddd;
+  /* border-bottom: 2rpx solid #ddd; */
   margin-right: 28rpx;
 }
 
@@ -374,4 +374,13 @@ page {
   height: 100vh;
   background-color: #000;
   opacity: 0.6;
+}
+.desc {
+  font-size: 24rpx;
+  color: #576b95;
+  line-height: 34rpx;
+  box-sizing: border-box;
+  width: 450rpx;
+  margin: 0rpx auto;
+  text-align: center;
 }

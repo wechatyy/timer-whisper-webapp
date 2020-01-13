@@ -344,6 +344,7 @@ page {
   position: fixed;
   left: 0;
   bottom:0;
+  padding-bottom: 40rpx;
   
   
 }
@@ -399,14 +400,15 @@ page {
 }
 
 .message-input-text {
-  min-height: 80rpx;
+  
+  min-height: 40rpx;
   text-align: left;
   font-size: 32rpx;
   width: 100%;
   color: #1e2737;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 20rpx 0 20rpx;
+  padding: 4rpx 20rpx 4rpx 20rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
