@@ -104,6 +104,12 @@ Page({
             if (item.messagetype == 3 ){
               item.messagecontent = item.messagecontent.split(',')
             }
+            if (item.messagetype == 4) {
+              let strmesg = item.messagecontent.split(',')
+              item.messagestr = strmesg[0]
+              item.messagecontent = strmesg.slice(1)
+              
+            }
           })
           this.setData({
             messageList: res.data.data,
@@ -258,12 +264,12 @@ Page({
       })
     },
     onShowImage() {
-      // wx.navigateTo({
-      //   url: '/pages/editMesg/index',
-      // })
-      this.setData({
-        isChoose: !this.data.isChoose
+      wx.navigateTo({
+        url: '/pages/editMesg/index',
       })
+      // this.setData({
+      //   isChoose: !this.data.isChoose
+      // })
     },
     onImageToolClick(e) {
       let _this = this;
@@ -360,8 +366,9 @@ Page({
       messageContent = this.data.imageValue.join(',');
       messageType = 3;
     } else if (this.data.isMsg4Enter){
-      messageContent = this.data.msg4_input;
-      messageContent = this.data.msg4_imgs.join(',');
+      let inputStr = this.data.msg4_input;
+      let imgsJoin = this.data.msg4_imgs.join(',');
+      messageContent = inputStr + "," + imgsJoin
       messageType = 4;
     }
     var nowDate = new Date().getTime();
@@ -530,10 +537,12 @@ Page({
   },
   //查看图片
   getShowimgs(e){
-    let usrIdex = e.currentTarget.dataset.item
+    console.log(e)
+    let usrIdex = e.currentTarget.dataset.item;
+    let list = e.currentTarget.dataset.list;
     wx.previewImage({
       current: usrIdex, // 当前显示图片的http链接
-      urls: [] // 需要预览的图片http链接列表
+      urls: list // 需要预览的图片http链接列表
     })
   },
   /**

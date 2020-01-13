@@ -1,6 +1,11 @@
 {
   "usingComponents": {
     "wux-index": "../../components/index/index",
-    "wux-index-item": "../../components/index-item/index"
+    "wux-index-item": "../../components/index-item/index",
+    "wux-cell-group": "../../components/wux/cell-group/index",
+    "wux-cell": "../../components/wux/cell/index",
+    "wux-calendar": "../../components/wux/calendar/index",
+    "van-datetime-picker": "../../components/vant/datetime-picker/index",
+    "van-popup": "../../components/vant/popup/index"
   }
 }
