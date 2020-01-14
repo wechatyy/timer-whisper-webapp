@@ -326,6 +326,10 @@ page {
   width: 480rpx;
   overflow: hidden;
 } 
-
+.desc{
+  text-align: center;
+  font-size: 22rpx;
+  color:#999999;
+}
 
 

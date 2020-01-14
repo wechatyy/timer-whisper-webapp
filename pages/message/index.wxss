@@ -865,5 +865,5 @@ page {
   border-radius:6rpx; 
 }
 .addscroll{
-  margin-bottom: 140rpx;
+  margin-bottom: 180rpx;
 }

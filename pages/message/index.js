@@ -673,10 +673,6 @@ Page({
       imgUrl: options.imgUrl,
       sex: options.sex,
       userId: wx.getStorageSync('userId')
-    },()=>{
-    wx.setNavigationBarTitle({
-      title: options.friendName,
-    })
     })
 
     this.queryMessageList()

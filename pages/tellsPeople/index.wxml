@@ -11,7 +11,7 @@
           <view class="tupian_fs">
             <image style="" class="list_img newsend" src="/assets/images/common/newSend.png"></image>
           </view>
-          <view class="list_msg">快速定时</view> 
+          <view class="list_msg">快速创建定时消息</view> 
         </view>
         <!-- <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
           <image class="list_img" src="/assets/images/common/icon-gongzhon.png"></image>
@@ -37,8 +37,9 @@
             <view class="list_msg" bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.remarkname||vi.friendname}}</view>
           </view>
           </van-cell> 
-        </view> 
+        </view>  
       </van-index-bar>
+      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位朋友及联系人</view> 
       <!-- <wux-index height="{{indexHeight}}"  bindchange="onChange">
         <wux-index-item wx:key="{{item.title}}" name="{{item.title}}" wx:for="{{list}}" wx:for-index="index">
           <view class="tells-list-item" wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">
