@@ -620,6 +620,9 @@ Page({
               _this.setData({
                 voiceValue: API_HOST.replace('api', '') + "/" + url,
                 isVoiceEnter: true,
+                isMsg4Enter: false,
+                isInputEnter: false,
+                isImageEnter: false,
                 isShowModal: true,
                 duration: Math.ceil(res.duration / 1000)
               }, () => {
