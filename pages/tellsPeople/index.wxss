@@ -52,9 +52,23 @@ page {
   width: 80rpx;
   height: 80rpx;
   border-radius: 8rpx;
-
+  /* position: absolute;
+  z-index: 2; */
+ 
 }
-
+.tupian_fs{
+ width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background-color: #07c160;
+  position: relative;
+}
+.newsend{
+  width: 60rpx !important;
+  height: 60rpx !important;
+  margin-left: 10rpx;
+  margin-top: 10rpx;
+}
 .tells-nav-item .list_msg {
   margin-left: 28rpx;
   border-bottom: 2rpx solid #EEEEEE;
@@ -302,7 +316,10 @@ page {
 .sign-tabbar-form .btn::after {
   border: none;
 }
-
+.addnewTEST{
+  width: 480rpx;
+  overflow: hidden;
+}
 
 
 

@@ -1,8 +1,8 @@
 <view class="message">
-  <view class="message-body" style="margin-bottom:140rpx">
+  <view class="message-body">
     <view class="message-body-content">
       {{systeminfo.windowHeight}}
-      <scroll-view class="message-content" scroll-into-view="msg-{{state.length}}" style="overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
+      <scroll-view class="message-content addscroll" scroll-into-view="msg-{{state.length}}" style="overflow:{{isShowModal ? 'hidden' : 'scroll'}}">
         <view wx:for="{{messageList}}" wx:key="{{item.id}}" wx:for-index="index" class="message-content-item {{item.userid == userId?'right':''}}" id="{{'msg-' + index}}">
           <image bindtap="onImageClick" data-item="{{item}}" class="message-content-item_img" src="{{item.userid != userId ? item.imgurl : item.userImgurl}}" role="img"></image>
           <view class="message-content-item_msg">
@@ -27,13 +27,13 @@
                 <image class="message-content-img_img" mode='widthFix' src="{{imgItem}}"></image>
               </block>
             </view>
-             <view wx:if="{{item.messagetype === 4}}" class="message-content-img">
-             <view class="strMES">{{item.messagestr}}</view>
-             <view>
-                 <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{item.messagecontent}}">
-                <image  bindtap="getShowimgs" data-item="{{imgItem}}" data-list="{{item.messagecontent}}"  class="moveimges" mode='widthFix' src="{{imgItem}}"></image>
-              </block>
-            </view>  
+            <view wx:if="{{item.messagetype === 4}}" class="message-content-img">
+              <view class="strMES">{{item.messagestr}}</view>
+              <view>
+                <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{item.messagecontent}}">
+                  <image bindtap="getShowimgs" data-item="{{imgItem}}" data-list="{{item.messagecontent}}" class="moveimges" mode='widthFix' src="{{imgItem}}"></image>
+                </block>
+              </view>
               <!-- <image class="moveimges" mode='widthFix' wx:for="{{messagecontent}}"  src="item"  data-index ="{{index}}" data-item="{{item}}" bindtap="getShowimgs"></image>
              </view> -->
               <!-- <block wx:for-index="imgIndex" wx:for-item="imgI.tem" wx:for="{{item.messagecontent}}">
@@ -54,10 +54,11 @@
             <!--  -->
             <block wx:if="{{isShowTextarea}}">
               <form bindsubmit="onConfirm" report-submit="true" style="width:100%;">
-              <!-- <view bindtap="onConfirm">发送按钮</view> -->
-              <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="20" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="max-height: 150px" bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
-              </textarea>
-            </form>
+                <!-- <view bindtap="onConfirm">发送按钮</view> -->
+                <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="20" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="max-height: 150px"
+                  bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
+                </textarea>
+              </form>
             </block>
             <block wx:else>
               <view calss='message-input-text'>{{inputValue}}</view>
@@ -94,7 +95,7 @@
   </view>
   <view class="messageCover" wx:if="{{ismessageModal}}"></view>
   <view class="messageModal" wx:if="{{ismessageModal}}">
-    <view class="messageModal-body">
+    <view class="{{!isDateShow && !isAnimate ? 'messageModal-body' : isAnimate ? 'messageModal-body animate-none' : 'messageModal-body animate-style'}}">
       <block wx:if="{{isInputEnter}}">
         <scroll-view class="messageModal-body-msg" scroll-y="{{true}}">{{inputValue}}</scroll-view>
       </block>
@@ -109,13 +110,13 @@
         <scroll-view scroll-y="{{true}}" class="messageModal-body-msg">
           <image class="messageModal-body-img" mode="widthFix" src="{{v}}" wx:for="{{imageValue}}" wx:for-item="v" wx:for-index="_anonIdx2"></image>
         </scroll-view>
-      </block> 
-       <block wx:if="{{isMsg4Enter}}">
+      </block>
+      <block wx:if="{{isMsg4Enter}}">
         <scroll-view scroll-y="{{true}}" class="messageModal-body-msg">
           <view>{{msg4_input}}</view>
           <image class="messageModal-body-img" mode="widthFix" src="{{v}}" wx:for="{{msg4_imgs}}" wx:for-item="v" wx:for-index="_anonIdx2"></image>
         </scroll-view>
-      </block> 
+      </block>
       <view bindtap="onChooseFriend" class="messageModal-body-add" data-e-tap-so="this">
         <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{imgUrl}}" role="img">
         </image>
@@ -124,10 +125,11 @@
       <view class="messageModal-body-line">
       </view>
       <view class="messageModal-body-timeTitle">送达时间</view>
-
-      <view class="messageModal-body-time" bindtap="openCalendar" data-e-tap-so="this">{{dateNew}}</view>
-      <view class="messageModal-body-timeTitle">{{weekDayNew}}</view>
-      <view class="messageModal-body-time" bindtap="openCalendar" data-e-tap-so="this">{{timeHours}}</view>
+ <!-- bindtap="openCalendar"  -->
+      <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{year}} 年 {{month}} 月 {{day
+      < 10 ? '0' + day : day}} 日</view>
+      <view class="messageModal-body-timeTitle">{{weekDay}}</view>
+      <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{hh}}:{{mm}}</view>
 
 
       <view class="messageModal-body-line">
@@ -137,6 +139,33 @@
         </image>
         <image bindtap="onSendMessage" data-e-tap-so="this" src="/assets/images/common/send.png" role="img">
         </image>
+      </view>
+    </view>
+    <view class="{{isDateShow && isAnimate ? 'messageModal-body' : isAnimate ? 'messageModal-body animate-style' : 'messageModal-body animate-none'}}">
+      <picker-view indicator-style="height: 40px;" style="width: 100%; height: 200px;" value="{{yearValue}}" bindchange="onChangeYear">
+        <picker-view-column>
+          <view class="picker-view-style" wx:key="item" wx:for="{{years}}" wx:for-item="item" wx:for-index="_anonIdx4">{{item}}年</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="picker-view-style" wx:key="item" wx:for="{{months}}" wx:for-item="item" wx:for-index="_anonIdx6">{{item}}月</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="picker-view-style" wx:key="item" wx:for="{{days}}" wx:for-item="item" wx:for-index="_anonIdx8">{{item}}日</view>
+        </picker-view-column>
+      </picker-view>
+      <view class="messageModal-body-line" style="margin: 10px 0"></view>
+      <picker-view indicator-style="height: 40px;" style="width: 130px; height: 200px;position: relitave;" value="{{timeValue}}" bindchange="onChangeTime">
+        <view class="messageModal-position-time">:</view>
+        <picker-view-column>
+          <view class="picker-view-style" wx:key="item" wx:for="{{hours}}" wx:for-item="item" wx:for-index="_anonIdx10">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="picker-view-style" wx:key="item" wx:for="{{minutes}}" wx:for-item="item" wx:for-index="_anonIdx12">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+      <view class="messageModal-body-button">
+        <image bindtap="onShowMessage" src="/assets/images/common/cancel.png" data-e-tap-so="this"></image>
+        <image bindtap="onShowMessage" src="/assets/images/common/enter.png" data-e-tap-so="this"></image>
       </view>
     </view>
   </view>

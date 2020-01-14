@@ -9,7 +9,8 @@ Page({
     strInput:'',
     fileList:[],
     isDone:false,
-    feedbackimg: []
+    feedbackimg: [],
+    strNum:0
   },
 
   /**
@@ -23,7 +24,8 @@ Page({
     let _this = this;
     let val = e.detail.value
     _this.setData({
-      strInput:val
+      strInput:val,
+      strNum: e.detail.cursor
     },()=>{
       if (_this.data.strInput == '' && _this.data.feedbackimg.length == 0){
         _this.setData({
@@ -41,33 +43,39 @@ Page({
     const { file } = event.detail;
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
     console.log(file)
-    wx.uploadFile({
-      url: `${API_HOST}${API_UPLOAD_FILE}`, // 仅为示例，非真实的接口地址
-      filePath: file.path,
-      name: 'file',
-      header: {
-        token: wx.getStorageSync('token')
-      },
-      success(res) {
-        let data = JSON.parse(res.data)
-        const { feedbackimg = [], fileList = [] } = _this.data;
-        feedbackimg.push(`${API_HOST.replace('api', '')}${data.url}`);
-        _this.setData({
-          feedbackimg,
-          isDone: true
-        });
-      },
-      complete(){ 
-      }
-    });
+    file.map((item)=>{
+      wx.uploadFile({
+        url: `${API_HOST}${API_UPLOAD_FILE}`, // 仅为示例，非真实的接口地址
+        filePath: item.path,
+        name: 'file',
+        header: {
+          token: wx.getStorageSync('token')
+        },
+        success(res) {
+          let data = JSON.parse(res.data)
+          const { feedbackimg = [], fileList = [] } = _this.data;
+          fileList.push({ ...item})
+          feedbackimg.push(`${API_HOST.replace('api', '')}${data.url}`);
+          _this.setData({
+            feedbackimg,
+            isDone: true,
+            fileList
+          });
+        },
+        complete() {
+        }
+      }); 
+    }) 
   },
   //删除图片
   delImgs(e) {
     console.log(e)
     let _this = this;
     _this.data.feedbackimg.splice(e.detail.index, 1)
+    _this.data.fileList.splice(e.detail.index, 1)
     _this.setData({
       feedbackimg: _this.data.feedbackimg, 
+      fileList: _this.data.fileList
     },()=>{
       if (_this.data.strInput == '' && _this.data.feedbackimg.length == 0){
         _this.setData({

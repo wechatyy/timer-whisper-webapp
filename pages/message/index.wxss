@@ -399,7 +399,7 @@ page {
 }
 
 .message-input-text {
-  min-height: 80rpx;
+  /* min-height: 80rpx; */
   text-align: left;
   font-size: 32rpx;
   width: 100%;
@@ -410,11 +410,11 @@ page {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
-  display: flex;
+  /* display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .message-input-num {
@@ -577,11 +577,14 @@ page {
 }
 
 .voice-popup {
-  width: 384rpx;
-  height: 384rpx;
+  /* width: 384rpx;
+  height: 384rpx; */
+   width: 300rpx;
+  height: 300rpx;
   position: fixed;
   left: 50%;
-  top: 482rpx;
+  top: 400rpx;
+  /* top: 482rpx; */
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -612,7 +615,7 @@ page {
   bottom: 0;
   right: 0;
   margin: auto;
-  z-index: 3;
+  z-index: 10;
   width: 630rpx;
   min-height: 786rpx;
   max-height: 1040rpx;
@@ -859,4 +862,7 @@ page {
   margin-left:10rpx;
   margin-bottom: 10rpx;
   border-radius:6rpx; 
+}
+.addscroll{
+  margin-bottom: 140rpx;
 }

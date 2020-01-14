@@ -6,9 +6,13 @@
     <view class="onDoen {{isDone? 'stlylv' : 'stlyhui'}}" bindtap="onDoen" >发送</view>
   </view>
   <view class="edit_commen">
-    <textarea placeholder="输入悄悄话..."  value="{{strInput}}" bindinput="contionsInout"></textarea>
+    <view class="textareStr">
+       <textarea class="textpand" auto-height="{{true}}" placeholder="输入悄悄话..."  value="{{strInput}}" bindinput="contionsInout"></textarea>
+      <text class="maxstr">{{strNum}}/200</text>
+    </view>
+   
     <view class="move_img">
-      <van-uploader   file-list="{{ feedbackimg }}" bind:delete="delImgs" bind:after-read="afterRead" max-count="9" />
+      <van-uploader multiple="{{true}}"  file-list="{{ fileList }}" bind:delete="delImgs" bind:after-read="afterRead" max-count="9" />
     </view>
   </view>
 </view>

@@ -40,7 +40,8 @@ Page({
         intimateid: options.intimateid,
         isreject: options.isreject == 1 ? true : false,
         istop: options.istop == 1 ? true : false,
-        sex: options.sex
+        sex: options.sex,
+        commVal: options.remarkname != "null" ? options.remarkname : ''
       }) 
     }
     
@@ -202,7 +203,7 @@ Page({
             success:()=>{
               _this.setData({
                 isOpens: false,
-                remarkname:this.data.commVal
+                remarkname: _this.data.commVal
               })
               _this.setData({
                 commVal:'',
@@ -318,7 +319,7 @@ Page({
         })
       }else{
         _this.setData({
-          isDone: false
+          commVal: _this.data.remarkname != "null" ? _this.data.remarkname: ''
         })
       }
     })

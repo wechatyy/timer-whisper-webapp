@@ -14,8 +14,54 @@ let timenav = `${Year}年${Month + 1}月${Day}日`
 let weeknew = weekDay[date.getDay()]
 let timeHours = `${Hours}:${Minutes}:00`
 var recorderManager = wx.getRecorderManager();
+const years = []
+const months = []
+const days = []
+const hours = []
+const minutes = []
+const hh = date.getHours();
+const mm = date.getMinutes();
+for (let i = date.getFullYear(); i <= date.getFullYear() + 10; i++) {
+  years.push(i)
+} 
+for (let i = 1; i <= 12; i++) {
+  months.push(i)
+} 
+for (let i = 1; i <= 31; i++) {
+  days.push(i)
+}
+for (var i = 0; i <= 23; i++) {
+  if (i <= 9) {
+    i = '0' + i;
+  }
+  hours.push(i);
+}
+for (var i = 0; i <= 59; i++) {
+  if (i <= 9) {
+    i = '0' + i;
+  }
+  minutes.push(i);
+}
 Page({
   data: {
+    scrollTop:0,
+    weekDay: weeknew,
+    isDateShow: false,
+    isAnimate: false,
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hh: date.getHours(),
+    mm: date.getMinutes(),
+    hh: hh,
+    mm: mm,
+    timeValue: [hh, mm],
+    yearValue: [0, Month - 1, Day - 1],
+    years: years,
+    months: months,
+    days: days,
+    hours: hours,
+    minutes: minutes,
     friendID:"",
     isAuth:false,
     userId:'',
@@ -80,6 +126,51 @@ Page({
     ismessageModal: false,
     msg4_input: "",
     msg4_imgs: []
+  },
+  onShowMessage() {
+    var _this = this; 
+    this.setData({
+      isDateShow: false,
+      isAnimate: true
+    });
+    setTimeout(function () {
+      _this.setData({
+        isAnimate: false
+      });
+    }, 200);
+  },
+  onSelectDateShow() {
+    var _this = this; 
+    this.setData({
+      isDateShow: true,
+      isAnimate: false
+    });
+    setTimeout(function () {
+      _this.setData({
+        isAnimate: true
+      });
+    }, 200);
+  },
+  onChangeYear(e){ 
+    let _this = this;
+    let val = e.detail.value;
+    let newDate = new Date(_this.data.years[val[0]] + "-" + _this.data.months[val[1]] + "-" + _this.data.days[val[2]]).getDay();
+    _this.setData({
+      year: _this.data.years[val[0]],
+      month: _this.data.months[val[1]],
+      day: _this.data.days[val[2]],
+      value: val,
+      weekDay: weekDay[newDate]
+    });
+  },
+  onChangeTime(e){
+    let _this = this;
+    let val = e.detail.value; 
+    this.setData({
+      hh: _this.data.hours[val[0]],
+      mm: _this.data.minutes[val[1]],
+      timeValue: val
+    });
   },
   showMESGfc(){
     this.setData({
@@ -235,11 +326,16 @@ Page({
       messageContent = inputStr + "," + imgsJoin
       messageType = 4;
     }
+    let _state = this.data,
+      year = _state.year,
+      month = _state.month,
+      day = _state.day,
+      hh = _state.hh,
+      mm = _state.mm;
+
     var nowDate = new Date().getTime();
-    var dataStr = `${_this.data.bidisplayTime ? _this.data.bidisplayTime : _this.data.displayTime} ${_this.data.timeHours}:00`;
-    console.log(displayTime, timeHours);
-    console.log(dataStr);
-    var selectDate = new Date(dataStr.replace(/-/g, '/')).getTime();
+    var dataStr = year + "/" + (month < 10 ? '0' + month : month) + "/" + (day < 10 ? '0' + day : day) + " " + hh + ":" + mm;
+    var selectDate = new Date(dataStr).getTime();
     console.log(nowDate, selectDate, dataStr);
     console.log(nowDate <= selectDate);
     if (selectDate <= nowDate) {
@@ -279,11 +375,15 @@ Page({
             friendID: '',
             friendName: ''
           })
-        } else {
+        } else if (res.data.code == 500){
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none' 
+          })
+        }else{
           wx.navigateTo({
             url: '/pages/login/index',
           })
-          // _this5.props.onCancel(true);
         }
       },
       fail: function fail() {
@@ -436,6 +536,14 @@ Page({
   },
   handleRecordStart(e) {
     console.log(e)
+    wx.vibrateShort({
+      success:(rd)=>{
+        console.log("震动成功")
+      },
+      fail:(ed)=>{
+        console.log("震动失败")
+      }
+    })
     this.setData({
       startPoint: e.touches[0],
       touchStart: e.timeStamp,
@@ -557,18 +665,21 @@ Page({
             const isTopArr = data.filter(v => v.istop);
             const listData = this.data_letter_sort(data.filter(v => !v.istop), 'friendname')
             let list = [];
+          let indexList = [];
             Object.keys(listData).forEach(v => {
               list.push({
                 title: v,
                 key: v,
                 items: listData[v]
               })
+              indexList.push(v)
             })
             list = list.filter(v => v.items.length > 0)
             this.setData({
               isTopArr: isTopArr,
               list: list,
-              data
+              data,
+              indexList
             })
         }
       },
@@ -742,5 +853,10 @@ Page({
       path: "/pages/tellsPeople/index?userId=" + wx.getStorageSync('userId'),
       imageUrl: "/assets/images/common/sharePng.png",
     };
+  },
+  onPageScroll(event) {
+    this.setData({
+      scrollTop: event.scrollTop
+    });
   }
 })

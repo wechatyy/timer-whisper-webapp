@@ -1,9 +1,10 @@
 {
   "pages": [
     "pages/tellsPeople/index",
+    "pages/friendInformation/index",
+    "pages/personal/personal",
     "pages/signin/index",
     "pages/editMesg/index",
-    "pages/friendInformation/index",
     "pages/personal/openvip/index",
     "pages/personal/devlop/index",
     "pages/message/index",
@@ -12,13 +13,12 @@
     "pages/choosePeople/index",
     "pages/chooseFriend/index",
     "pages/feedback/index",
-    "pages/chatRecord/index",
-    "pages/personal/personal"
+    "pages/chatRecord/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "定时悄悄话",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",

@@ -6,6 +6,8 @@
     "wux-cell": "../../components/wux/cell/index",
     "wux-calendar": "../../components/wux/calendar/index",
     "van-datetime-picker": "../../components/vant/datetime-picker/index",
-    "van-popup": "../../components/vant/popup/index"
+    "van-popup": "../../components/vant/popup/index",
+    "van-index-bar": "../../components/vant/index-bar/index",
+    "van-index-anchor": "../../components/vant/index-anchor/index"
   }
 }

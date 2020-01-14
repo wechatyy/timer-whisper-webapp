@@ -31,5 +31,23 @@ color: #999;
   background-color: #eee !important;
 }
 .move_img{
-  margin-top: 30rpx;
+  margin-top: 60rpx;
+}
+.van-uploader__preview-image{
+  width:200rpx !important;
+  height: 200rpx !important;
+}
+.textareStr{
+  position: relative;
+}
+.maxstr{
+  position: absolute;
+  z-index: 2;
+  bottom: -40rpx;
+  right: 0;
+  color: #ccc;
+  font-size: 22rpx;
+}
+.textpand{
+  padding:20rpx 0 60rpx 0;
 }
