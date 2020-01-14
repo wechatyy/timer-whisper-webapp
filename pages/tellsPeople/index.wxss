@@ -1,5 +1,6 @@
 @import '../message/index.wxss';
 page {
+  height: 100vh;
   background: #ededed;
 }
 
@@ -30,7 +31,7 @@ page {
   font-size: 24rpx;
 }
 .tells-head {
-  padding-top: 30rpx;
+  padding-top: 64rpx;
 }
 .tells-nav-item {
   height: 106rpx;
@@ -70,6 +71,8 @@ page {
   margin-top: 10rpx;
 }
 .tells-nav-item .list_msg {
+  font-weight: normal;
+
   margin-left: 28rpx;
   border-bottom: 2rpx solid #EEEEEE;
   display: -webkit-box;
@@ -290,6 +293,9 @@ page {
   color: #666666;
   line-height: 64rpx;
   padding-left: 28rpx;
+  background: #ECEDEE;
+  font-size:24rpx;
+  color:rgba(118,119,120,1);
 }
 
 .tells .at-search-bar__placeholder {
@@ -319,8 +325,7 @@ page {
 .addnewTEST{
   width: 480rpx;
   overflow: hidden;
-}
-
+} 
 
 
 

@@ -78,7 +78,7 @@ Page({
       messageCount: 0,
       messageNumCount: 0
     },
-    indexHeight:'calc(100vh- 348rpx)',
+    indexHeight:'calc(100vh - 348rpx)',
     callBack_id: '',
     callBack_img: '',
     callBack_name: '',
@@ -383,7 +383,7 @@ Page({
         }else{
           wx.navigateTo({
             url: '/pages/login/index',
-          })
+          }) 
         }
       },
       fail: function fail() {

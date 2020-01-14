@@ -1,5 +1,7 @@
 .wux-index-item__hd {
-  background: #d9d9d9;
+  background: #ECEDEE;
+  font-size:24rpx;
+  color:rgba(118,119,120,1);
   width: 100%;
   padding: 0 30rpx;
   box-sizing: border-box;

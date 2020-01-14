@@ -4,14 +4,14 @@
       <view class="tells-head">
         <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
           <image class="list_img" src="/assets/images/common/icon-add-fri.png"></image>
-          <view class="list_msg">添加朋友</view>
+          <view class="list_msg">添加收话人</view>
           <button wx:if="{{isAuth}}" open-type='share' class="btn-cover"></button>
-        </view>
+        </view> 
         <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'showMESGfc':'showModalfc'}}">
           <view class="tupian_fs">
             <image style="" class="list_img newsend" src="/assets/images/common/newSend.png"></image>
           </view>
-          <view class="list_msg">快速定时</view>
+          <view class="list_msg">快速定时</view> 
         </view>
         <!-- <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
           <image class="list_img" src="/assets/images/common/icon-gongzhon.png"></image>
@@ -45,8 +45,8 @@
             <image class="list_img" bindtap="onItemClickToFriendInfo" data-item="{{vi}}" src="{{vi.imgurl}}"></image>
             <view class="list_msg" bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.remarkname||vi.friendname}}</view>
           </view>
-        </wux-index-item>
-      </wux-index> -->
+        </wux-index-item> 
+      </wux-index> --> 
     </view>
   </view>
 </block>

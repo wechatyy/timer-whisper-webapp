@@ -209,11 +209,13 @@ Page({
               length: res.data.data.length - 1
             })
           }, 200)
-        } else {
-          toast(res.data.msg)
+        }else if(res.data.code === 50001){
           wx.navigateTo({
             url: '/pages/login/index',
           })
+        } else {
+          toast(res.data.msg)
+
         }
       },
       fail: () => {
@@ -657,6 +659,13 @@ Page({
    */
   onLoad: function (options) {
     console.log(options); 
+    let NavigationBarTitle = options.friendName
+    if(options.remarkname && options.remarkname!='null'){
+      NavigationBarTitle = options.remarkname
+    }
+    wx.setNavigationBarTitle({
+      title: NavigationBarTitle
+    })
     this.setData({
       options,
       friendID: options.friendID,

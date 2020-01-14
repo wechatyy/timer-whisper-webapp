@@ -42,6 +42,16 @@
     <view class="gzhao_tips">
       关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。
     </view>
+    <view class="mine-tool-box">
+      <view class="mine-tool-item" style="padding:20rpx 0;align-items: center;justify-content: center;">
+        <image mode="widthFix" style="disable:block;width:34rpx;margin: 0 25rpx 0 0;" src="/assets/images/common/send.png" role="img"></image>
+        <view bindtap="onHelpClick" style="font-size;34rpx;font-weight:bold;">
+          <text style="color:#576b95;">定时发送</text>
+        </view>
+      </view>
+    </view>
+    <view class="desc " style="margin:20rpx auto 0 auto">*"关注定时悄悄话"公众号之后，</view>
+    <view class="desc" style="margin:0rpx auto 20rpx auto">能够收到对方发送给你的定时悄悄话</view>
     <view bindtap="onVersionClick" class="mine-version-msg" data-e-tap-so="this">意见反馈</view>
   </view>
 
