@@ -1,0 +1,10 @@
+/* pages/friendInformation/setCommon.wxss */
+@import '/pages/friendInformation/index.wxss';
+page{
+  background-color: #f2f2f2;
+}
+.titels{
+  padding-left: 30rpx;
+  color: #777;
+  margin-bottom: 20rpx;
+}

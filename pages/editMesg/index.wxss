@@ -1,23 +1,26 @@
 /* pages/editMesg/index.wxss */
+page{
+  background-color: #f2f2f2;
+}
 .title_hd{
   padding: 30rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .onDoen{
   padding: 2rpx 20rpx; 
   border-radius:10rpx; 
 }
 .edit_commen{
-  margin: 30rpx;
-  padding:30rpx 20rpx 20rpx 20rpx;
+  /* margin: 30rpx; */
+  /* padding:30rpx 20rpx 20rpx 20rpx; */
   margin-top:0; 
-  border-top: 1rpx solid #eee;
+  border-top: 1rpx solid #eee; 
 }
 .edit_commen textarea{
   width: 100%;
   color: #666;
-  height: 120rpx;
+  min-height: 240rpx;
 }
 .stlylv{
 background-color: #09bb07;
@@ -28,28 +31,33 @@ background-color: #ccc;
 color: #999;
 }
 .van-uploader__upload{
-  background-color: #eee !important;
-  width:200rpx !important;
-  height: 200rpx !important;
+  background-color: #fff !important;
+  width:220rpx !important;
+  height: 220rpx !important;
 }
 .move_img{
-  margin-top: 60rpx;
+  margin-top: 40rpx;
+  padding-left: 30rpx;
+  padding-right: 10rpx;
 }
 .van-uploader__preview-image{
-  width:200rpx !important;
-  height: 200rpx !important;
+  width:220rpx !important;
+  height: 220rpx !important;
 }
 .textareStr{
   position: relative;
+  background-color: #fff;
+  padding: 30rpx;
+  min-height: 240rpx;
 }
 .maxstr{
   position: absolute;
   z-index: 2;
-  bottom: -40rpx;
-  right: 0;
+  bottom: 10rpx;
+  right: 10rpx;
   color: #ccc;
   font-size: 22rpx;
 }
 .textpand{
-  padding:20rpx 0 60rpx 0;
+  /* padding:20rpx 0 60rpx 0; */
 }

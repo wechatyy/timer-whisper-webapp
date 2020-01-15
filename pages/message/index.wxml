@@ -62,7 +62,8 @@
             </block>
             <block wx:else>
               <view calss='message-input-text'>{{inputValue}}</view>
-              <view class="message-input-numBox">
+            </block>
+             <view class="message-input-numBox">
                 <view class="message-input-numBox1">
                   <view>
                     <text class="message-input-numBox1-box">{{inputValue.length}}</text>
@@ -70,7 +71,6 @@
                   <view>200</view>
                 </view>
               </view>
-            </block>
           </view>
           <image bindtap="onShowImage" class="message-input-cameraIcon" data-e-tap-so="this" src="/assets/images/common/camera.png" role="img"></image>
         </view>

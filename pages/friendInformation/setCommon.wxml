@@ -1,0 +1,22 @@
+<!--pages/friendInformation/setCommon.wxml-->
+<view class="ownStlye">
+      <view class="openTions">
+        <!-- <view bindtap="onCloseOpens">取消</view>
+        <view>设置备注</view>   {{isDone?'stlylv':'stlyhui'}}  -->
+        <view class="onDoen stlylv" bindtap="okCommt">完成</view>
+    </view>
+     <view class="titels">备注名</view>
+      <view class="commoText">
+      <van-field
+        value="{{ commVal }}"
+        placeholder="请输入备注信息"
+        border="{{ false }}"
+        focus = "{{true}}"
+        clearable= "{{true}}"
+        bind:input="changComm"
+        bind:clear = "changCommtwo"
+        maxlength="15" 
+      />
+        <!-- <input maxlength="15" focus="{{true}}"  placeholder="请输入备注信息" value="{{commVal}}" bindinput="changComm"></input> -->
+      </view>
+    </view> 

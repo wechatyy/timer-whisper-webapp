@@ -26,7 +26,14 @@ Page({
         let messageList = res.data.data;
         console.log(messageList)
         messageList.map((item,index)=>{
-          item.plantime = this.timed(item.plantime)
+          if (item.messagetype == 4) {
+            let strmesg = item.messagecontent.split(',')
+            item.messagestr = strmesg[0]
+            item.messagecontent = strmesg.slice(1)
+
+          }
+
+          item.plantime = this.timestampToTime(item.plantime)
           item.state_temp4 = item.messagetype === 2 ? "/assets/images/common/voice-right.png" : null;
         }) 
         this.setData({
@@ -34,6 +41,17 @@ Page({
         })
       }
     })
+  },
+timestampToTime(timestamp){
+    var date = new Date(timestamp);
+   let Y = date.getFullYear() + '年';
+  let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+  let D = date.getDate() + '日';
+  let  h = date.getHours() + ':';
+  let  m = date.getMinutes() + ':';
+  let  s = date.getSeconds();
+    return "将于" + Y + M + D +" "+ h + m + "送达消息" ;//时分秒可以根据自己的需求加上
+
   },
   //处理时间
   timed(time) {

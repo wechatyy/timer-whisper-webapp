@@ -3,14 +3,14 @@
     <view class="tells-search">
       <view class="tells-head">
         <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
-          <image class="list_img" src="/assets/images/common/icon-add-fri.png"></image>
+          <image class="list_img roud" src="/assets/images/common/icon-add-fri.png"></image>
           <view class="list_msg">添加收话人</view>
           <button wx:if="{{isAuth}}" open-type='share' class="btn-cover"></button>
         </view> 
         <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'showMESGfc':'showModalfc'}}">
-          <view class="tupian_fs">
-            <image style="" class="list_img newsend" src="/assets/images/common/newSend.png"></image>
-          </view>
+          
+            <image style="" class="list_img" src="/assets/images/common/send.png"></image>
+  
           <view class="list_msg">快速创建定时消息</view> 
         </view>
         <!-- <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
@@ -28,7 +28,7 @@
           </view>
         </view>
       </block>
-      <van-index-bar scroll-top="{{ scrollTop }}" index-list="{{ indexList }}">
+      <van-index-bar scroll-top="{{ scrollTop }}" z-index="10" select="onScrolls" highlight-color="#07c160" sticky="{{true}}" index-list="{{ indexList }}">
         <view  wx:key="{{item.title}}"   wx:for="{{list}}" wx:for-index="index">
           <van-index-anchor index="{{item.title}}" />
           <van-cell  wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">
@@ -39,7 +39,8 @@
           </van-cell> 
         </view>  
       </van-index-bar>
-      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位朋友及联系人</view> 
+      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位朋友及联系人</view>
+      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。</view>
       <!-- <wux-index height="{{indexHeight}}"  bindchange="onChange">
         <wux-index-item wx:key="{{item.title}}" name="{{item.title}}" wx:for="{{list}}" wx:for-index="index">
           <view class="tells-list-item" wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">
@@ -72,15 +73,15 @@
         </block>
         <block wx:else>
           <view calss='message-input-text addnewTEST'>{{inputValue}}</view>
-          <view class="message-input-numBox">
-            <view class="message-input-numBox1">
-              <view>
-                <text class="message-input-numBox1-box">{{inputValue.length}}</text>
-              </view>
-              <view>200</view>
-            </view>
-          </view>
         </block>
+        <view class="message-input-numBox">
+          <view class="message-input-numBox1">
+            <view>
+              <text class="message-input-numBox1-box">{{inputValue.length}}</text>
+            </view>
+            <view>200</view>
+          </view>
+        </view>
       </view>
       <image bindtap="onShowImage" class="message-input-cameraIcon" data-e-tap-so="this" src="/assets/images/common/camera.png" role="img"></image>
     </view>
@@ -191,3 +192,5 @@
   <view class="voice-popup" wx:if="{{isShowVoiceA}}">
     <image src="/assets/images/common/voice_b.gif"></image>
   </view>
+  
+  <view bindtap="showMESGfc" class="layers" wx:if="{{isTells}}"></view>

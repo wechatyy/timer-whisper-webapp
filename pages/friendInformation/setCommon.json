@@ -1,6 +1,6 @@
 {
   "navigationBarBackgroundColor": "#f2f2f2",
   "usingComponents": {
-    "van-uploader": "../../components/vant/uploader/index"
+    "van-field": "../../components/vant/field/index"
   }
 }

@@ -551,14 +551,7 @@ Page({
   },
   handleRecordStart(e) {
     console.log(e)
-    wx.vibrateShort({
-      success: (rd) => {
-        console.log("震动成功")
-      },
-      fail: (ed) => {
-        console.log("震动失败")
-      }
-    })
+    wx.vibrateLong()
     this.setData({
       startPoint: e.touches[0],
       touchStart: e.timeStamp,

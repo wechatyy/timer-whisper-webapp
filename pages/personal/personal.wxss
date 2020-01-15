@@ -134,7 +134,9 @@ page {
   font-size: 32rpx;
   color: #1e2737;
 }
-
+.sxinxi{
+  color: #009ACD !important;
+}
 .mine-version {
   position: absolute;
   left: 0;
@@ -392,5 +394,13 @@ page {
   padding: 40rpx 20%;
   text-align: center;
   font-size: 26rpx;
-  color:#7dc5eb; 
+  color:#009ACD; 
+}
+.erweima{
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+.weview{
+  text-align: center;
 }

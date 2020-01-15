@@ -22,7 +22,8 @@ Page({
   },
   onSearchMessage() {
     wx.navigateTo({
-      url: "/pages/chatRecord/index"
+      url: '/pages/served/index'
+      // url: "/pages/chatRecord/index"
     });
   },
 
@@ -198,7 +199,7 @@ Page({
       success: res => {
         if (res.data.code === 0) {
           wx.showToast({
-            title: "更新成功成功",
+            title: "更新成功",
             icon: 'none',
             success:()=>{
               _this.setData({
@@ -298,8 +299,8 @@ Page({
   },
 
   onSetCommen() {
-    this.setData({
-      isOpens:true
+    wx.navigateTo({
+      url: `/pages/friendInformation/setCommon?friendID=${this.data.friendid}&remarkname=${this.data.remarkname}&friendName=${this.data.friendname}`,
     })
   },
   onCloseOpens(){

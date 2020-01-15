@@ -327,9 +327,20 @@ page {
   overflow: hidden;
 } 
 .desc{
+  border-bottom:1rpx solid #ddd;
+  width: 200px;
+  margin: 0 auto;
+  padding-bottom: 10rpx;
+}
+.desxgz{
+  margin-top:10rpx; 
+}
+.desc,.desxgz{
   text-align: center;
-  font-size: 22rpx;
+  font-size: 20rpx;
   color:#999999;
 }
-
+.roud{
+  border-radius:100% !important; 
+}
 

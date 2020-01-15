@@ -1,13 +1,13 @@
 <!--pages/editMesg/index.wxml-->
 <view>
   <view class="title_hd">
-    <view class="oncol" bindtap="oncloes">取消</view>
-    <view>预览</view>
-    <view class="onDoen {{isDone? 'stlylv' : 'stlyhui'}}" bindtap="onDoen" >发送</view>
+    <!-- <view class="oncol" bindtap="oncloes">取消</view>
+    <view>预览</view> {{isDone? 'stlylv' : 'stlyhui'}}-->
+    <view class="onDoen stlylv " bindtap="onDoen" >发送</view>
   </view>
   <view class="edit_commen">
     <view class="textareStr">
-       <textarea class="textpand" auto-height="{{true}}" placeholder="输入悄悄话..."  value="{{strInput}}" bindinput="contionsInout"></textarea>
+       <textarea focus="{{true}}" class="textpand"   placeholder="输入悄悄话..."  value="{{strInput}}" bindinput="contionsInout"></textarea>
       <text class="maxstr">{{strNum}}/200</text>
     </view>
    

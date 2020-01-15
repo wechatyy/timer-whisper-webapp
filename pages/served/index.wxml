@@ -19,6 +19,14 @@
                             <image class="message-content-img_img" mode="widthFix" src="{{v.messagecontent}}"></image>
                         </view>
                     </block>
+                    <!-- <block wx:if="{{v.messagetype === 4}}">
+                         <view class="strMES">{{v.messagestr}}</view>
+                        <view>
+                          <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{v.messagecontent}}">
+                            <image data-item="{{imgItem}}" data-list="{{v.messagecontent}}" class="message-content-img_img" mode='widthFix' src="{{imgItem}}"></image>
+                          </block>
+                        </view> 
+                    </block> -->
                 </view>
             </view>
         </view>
