@@ -39,8 +39,8 @@
           </van-cell> 
         </view>  
       </van-index-bar>
-      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位朋友及联系人</view>
-      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。</view>
+      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位收话人</view>
+      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给你的定时悄悄话。</view>
       <!-- <wux-index height="{{indexHeight}}"  bindchange="onChange">
         <wux-index-item wx:key="{{item.title}}" name="{{item.title}}" wx:for="{{list}}" wx:for-index="index">
           <view class="tells-list-item" wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">

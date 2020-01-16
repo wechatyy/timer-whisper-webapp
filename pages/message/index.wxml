@@ -10,7 +10,7 @@
             <view class="message-content-title">
               <text class="message-content-time" wx:if="{{item.messagestatus == 1}}">{{'将于'+item.plantime+'送达该消息'}}</text>
               <text class="message-content-time" wx:if="{{item.messagestatus == 2}}">{{'将于'+item.plantime+'送达该消息'}}</text>
-              <text class="message-content-time" wx:if="{{item.messagestatus == 3}}">{{'消息已接收'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 3}}">{{item.plantime+'送达该消息'}}</text>
               <text class="message-content-time" wx:if="{{item.messagestatus == 4}}">{{'消息超时未接收'}}</text>
               <text class="message-content-time" wx:if="{{item.messagestatus == 5}}">{{'消息发送失败'}}</text>
             </view>

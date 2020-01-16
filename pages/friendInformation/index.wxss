@@ -35,7 +35,7 @@
 .information-msg {
   height: 240rpx;
   background: white;
-  padding: 60rpx 0 60rpx 40rpx;
+  padding: 20rpx 0 20rpx 40rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
