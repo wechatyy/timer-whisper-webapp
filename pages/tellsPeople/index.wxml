@@ -1,3 +1,24 @@
+<!-- <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
+          <image class="list_img" src="/assets/images/common/icon-gongzhon.png"></image>
+          <view class="list_msg">前往公众号</view>
+          <official-account></official-account>
+        </view> -->
+<!-- <view class="tells">
+    <view class="tells-search">
+        <van-index-bar height="100vh" scroll-top="{{ scrollTop }}" z-index="10" select="onScrolls" highlight-color="#07c160" sticky="{{true}}" index-list="{{ indexList }}">
+    <view wx:key="{{item.title}}" wx:for="{{list}}" wx:for-index="index">
+      <van-index-anchor index="{{item.title}}" />
+      <van-cell wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">
+        <view class="tells-list-item">
+          <image class="list_img" bindtap="onItemClickToFriendInfo" data-item="{{vi}}" src="{{vi.imgurl}}"></image>
+          <view class="list_msg" bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.remarkname||vi.friendname}}</view>
+        </view>
+      </van-cell>
+    </view>
+  </van-index-bar> 
+
+    </view>
+</view>  -->
 <block>
   <view class="tells">
     <view class="tells-search">
@@ -13,12 +34,8 @@
   
           <view class="list_msg">快速创建定时消息</view> 
         </view>
-        <!-- <view style="position:relative;" class="tells-nav-item" bindtap="{{isAuth?'':'showModalfc'}}">
-          <image class="list_img" src="/assets/images/common/icon-gongzhon.png"></image>
-          <view class="list_msg">前往公众号</view>
-          <official-account></official-account>
-        </view> -->
-      </view>
+        
+      </view> 
       <block wx:if="{{isTopArr.length !== 0}}">
         <view class="tells-top">
           <view class="tells-top-title">置顶收话人</view>
@@ -27,8 +44,8 @@
             <view class="list_msg" bindtap="onItemClickToMessage" data-item="{{v}}">{{v.friendname}}</view>
           </view>
         </view>
-      </block>
-      <van-index-bar scroll-top="{{ scrollTop }}" z-index="10" select="onScrolls" highlight-color="#07c160" sticky="{{true}}" index-list="{{ indexList }}">
+      </block> 
+         <van-index-bar height="100vh" scroll-top="{{ scrollTop }}" z-index="5" select="onScrolls" highlight-color="#07c160" sticky="{{true}}" index-list="{{ indexList }}">
         <view  wx:key="{{item.title}}"   wx:for="{{list}}" wx:for-index="index">
           <van-index-anchor index="{{item.title}}" />
           <van-cell  wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">
@@ -38,17 +55,10 @@
           </view>
           </van-cell> 
         </view>  
-      </van-index-bar>
+      </van-index-bar> 
+     
       <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位朋友及联系人</view>
-      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。</view>
-      <!-- <wux-index height="{{indexHeight}}"  bindchange="onChange">
-        <wux-index-item wx:key="{{item.title}}" name="{{item.title}}" wx:for="{{list}}" wx:for-index="index">
-          <view class="tells-list-item" wx:key="ii" wx:for="{{item.items}}" wx:for-item="vi" wx:for-index="ii">
-            <image class="list_img" bindtap="onItemClickToFriendInfo" data-item="{{vi}}" src="{{vi.imgurl}}"></image>
-            <view class="list_msg" bindtap="onItemClickToMessage" data-item="{{vi}}">{{vi.remarkname||vi.friendname}}</view>
-          </view>
-        </wux-index-item> 
-      </wux-index> --> 
+      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。</view> 
     </view>
   </view>
 </block>
@@ -59,13 +69,10 @@
       <image bindtap="onSwitchModel" class="message-input-textIcon" src="{{isVoice?'../../assets/images/common/text.png':'/assets/images/common/voice.png'}}"></image>
       <view wx:if="{{isVoice}}" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" class="message-input-speak">
         {{voiceMsgVal}}
-      </view>
-      <!-- <view class="message-input-speak" bindlongpress="handleRecordStart" bindtouchmove="handleTouchMove" bindtouchend="handleRecordStop" >{{voiceMsgVal}}</view>  -->
-      <view class="message-input-speak" bindtap="ontextareaViewClick" wx:else>
-        <!--  -->
+      </view> 
+      <view class="message-input-speak" bindtap="ontextareaViewClick" wx:else> 
         <block wx:if="{{isShowTextarea}}">
-          <form bindsubmit="onConfirm" report-submit="true" style="width:100%;">
-            <!-- <view bindtap="onConfirm">发送按钮</view> -->
+          <form bindsubmit="onConfirm" report-submit="true" style="width:100%;"> 
             <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="30" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="max-height: 150px"
               bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
             </textarea>
@@ -138,8 +145,7 @@
     </view>
     <view class="messageModal-body-line">
     </view>
-    <view class="messageModal-body-timeTitle">送达时间</view>
-    <!-- bindtap="openCalendar"  -->
+    <view class="messageModal-body-timeTitle">送达时间</view> 
     <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{year}} 年 {{month}} 月 {{day
       < 10 ? '0' + day : day}} 日</view>
         <view class="messageModal-body-timeTitle">{{weekDay}}</view>

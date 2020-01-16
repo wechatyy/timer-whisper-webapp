@@ -13,6 +13,7 @@ Page({
     paddingTop: 0,
     systeminfo: {},
     list: [],
+    indexList:[],
     isSearch: false,
     isShowBg: false,
     searchData: [],
@@ -124,33 +125,37 @@ Page({
         if(res.data.code === 0) {
           let data = res.data.data;
             const isTopArr = data.filter(v => v.istop);
-            const listData = this.data_letter_sort(data.filter(v => !v.istop), 'friendname')
+            const listData = this.data_letter_sort(data.filter(v => !v.istop))
             let list = [];
+          let indexList = [];
             Object.keys(listData).forEach(v => {
               list.push({
                 title: v,
                 key: v,
                 items: listData[v]
               })
+              indexList.push(v)
             })
             list = list.filter(v => v.items.length > 0)
             this.setData({
               isTopArr: isTopArr,
               list: list,
-              data
+              data,
+              indexList
             })
         }
       },
     })
   },
-  data_letter_sort(data, field) {
+  data_letter_sort(data) {
     var letter_reg = /^[A-Z]$/;
     var list = new Array();
     for (var i = 0; i < data.length; i++) {
       // 添加 # 分组，用来 存放 首字母不能 转为 大写英文的 数据
       list['#'] = new Array();
       // 首字母 转 大写英文
-      var letter = jsPinYin.getCamelChars(data[i][field]).substr(0, 1).toUpperCase();
+      let field = data[i].remarkname == null ? data[i].friendname : data[i].remarkname
+      var letter = jsPinYin.getCamelChars(field).substr(0, 1).toUpperCase();
       // 是否 大写 英文 字母
       if (!letter_reg.test(letter)) {
         letter = '#';

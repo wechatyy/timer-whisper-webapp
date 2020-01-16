@@ -98,6 +98,7 @@ Page({
         msg4_imgs: _this.data.feedbackimg,
         ismessageModal:true,
         isMsg4Enter:true,
+        isTells:false,
         isInputEnter: false, // 是否是文字
         isVoiceEnter: false, // 是否是音频
         isImageEnter: false, // 是否是图片 

@@ -52,12 +52,12 @@ Page({
     isDateShow: false,
     isAnimate: false,
     year: date.getFullYear(),
-    month: date.getMonth() + 1,
+    month: Month + 1,
     day: date.getDate(),
     hh: date.getHours(),
     mm: date.getMinutes(),
-    hh: hh,
-    mm: mm,
+    hh: hh > 10 ? hh : "0" + hh,
+    mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
     yearValue: [0, Month - 1, Day - 1],
     years: years,
@@ -112,6 +112,15 @@ Page({
     msg4_input:"",
     msg4_imgs:[],
     messagetype:4
+  },
+  updataTime() {
+    let date = new Date();
+    let hh = date.getHours();
+    let mm = date.getMinutes();
+    this.setData({
+      hh: hh > 10 ? hh : "0" + hh,
+      mm: mm > 10 ? mm : "0" + mm,
+    })
   },
   onShowMessage() {
     var _this = this;
@@ -172,7 +181,7 @@ Page({
     var hour = now.getHours();
     var minute = now.getMinutes();
     var second = now.getSeconds();
-    return year + "-" + month + "-" + date + " " + hour + ":" + minute;
+    return year + "年" + month + "月" + date + "日 " + hour + ":" + minute;
   } ,
   queryMessageList() {
     let _this = this
@@ -243,10 +252,15 @@ Page({
     innerAudioContext.play();
     innerAudioContext.onStop(res => {
       console.log(res)
-      this.setData({
-        isPlayVoice: false,
+      self.setData({
+        isPlayVoice: false
       })
     })
+    setTimeout(()=>{
+      self.setData({
+        isPlayVoice: false
+      })
+    },3000)
   },
   playVoice(){
     let _this = this; 
@@ -282,6 +296,12 @@ Page({
       })
     }
   },
+  onItemClickToFriendInfo(e) {
+    let item = this.data.itemlist;
+    wx.navigateTo({
+      url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&remarkname=${item.remarkname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}&itemlist=${JSON.stringify(this.data.itemlist)}`
+    })
+  },
     // input聚焦时触发
     openKeyboard(e) {
       let _this = this
@@ -294,6 +314,7 @@ Page({
           isChoose: false
         });
       }, 1);
+      _this.onScrollTo();
     },
     //输入框失去焦点时触发
     outKeyboard() {
@@ -534,19 +555,26 @@ Page({
     });
     // this.props.onCancel();
   },
-  onMessageModal(is){
+  onMessageModal(is) {
+    let _this = this;
     this.setData({
-      ismessageModal:is
+      ismessageModal: is
+    }, () => {
+      if (is) {
+        _this.updataTime()
+      }
     })
   },
   isModalshow() {
+    this.updataTime()
     this.setData({
       ismessageModal: true
     })
   },
   isModalhide() {
     this.setData({
-      ismessageModal: false
+      ismessageModal: false,
+      inputValue:''
     })
   },
   handleRecordStart(e) {
@@ -635,9 +663,9 @@ Page({
       });
     }
   },
-  onChooseFriend(){
+  onChooseFriend() {
     wx.navigateTo({
-      url: "/pages/choosePeople/index"
+      url: "/pages/chooseFriend/index"
     });
   },
   //查看图片
@@ -668,24 +696,48 @@ Page({
       friendName: options.friendName,
       imgUrl: options.imgUrl,
       sex: options.sex,
-      userId: wx.getStorageSync('userId')
+      userId: wx.getStorageSync('userId'),
+      itemlist: JSON.parse(options.itemlist)  
     })
 
     this.queryMessageList()
 
   },
+onScrollTo(){
+  let _this = this;
+  wx.createSelectorQuery().select('#page').boundingClientRect(function (rect) {
+    if (rect) {
+      console.log(rect)
+      wx.pageScrollTo({
+        scrollTop: rect.height,
+        duration: 300
+      })
+    }
+  }).exec()
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    let _this = this;
+    setTimeout(()=>{
+      wx.createSelectorQuery().select('#page').boundingClientRect(function (rect) {
+        if (rect) {
+          console.log(rect)
+          wx.pageScrollTo({
+            scrollTop: rect.height,
+            duration: 300
+          })
+        }
+      }).exec() 
+    },300) 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.updataTime()
   },
 
   /**

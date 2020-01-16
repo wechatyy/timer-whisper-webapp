@@ -1,3 +1,7 @@
+@import '../tellsPeople/index.wxss';
+page{
+  background-color: #ededed;
+}
 .tells2 {
   display: -webkit-box;
   display: -webkit-flex;

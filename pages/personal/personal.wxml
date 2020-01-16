@@ -112,7 +112,7 @@
         <block wx:if="{{isShowTextarea}}">
           <form bindsubmit="onConfirm" report-submit="true" style="width:100%;">
             <!-- <view bindtap="onConfirm">发送按钮</view> -->
-            <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="20" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="max-height: 150px"
+            <textarea wx:if="{{isShowTextarea}}" auto-focus="{{autoFocus}}" cursor-spacing="30" class='message-input-text' show-confirm-bar="{{true}}" adjust-position="{{true}}" bindfocus="openKeyboard" bindblur="outKeyboard" auto-height style="max-height: 150px"
               bindlinechange="onLineChange" bindconfirm="onConfirm" bindinput="onInput" value="{{inputValue}}" maxlength="200">
             </textarea>
           </form>

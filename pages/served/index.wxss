@@ -1,8 +1,14 @@
-/* @import '../message/index.wxss'; */
+@import '../message/index.wxss';
 page {
   background: #ededed;
 }
-
+.moveimges{
+  width:140rpx;
+  height:140rpx !important;
+  margin-left:10rpx;
+  margin-bottom: 10rpx;
+  border-radius:6rpx; 
+}
 .message {
   display: -webkit-box;
   display: -webkit-flex;
@@ -214,12 +220,14 @@ page {
   color: #1e2737;
   line-height: 40rpx;
   padding: 20rpx;
-  margin-top: 20rpx;
+  margin-top: 58rpx;
   position: relative;
 }
 
 .message-content-voice {
-  width: 340rpx;
+  /* width: 340rpx; */
+  max-width: 500rpx;
+  min-width: 150rpx;
   height: 84rpx;
   background: #fafafa;
   border-radius: 10rpx;
@@ -231,8 +239,9 @@ page {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-top: 20rpx;
+  margin-top: 54rpx;
   position: relative;
+  justify-content: flex-end;
 }
 
 .message-content-play {
@@ -251,7 +260,7 @@ page {
   font-weight: 400;
   color: #1e2737;
   padding: 20rpx;
-  margin-top: 20rpx;
+  margin-top: 60rpx;
 }
 
 .message-content-img_img {
@@ -266,7 +275,7 @@ page {
   font-size: 28rpx;
   position: absolute;
   left: 72rpx;
-  top: 24rpx;
+  top: 20rpx;
 }
 
 .message-content-point {

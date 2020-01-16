@@ -243,7 +243,8 @@ page {
 }
 
 .message-content-voice {
-  width: 340rpx;
+  max-width: 500rpx;
+  min-width: 150rpx;
   height: 84rpx;
   background: #fafafa;
   border-radius: 10rpx;
@@ -291,7 +292,7 @@ page {
   font-size: 28rpx;
   position: absolute;
   left: 72rpx;
-  top: 24rpx;
+  top: 20rpx;
 }
 
 .message-content-point {
@@ -345,11 +346,11 @@ page {
   left: 0;
   bottom:0;
   padding-bottom: 40rpx;
-  z-index: 9;
+  z-index: 7;
   
 }
 .message-input--focus {
-  position: absolute; 
+  position: absolute !important; 
   bottom:0;
 }
 .message-input-textIcon {
@@ -589,6 +590,7 @@ page {
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+  z-index: 11;
 }
 
 .voice-popup image {
@@ -719,7 +721,7 @@ page {
   font-size: 28rpx;
   position: absolute;
   left: 76rpx;
-  top: 20rpx;
+  top: 18rpx;
   /* top: -30rpx; */
 }
 
@@ -859,11 +861,23 @@ page {
 }
 .moveimges{
   width:140rpx;
-  height:140rpx;
+  height:140rpx !important;
   margin-left:10rpx;
   margin-bottom: 10rpx;
   border-radius:6rpx; 
 }
 .addscroll{
   margin-bottom: 180rpx;
+}
+.messgstyle {
+  bottom: 160rpx;
+}
+.msgyser{
+  z-index: 8 !important;
+}
+.errmsg{
+  color: #ff0000 !important;
+}
+.daoimg{
+  transform:rotate(180deg);
 }

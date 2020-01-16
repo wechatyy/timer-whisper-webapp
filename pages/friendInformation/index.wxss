@@ -166,6 +166,10 @@
   color: #1E2737;
   font-size: 32rpx;
   padding-left: 40rpx;
+  padding-right: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .information-handle.diff {
@@ -301,4 +305,8 @@ color: #999;
 }
 .topp_news .information-tool-switch{
   border-top: 2rpx solid #eeeeee !important;
+}
+.xxright{
+  width:16rpx;
+  height: 32rpx;
 }

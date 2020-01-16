@@ -42,7 +42,8 @@ Page({
         isreject: options.isreject == 1 ? true : false,
         istop: options.istop == 1 ? true : false,
         sex: options.sex,
-        commVal: options.remarkname != "null" ? options.remarkname : ''
+        commVal: options.remarkname != "null" ? options.remarkname : '',
+        itemlist: JSON.parse(options.itemlist)  
       }) 
     }
     
@@ -286,7 +287,7 @@ Page({
 
   onButtonClick() {
     wx.navigateTo({
-      url: `/pages/message/index?friendID=${this.data.friendid}&friendName=${this.data.friendname}&imgUrl=${this.data.imgurl}&sex=${this.data.sex}&remarkname=${this.data.remarkname}`
+      url: `/pages/message/index?friendID=${this.data.friendid}&friendName=${this.data.friendname}&imgUrl=${this.data.imgurl}&sex=${this.data.sex}&remarkname=${this.data.remarkname}&itemlist=${JSON.stringify(this.data.itemlist)}`
     })
   },
 

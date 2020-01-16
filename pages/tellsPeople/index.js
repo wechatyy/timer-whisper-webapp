@@ -1,7 +1,6 @@
 import { API_HOST, API_FIND_FRIEND ,API_BIND_FRIEND, API_QUERY_MESSAGE_LIST, API_UPLOAD_FILE, API_INSTER_MESSAGE} from '../../utils/config.js'
 var jsPinYin = require("../../npm/js-pinyin/index.js");
-import { toast } from '../../utils/modal'
-import { $wuxCalendar } from '../../components/wux/index'
+import { toast } from '../../utils/modal' 
 let date = new Date();
 let Year = date.getFullYear();
 let Month = date.getMonth();
@@ -44,17 +43,16 @@ for (var i = 0; i <= 59; i++) {
 }
 Page({
   data: {
-    scrollTop:0,
     weekDay: weeknew,
     isDateShow: false,
     isAnimate: false,
     year: date.getFullYear(),
-    month: date.getMonth() + 1,
+    month:  Month + 1,
     day: date.getDate(),
     hh: date.getHours(),
     mm: date.getMinutes(),
-    hh: hh,
-    mm: mm,
+    hh: hh > 10 ? hh : "0" + hh,
+    mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
     yearValue: [0, Month - 1, Day - 1],
     years: years,
@@ -69,6 +67,7 @@ Page({
     paddingTop: 0,
     systeminfo: {},
     list: [],
+    indexList:[],
     isSearch: false,
     isShowBg: false,
     searchData: [],
@@ -127,6 +126,15 @@ Page({
     msg4_input: "",
     msg4_imgs: []
   },
+  updataTime(){
+    let date = new Date(); 
+    let hh = date.getHours();
+    let mm = date.getMinutes();
+    this.setData({
+      hh: hh > 10 ? hh : "0" + hh,
+      mm: mm > 10 ? mm : "0" + mm,
+    })
+  },
   onShowMessage() {
     var _this = this; 
     this.setData({
@@ -180,15 +188,21 @@ Page({
   },
   onChooseFriend() {
     wx.navigateTo({
-      url: "/pages/choosePeople/index"
+      url: "/pages/chooseFriend/index"
     });
   },
   onMessageModal(is) {
+    let _this = this;
     this.setData({
       ismessageModal: is
+    },()=>{
+      if (is) {
+        _this.updataTime()
+      }
     })
   },
   isModalshow() {
+    this.updataTime()
     this.setData({
       ismessageModal: true
     })
@@ -196,9 +210,11 @@ Page({
   isModalhide() {
     this.setData({
       ismessageModal: false,
+      isTells:false,
       imgUrl:'',
       friendID: '',
-      friendName: ''
+      friendName: '',
+      inputValue:''
     })
   },
   //查看图片
@@ -373,7 +389,8 @@ Page({
             inputValue: '',
             imgUrl: '',
             friendID: '',
-            friendName: ''
+            friendName: '',
+            isTells:false
           })
         } else if (res.data.code == 500){
           wx.showToast({
@@ -497,6 +514,7 @@ Page({
         isImageEnter: false,
         isMsg4Enter: false,
         autoFocus: false,
+        isTells:false
       }, () => {
         _this.onMessageModal(true);
       })
@@ -610,6 +628,7 @@ Page({
                 isInputEnter:false,
                 isImageEnter:false,
                 isShowModal: true,
+                isTells: false,
                 duration: Math.ceil(res.duration / 1000)
               }, () => {
                 _this.isModalshow()
@@ -619,11 +638,6 @@ Page({
         }
       });
     }
-  },
-  onChooseFriend() {
-    wx.navigateTo({
-      url: "/pages/choosePeople/index"
-    });
   },
   ontextareaViewClick() {
     this.setData({
@@ -659,7 +673,8 @@ Page({
         if(res.data.code === 0) {
           let data = res.data.data;
             const isTopArr = data.filter(v => v.istop);
-            const listData = this.data_letter_sort(data.filter(v => !v.istop), 'friendname')
+            const listData = this.data_letter_sort(data.filter(v => !v.istop))
+          console.log("listData", listData)
             let list = [];
           let indexList = [];
             Object.keys(listData).forEach(v => {
@@ -681,14 +696,17 @@ Page({
       },
     })
   },
-  data_letter_sort(data, field) {
+  data_letter_sort(data) {
     var letter_reg = /^[A-Z]$/;
     var list = new Array();
     for (var i = 0; i < data.length; i++) {
       // 添加 # 分组，用来 存放 首字母不能 转为 大写英文的 数据
+      
+    
       list['#'] = new Array();
       // 首字母 转 大写英文
-      var letter = jsPinYin.getCamelChars(data[i][field]).substr(0, 1).toUpperCase();
+      let field = data[i].remarkname == null ? data[i].friendname : data[i].remarkname
+      var letter = jsPinYin.getCamelChars(field).substr(0, 1).toUpperCase();
       // 是否 大写 英文 字母
       if (!letter_reg.test(letter)) {
         letter = '#';
@@ -727,13 +745,13 @@ Page({
   onItemClickToFriendInfo(e) {
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&remarkname=${item.remarkname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}`
+      url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&remarkname=${item.remarkname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}&itemlist=${JSON.stringify(item)}`
     })
   },
   onItemClickToMessage(e){
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
-      url: `/pages/message/index?friendID=${item.friendid}&friendName=${item.friendname}&remarkname=${item.remarkname}&imgUrl=${item.imgurl}&sex=${item.sex}`
+      url: `/pages/message/index?friendID=${item.friendid}&friendName=${item.friendname}&remarkname=${item.remarkname}&imgUrl=${item.imgurl}&sex=${item.sex}&itemlist=${JSON.stringify(item)}`
     })
   },
   onLoad:async function (options) {
@@ -758,6 +776,7 @@ Page({
       this.getFriendList()
       this.setData({isAuth:true})
     }
+    this.updataTime()
   },
   getSystemInfo(){
     var systemInfo = wx.getSystemInfoSync();
@@ -849,14 +868,8 @@ Page({
       path: "/pages/tellsPeople/index?userId=" + wx.getStorageSync('userId'),
       imageUrl: "/assets/images/common/sharePng.png",
     };
-  },
-  onPageScroll(event) {
-    console.log(event)
-    this.setData({
-      scrollTop: event.scrollTop
-    });
-  },
-  onScrolls(e){
-    console.log(e)
-  }
+  }, 
+  // onScrolls(e){
+  //   console.log(e)
+  // }
 })

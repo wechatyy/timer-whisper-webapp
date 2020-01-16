@@ -15,7 +15,10 @@
       </view> -->
     </view>
   </view>
-  <view class="information-handle" bindtap="onSetCommen">备注</view>
+  <view class="information-handle" bindtap="onSetCommen">
+    <text>备注</text>
+    <image class="xxright" src="/assets/images/common/right.png"></image> 
+  </view>
   <view class="information-tool topp_news">
     <view class="information-tool-switch">
       <view class="information-tool-title">置顶收话人</view>
@@ -37,7 +40,10 @@
       </view>
     </view>
   </view>
-  <view class="information-handle" bindtap="onSearchMessage" data-e-tap-so="this">待送达悄悄话</view>
+  <view class="information-handle" bindtap="onSearchMessage" data-e-tap-so="this">
+    <text>待送达悄悄话</text>
+    <image class="xxright" src="/assets/images/common/right.png"></image> 
+  </view>
   <!-- <view style="background:#fff">
     <view class="information-handle diff" bindtap="onClearMessage" data-e-tap-so="this">
       清空收话记录

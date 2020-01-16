@@ -56,12 +56,12 @@ Page({
     isDateShow: false,
     isAnimate: false,
     year: date.getFullYear(),
-    month: date.getMonth() + 1,
+    month: Month + 1,
     day: date.getDate(),
     hh: date.getHours(),
     mm: date.getMinutes(),
-    hh: hh,
-    mm: mm,
+    hh: hh > 10 ? hh : "0" + hh,
+    mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
     yearValue: [0, Month - 1, Day - 1],
     years: years,
@@ -134,6 +134,15 @@ Page({
     msg4_input: "",
     msg4_imgs: []
   },
+  updataTime() {
+    let date = new Date();
+    let hh = date.getHours();
+    let mm = date.getMinutes();
+    this.setData({
+      hh: hh > 10 ? hh : "0" + hh,
+      mm: mm > 10 ? mm : "0" + mm,
+    })
+  },
   onShowMessage() {
     var _this = this;
     this.setData({
@@ -187,15 +196,21 @@ Page({
   },
   onChooseFriend() {
     wx.navigateTo({
-      url: "/pages/choosePeople/index"
+      url: "/pages/chooseFriend/index"
     });
   },
   onMessageModal(is) {
+    let _this = this;
     this.setData({
       ismessageModal: is
+    }, () => {
+      if (is) {
+        _this.updataTime()
+      }
     })
   },
   isModalshow() {
+    this.updataTime()
     this.setData({
       ismessageModal: true
     })
@@ -203,9 +218,11 @@ Page({
   isModalhide() {
     this.setData({
       ismessageModal: false,
+      isTells:false,
       imgUrl: '',
       friendID: '',
-      friendName: ''
+      friendName: '',
+      inputValue:''
     })
   },
   //查看图片
@@ -377,6 +394,7 @@ Page({
           _this.onMessageModal(false)
           // _this.queryMessageList()
           _this.setData({
+            isTells:false,
             inputValue: '',
             imgUrl: '',
             friendID: '',
@@ -504,6 +522,7 @@ Page({
         isImageEnter: false,
         isMsg4Enter: false,
         autoFocus: false,
+        isTells:false
       }, () => {
         _this.onMessageModal(true);
       })
@@ -617,6 +636,7 @@ Page({
                 isInputEnter: false,
                 isImageEnter: false,
                 isShowModal: true,
+                isTells:false,
                 duration: Math.ceil(res.duration / 1000)
               }, () => {
                 _this.isModalshow()
@@ -626,12 +646,7 @@ Page({
         }
       });
     }
-  },
-  onChooseFriend() {
-    wx.navigateTo({
-      url: "/pages/choosePeople/index"
-    });
-  },
+  }, 
   ontextareaViewClick() {
     this.setData({
       isShowTextarea: true,
@@ -753,6 +768,7 @@ Page({
    */
   onShow: function () {
     this.getUser()
+    this.updataTime()
   },
 
   /**

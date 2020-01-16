@@ -344,3 +344,10 @@ page {
   border-radius:100% !important; 
 }
 
+.CSDFS{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index:6;
+}
