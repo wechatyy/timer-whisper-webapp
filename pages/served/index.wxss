@@ -97,6 +97,7 @@ page {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  padding: 0 !important;
 }
 
 .message-content-item.right {

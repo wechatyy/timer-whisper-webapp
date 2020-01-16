@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "",
   "usingComponents": {
     "van-switch": "../../components/vant/switch/index",
     "van-popup": "../../components/vant/popup/index",

@@ -35,9 +35,9 @@ Page({
       //   commVal:''
       // })
     } else {
-      wx.showToast({
-        title: '请输入备注',
-        icon: 'none'
+      console.log(444);
+      this.setData({
+        isOpens: false,
       })
     }
   },

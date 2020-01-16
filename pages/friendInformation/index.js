@@ -334,9 +334,9 @@ Page({
       //   commVal:''
       // })
     }else{
-      wx.showToast({
-        title: '请输入备注',
-        icon:'none'
+      this.setData({
+        isOpens: false,
+
       })
     }
   }
