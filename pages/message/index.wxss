@@ -230,7 +230,7 @@ page {
 
 .message-content-msg {
   min-height: 28rpx;
-  max-width: 478rpx;
+  max-width: 440rpx;
   background: white;
   border-radius: 10rpx;
   font-size: 32rpx;
@@ -240,6 +240,8 @@ page {
   padding: 20rpx;
   margin-top: 62rpx;
   position: relative;
+  word-wrap: break-word;
+word-break: normal;
 }
 
 .message-content-voice {
@@ -266,9 +268,9 @@ page {
   margin-left: 28rpx;
 }
 
-.message-content-img {
+.message-content-img, .message-content-strimg{
   min-height: 28rpx;
-  width: 478rpx;
+  max-width: 478rpx;
   height: auto;
   background: white;
   border-radius: 10rpx;
@@ -278,7 +280,13 @@ page {
   padding: 20rpx;
   margin-top: 60rpx;
 }
+.message-content-strimg{ 
+  width: 520rpx !important;
+  background: none !important;
+  margin-top: 10rpx !important;
+  padding: 0 !important;
 
+}
 .message-content-img_img {
   width: 100%;
   height: auto;
@@ -302,7 +310,7 @@ page {
   border-radius: 100%;
   position: absolute;
   right: -20rpx;
-  top: 0;
+  top: 36rpx;
 }
 
 .message-input-box {
@@ -860,10 +868,10 @@ page {
   padding: 4rpx;
 }
 .moveimges{
-  width:140rpx;
-  height:140rpx !important;
+  width:148rpx;
+  height:148rpx !important;
   margin-left:10rpx;
-  margin-bottom: 10rpx;
+  /* margin-bottom: 10rpx; */
   border-radius:6rpx; 
 }
 .addscroll{
@@ -880,4 +888,10 @@ page {
 }
 .daoimg{
   transform:rotate(180deg);
+}
+.point-right{
+  left: -20rpx !important;
+}
+.strimgtop{
+  margin-top: 62rpx !important;
 }

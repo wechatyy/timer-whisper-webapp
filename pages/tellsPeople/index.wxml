@@ -198,4 +198,4 @@
     <image src="/assets/images/common/voice_b.gif"></image>
   </view>
   
-  <view bindtap="showMESGfc" class="layers" wx:if="{{isTells}}"></view>
+  <view bindtap="showMESGfc" class="layers" wx:if="{{isTells}}" catchtouchmove="preventD"></view>

@@ -99,6 +99,8 @@ Page({
         ismessageModal:true,
         isMsg4Enter:true,
         isTells:false,
+        isVoice:true,
+        inputValue:'',
         isInputEnter: false, // 是否是文字
         isVoiceEnter: false, // 是否是音频
         isImageEnter: false, // 是否是图片 

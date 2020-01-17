@@ -1,10 +1,10 @@
 
-import { API_HOST, API_QUERY_MESSAGE_LIST, API_UPLOAD_FILE,API_INSTER_MESSAGE} from '../../utils/config.js'
+import { API_HOST, API_QUERY_MESSAGE_LIST, API_UPLOAD_FILE, API_INSTER_MESSAGE, API_MODIFY_VOICE} from '../../utils/config.js'
 import {toast} from '../../utils/modal'
 import { $wuxCalendar } from '../../components/wux/index'
 let date = new Date();
 let Year = date.getFullYear();
-let Month = date.getMonth();
+let Month = date.getMonth(); 
 let Day = date.getDate();
 let Hours = date.getHours();
 let Minutes = date.getMinutes();
@@ -119,7 +119,7 @@ Page({
     let mm = date.getMinutes();
     this.setData({
       hh: hh > 10 ? hh : "0" + hh,
-      mm: mm > 10 ? mm : "0" + mm,
+      mm: mm > 10 ? mm : "0" + mm
     })
   },
   onShowMessage() {
@@ -136,13 +136,17 @@ Page({
   },
   onSelectDateShow() {
     var _this = this;
+    let date = new Date();
+    let hh = date.getHours();
+    let mm = date.getMinutes();
     this.setData({
       isDateShow: true,
       isAnimate: false
     });
     setTimeout(function () {
       _this.setData({
-        isAnimate: true
+        isAnimate: true,
+        timeValue: [hh, mm]
       });
     }, 200);
   },
@@ -239,14 +243,35 @@ Page({
         systeminfo: systemInfo
       });
   },
+  modifyStutas(id){
+      let _this = this
+      wx.request({
+        url: `${API_HOST}${API_MODIFY_VOICE}?messageId=${id}`,
+        method: "POST",
+        header: {
+          token: wx.getStorageSync('token')
+        },
+        // data: {
+        //   messageId: id
+        // },
+        success: res => {
+           
+        }
+      })
+  },
   onPlayVoice(e) {
     console.log(e);
     let item = e.currentTarget.dataset.item
+    let index = e.currentTarget.dataset.index
+    let list = this.data.messageList
     let self =this
+    let key = 'messageList[' + index +'].messagestatus'
     this.setData({
       isPlayVoice: true,
-      inputValue: ""
-    })
+      inputValue: "",
+      [key]:3
+    }) 
+    this.modifyStutas(item.id);
     const innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
@@ -342,6 +367,7 @@ Page({
           isImageEnter:false,
           isMsg4Enter: false,
           autoFocus: false,
+          isVoice:true
         },()=>{
           _this.onMessageModal(true);
         })
@@ -529,8 +555,16 @@ Page({
           _this.queryMessageList()
           _this.setData({
             inputValue:'',
-
           })
+          let NavigationBarTitle = _this.data.friendName
+          if (_this.data.remarkname && _this.data.remarkname != 'null') {
+            NavigationBarTitle = _this.data.remarkname
+          }
+          wx.setNavigationBarTitle({
+            title: NavigationBarTitle
+          })
+
+
         } else if (res.data.code == 500) {
           wx.showToast({
             title: res.data.msg,
@@ -595,7 +629,8 @@ Page({
     //   isShowVoiceA: true
     // });
     var options = {
-      format: 'mp3'
+      format: 'mp3',
+      duration: 59000
     };
     recorderManager.start(options);
   },
@@ -653,6 +688,7 @@ Page({
                 isInputEnter: false,
                 isImageEnter: false,
                 isShowModal: true,
+                isShowVoiceA: false,
                 duration: Math.ceil(res.duration/1000)
               },()=>{
                 _this.isModalshow()
@@ -694,6 +730,7 @@ Page({
       options,
       friendID: options.friendID,
       friendName: options.friendName,
+      remarkname: options.remarkname,
       imgUrl: options.imgUrl,
       sex: options.sex,
       userId: wx.getStorageSync('userId'),
@@ -737,7 +774,7 @@ onScrollTo(){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.updataTime()
+    this.updataTime() 
   },
 
   /**

@@ -9,36 +9,37 @@
             <view class="triangle"></view>
             <view class="message-content-title">
               <text class="message-content-time" wx:if="{{item.messagestatus == 1}}">{{'将于'+item.plantime+'送达该消息'}}</text>
-              <text class="message-content-time" wx:if="{{item.messagestatus == 2}}">{{'将于'+item.plantime+'送达该消息'}}</text>
+              <text class="message-content-time" wx:if="{{item.messagestatus == 2}}">{{item.plantime}}</text>
               <text class="message-content-time" wx:if="{{item.messagestatus == 3}}">{{item.plantime}}</text>
               <text class="message-content-time" wx:if="{{item.messagestatus == 4}}">{{'该消息超时未接收'}}</text>
               <text class="message-content-time errmsg" wx:if="{{item.messagestatus == 5}}">{{'该消息送达失败'}}</text>
             </view>
             <view wx:if="{{item.messagetype === 1}}" class="message-content-msg">{{item.messagecontent}}</view>
-            <view wx:if="{{item.messagetype === 2}}" class="message-content-voice" style="width:{{item.voicetime * 10}}px" bindtap="onPlayVoice" data-item="{{item}}">
+            <view wx:if="{{item.messagetype === 2}}" class="message-content-voice" style="width:{{item.voicetime * 10}}px" bindtap="onPlayVoice" data-index="{{index}}" data-item="{{item}}">
               <image wx:if="{{item.userid!=userId}}" class="message-content-play" src="{{isPlayVoice?'/assets/images/common/voice_black.gif':'/assets/images/common/voice2.png'}}"></image>
               <image wx:else class="message-content-play {{isPlayVoice? 'daoimg' :''}} " src="{{isPlayVoice?'/assets/images/common/voice_black.gif':'/assets/images/common/voice-right.png'}}"></image>
               <text class='message-content-length'>{{item.voicetime}}"</text>
               <!-- 最新记录 -->
-              <!-- <view class="message-content-point"></view> -->
+              <view wx:if="{{ item.userid == userId ? false:true && item.messagestatus == 2}}" class="message-content-point" ></view>
             </view>
             <view wx:if="{{item.messagetype === 3}}" class="message-content-img">
               <block wx:for-index="imgIndex" wx:key="{{imgItem}}" wx:for-item="imgItem" wx:for="{{item.messagecontent}}">
                 <image class="message-content-img_img" mode='widthFix' src="{{imgItem}}"></image>
               </block>
             </view>
-            <view wx:if="{{item.messagetype === 4}}" class="{{item.messagecontent[0] != '' ? 'message-content-img' : 'message-content-msg'}}" >
+            <view wx:if="{{item.messagetype === 4 && item.messagestr != ''}}" class="message-content-msg" >
              {{item.messagestr}}
-              <view wx:if="{{item.messagecontent[0] != ''}}">
-                <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{item.messagecontent}}">
-                  <image bindtap="getShowimgs" wx:if="{{imgItem}}" data-item="{{imgItem}}" data-list="{{item.messagecontent}}" class="moveimges" mode='widthFix' src="{{imgItem}}"></image>
-                </block>
-              </view>
+              
               <!-- <image class="moveimges" mode='widthFix' wx:for="{{messagecontent}}"  src="item"  data-index ="{{index}}" data-item="{{item}}" bindtap="getShowimgs"></image>
              </view> -->
               <!-- <block wx:for-index="imgIndex" wx:for-item="imgI.tem" wx:for="{{item.messagecontent}}">
                 <image class="message-content-img_img" mode='widthFix' src="{{imgItem}}"></image>
               </block> -->
+            </view>
+            <view class="message-content-strimg {{item.messagestr == '' ? 'strimgtop':''}}" wx:if="{{item.messagecontent[0] != '' && item.messagetype === 4}}">
+                <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{item.messagecontent}}">
+                  <image bindtap="getShowimgs" wx:if="{{imgItem}}" data-item="{{imgItem}}" data-list="{{item.messagecontent}}" class="moveimges" mode='aspectFill' src="{{imgItem}}"></image>
+                </block> 
             </view>
           </view>
         </view>
@@ -118,7 +119,7 @@
           <image class="messageModal-body-img" mode="widthFix" src="{{v}}" wx:for="{{msg4_imgs}}" wx:for-item="v" wx:for-index="_anonIdx2"></image>
         </scroll-view>
       </block>
-      <view bindtap="onChooseFriend" class="messageModal-body-add" data-e-tap-so="this">
+      <view  class="messageModal-body-add" data-e-tap-so="this">
         <image bindtap="onChooseFriend" class="messageModal-body-imgurl" data-e-tap-so="this" src="{{imgUrl}}" role="img">
         </image>
         <text style="color:rgba(30,39,55,1)">{{friendName}}</text>
@@ -181,4 +182,4 @@
   <image src="/assets/images/common/voice_b.gif"></image>
 </view>
 
-  <view class="layers msgyser" wx:if="{{ismessageModal}}"></view>
+  <view class="layers msgyser" wx:if="{{ismessageModal}}" catchtouchmove="preventD"></view>

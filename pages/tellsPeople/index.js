@@ -127,12 +127,13 @@ Page({
     msg4_imgs: []
   },
   updataTime(){
+    let _this = this;
     let date = new Date(); 
     let hh = date.getHours();
-    let mm = date.getMinutes();
-    this.setData({
+    let mm = date.getMinutes(); 
+    _this.setData({
       hh: hh > 10 ? hh : "0" + hh,
-      mm: mm > 10 ? mm : "0" + mm,
+      mm: mm > 10 ? mm : "0" + mm
     })
   },
   onShowMessage() {
@@ -149,13 +150,17 @@ Page({
   },
   onSelectDateShow() {
     var _this = this; 
+    let date = new Date();
+    let hh = date.getHours();
+    let mm = date.getMinutes(); 
     this.setData({
       isDateShow: true,
       isAnimate: false
     });
     setTimeout(function () {
       _this.setData({
-        isAnimate: true
+        isAnimate: true,
+        timeValue: [hh, mm]
       });
     }, 200);
   },
@@ -172,6 +177,7 @@ Page({
     });
   },
   onChangeTime(e){
+    console.log(e)
     let _this = this;
     let val = e.detail.value; 
     this.setData({
@@ -514,7 +520,8 @@ Page({
         isImageEnter: false,
         isMsg4Enter: false,
         autoFocus: false,
-        isTells:false
+        isTells:false,
+        isVoice: false
       }, () => {
         _this.onMessageModal(true);
       })
@@ -570,7 +577,8 @@ Page({
     //   isShowVoiceA: true
     // });
     var options = {
-      format: 'mp3'
+      format: 'mp3',
+      duration: 59000
     };
     recorderManager.start(options);
   },
@@ -629,6 +637,7 @@ Page({
                 isImageEnter:false,
                 isShowModal: true,
                 isTells: false,
+                isShowVoiceA: false,
                 duration: Math.ceil(res.duration / 1000)
               }, () => {
                 _this.isModalshow()

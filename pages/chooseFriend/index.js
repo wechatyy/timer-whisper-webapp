@@ -223,10 +223,11 @@ Page({
       friendName: item.friendname,
       imgUrl: item.imgurl,
       sex: item.sex,
+      remarkname: item.remarkname
     });
     console.log(item);
     wx.navigateBack({
-      delta: 2
+      delta: 1
     });
   },
   /**
