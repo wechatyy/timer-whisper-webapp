@@ -8,7 +8,7 @@ page{
   justify-content: flex-end;
 }
 .onDoen{
-  padding: 2rpx 20rpx; 
+  padding: 4rpx 30rpx; 
   border-radius:10rpx; 
 }
 .edit_commen{

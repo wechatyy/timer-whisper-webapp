@@ -1,7 +1,9 @@
     <view class="login">
-        <image src="/assets/images/common/login.png"></image>
-        <view class="login-line"></view>
+        <view class="telte">定时悄悄话小程序登录确认</view>
+        <image src="/assets/images/common/login2.jpg"></image>
+        <view class="texstle">定时悄悄话，沟通更温暖</view>
+        <!-- <view class="login-line"></view>
         <view class="login-msg">登陆后开发者将会获取一些权限</view>
-        <view class="login-msg2">· 获取的的公开信息（昵称、头像等）</view>
-        <button class="login-button" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" >微信登陆</button>
+        <view class="login-msg2">· 获取的的公开信息（昵称、头像等）</view> -->
+        <button class="login-button" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" >登录</button>
     </view>

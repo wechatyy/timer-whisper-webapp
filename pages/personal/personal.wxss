@@ -2,7 +2,50 @@
 page {
   background: #ededed;
 }
-
+.tuwer{
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+.werpanls{
+  display: flex;
+  padding: 30rpx 30rpx 0 30rpx;
+}
+.erweipanl{
+  width: 47%;
+  text-align: center;
+}
+.text_panl{
+  text-align: center;
+  flex: 1;
+}
+.tes1{
+  font-weight: 500;
+}
+.tes2{
+  font-weight: 600;
+}
+.erweima{
+  width: 100%;
+}
+.sobut{
+  border: 2px solid #07c160;
+  border-radius:10rpx;
+  padding: 8rpx;
+  width:250rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin: 0 auto;
+}
+.text_panl view{
+  margin-top: 24rpx;
+}
+.soso{
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 10rpx;
+  margin-top: 6rpx;
+}
 .mine {
   display: -webkit-box;
   display: -webkit-flex;
@@ -135,7 +178,8 @@ page {
   color: #1e2737;
 }
 .sxinxi{
-  color: #009ACD !important;
+  color: #576b95 !important;
+  font-weight: 500;
 }
 .mine-version {
   position: absolute;
@@ -386,15 +430,15 @@ page {
   margin-top: 20rpx;
 }
 .xinxi{
-  width: 60rpx;
-  height: 50rpx;
-  margin-right: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 6rpx;
 }
-.gzhao_tips{
-  padding: 40rpx 20%;
+.gzhao_tips{ 
   text-align: center;
-  font-size: 26rpx;
-  color:#009ACD; 
+  font-size: 22rpx;
+  color: #999;
+  padding-bottom: 20rpx;
 }
 .erweima{
   width: 140px;

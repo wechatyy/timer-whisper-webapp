@@ -7,12 +7,13 @@ let Month = date.getMonth();
 let Day = date.getDate();
 let Hours = date.getHours();
 let Minutes = date.getMinutes();
-let weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+var weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 let displayTime = `${Year}-${Month + 1}-${Day}`
 let timenav = `${Year}年${Month + 1}月${Day}日`
 let weeknew = weekDay[date.getDay()]
 let timeHours = `${Hours}:${Minutes}:00`
 var recorderManager = wx.getRecorderManager();
+var innerAudioContext = wx.createInnerAudioContext()
 const years = []
 const months = []
 const days = []
@@ -20,7 +21,7 @@ const hours = []
 const minutes = []
 const hh = date.getHours();
 const mm = date.getMinutes();
-for (let i = date.getFullYear(); i <= date.getFullYear() + 10; i++) {
+for (let i = date.getFullYear(); i <= date.getFullYear() + 2; i++) {
   years.push(i)
 } 
 for (let i = 1; i <= 12; i++) {
@@ -43,7 +44,7 @@ for (var i = 0; i <= 59; i++) {
 }
 Page({
   data: {
-    weekDay: weeknew,
+    // weekDay: weeknew,
     isDateShow: false,
     isAnimate: false,
     year: date.getFullYear(),
@@ -54,7 +55,7 @@ Page({
     hh: hh > 10 ? hh : "0" + hh,
     mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
-    yearValue: [0, Month - 1, Day - 1],
+    yearValue: [0, Month, Day - 1],
     years: years,
     months: months,
     days: days,
@@ -166,14 +167,21 @@ Page({
   },
   onChangeYear(e){ 
     let _this = this;
-    let val = e.detail.value;
-    let newDate = new Date(_this.data.years[val[0]] + "-" + _this.data.months[val[1]] + "-" + _this.data.days[val[2]]).getDay();
+    let val = e.detail.value; 
+    let newDate = new Date(_this.data.years[val[0]] + "/" + _this.data.months[val[1]] + "/" + _this.data.days[val[2]]).getDay();
+    console.log(val)
+    console.log('_this.data.years', _this.data.years[val[0]])
+    console.log('_this.data.months', _this.data.months[val[0]])
+    console.log('_this.data.days', _this.data.days[val[0]])
+    console.log('newDate', newDate)
+    console.log('weekDay', weekDay)
+    console.log(weekDay[newDate]);
     _this.setData({
       year: _this.data.years[val[0]],
       month: _this.data.months[val[1]],
       day: _this.data.days[val[2]],
       value: val,
-      weekDay: weekDay[newDate]
+      weekDayNew: weekDay[newDate]
     });
   },
   onChangeTime(e){
@@ -222,6 +230,8 @@ Page({
       friendName: '',
       inputValue:''
     })
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
   },
   //查看图片
   getShowimgs(e) {
@@ -417,7 +427,8 @@ Page({
         this.onMessageModal(false)
       },
       complete: (com) => {
-        console.log()
+        innerAudioContext.stop()
+        innerAudioContext.destroy();
       }
     });
     // this.props.onCancel();
@@ -437,7 +448,6 @@ Page({
       isPlayVoice: true,
       inputValue: ""
     })
-    const innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
     innerAudioContext.onStop(res => {
@@ -449,14 +459,19 @@ Page({
   },
   playVoice() {
     let _this = this;
+    if (this.data.isPlayVoice == true) {
+      innerAudioContext.stop()
+      this.setData({
+        isPlayVoice: false
+      })
+      return false
+    } 
     this.setData({
       isPlayVoice: true
-    });
-    console.log(123)
-    const InnerAudioContext = wx.createInnerAudioContext()
-    InnerAudioContext.src = this.data.voiceValue;
-    InnerAudioContext.play();
-    InnerAudioContext.onEnded(function () {
+    }); 
+    innerAudioContext.src = this.data.voiceValue;
+    innerAudioContext.play();
+    innerAudioContext.onEnded(function () {
       _this.setData({
         isPlayVoice: false
       });
@@ -560,7 +575,6 @@ Page({
     return year + "-" + month + "-" + date + " " + hour + ":" + minute;
   },
   handleRecordStart(e) {
-    console.log(e)
     wx.vibrateLong()
     this.setData({
       startPoint: e.touches[0],
@@ -583,7 +597,6 @@ Page({
     recorderManager.start(options);
   },
   handleTouchMove(e) {
-    console.log(e)
     // console.log(Math.abs(e.touches[e.touches.length - 1].clientY - this.state.startPoint.clientY) > 25)
     if (Math.abs(e.touches[e.touches.length - 1].clientY - this.data.startPoint.clientY) > 25) {
       this.setData({
@@ -594,7 +607,7 @@ Page({
     }
   },
   handleRecordStop(e) {
-    console.log(e)
+    console.log(123)
     let _this = this;
     this.setData({
       touchEnd: e.timeStamp,
@@ -605,6 +618,7 @@ Page({
     recorderManager.stop();
     if (this.data.is_clock) {
       recorderManager.onStop(function (res) {
+        console.log(321)
         if (res.duration < 2000) {
           wx.showToast({
             title: '录音时间太短，请长按录音',
@@ -646,6 +660,9 @@ Page({
           });
         }
       });
+      recorderManager.onError(function (res) {
+        console.log(res)
+      })
     }
   },
   ontextareaViewClick() {
@@ -873,11 +890,15 @@ Page({
     },
   onShareAppMessage(){
     return {
-      title: "定时悄悄话",
+      title: "定时悄悄话，沟通更温暖",
       path: "/pages/tellsPeople/index?userId=" + wx.getStorageSync('userId'),
-      imageUrl: "/assets/images/common/sharePng.png",
+      imageUrl: "/assets/images/common/logo7.png",
     };
   }, 
+  onUnload: function () {
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
+  }
   // onScrolls(e){
   //   console.log(e)
   // }

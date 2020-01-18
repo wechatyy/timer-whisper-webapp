@@ -24,7 +24,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.10.1",
 	"appid": "wxf49fdf3bf810d3c9",
 	"projectname": "timer-whisper-webapp",
 	"debugOptions": {

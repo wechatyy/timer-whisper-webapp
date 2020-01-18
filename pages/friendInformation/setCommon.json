@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "设置备注",
   "navigationBarBackgroundColor": "#f2f2f2",
   "usingComponents": {
     "van-field": "../../components/vant/field/index"

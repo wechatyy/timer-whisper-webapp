@@ -1,34 +1,43 @@
 <view class="message">
-        <view class="message-content">
-            <view class="message-content-item right" wx:key="_anonIdx2" wx:for="{{messageList}}" wx:for-item="v" wx:for-index="_anonIdx2">
-                <image class="message-content-item_img" src="{{v.imgurl}}"></image>
-                <view class="message-content-item_msg">
-                    <view class="triangle"></view>
-                    <view class="message-content-title"><text class="message-content-time">{{v.plantime}}</text>
-                    </view>
-                    <block wx:if="{{v.messagetype === 1}}" >
-                        <view class="message-content-msg">{{v.messagecontent}}</view>
-                    </block>
-                    <block wx:if="{{v.messagetype === 2}}" >
-                        <view class="message-content-voice" style="width:{{v.voicetime * 10}}px" bindtap="onPlayVoice" data-item="{{v}}">
-                            <image class="message-content-play" src="{{v.state_temp4}}"></image><text class="message-content-length">{{v.voicetime}}"</text>
-                        </view>
-                    </block>
-                    <block wx:if="{{v.messagetype === 3}}">
-                        <view class="message-content-img">
-                            <image class="message-content-img_img" mode="widthFix" src="{{v.messagecontent}}"></image>
-                        </view>
-                    </block>
-
-                      <view wx:if="{{v.messagetype === 4}}" class="{{v.messagecontent[0] != '' ? 'message-content-img' : 'message-content-msg'}}" >
-              {{v.messagestr}}
-                <view wx:if="{{v.messagecontent[0] != ''}}">
-                  <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{v.messagecontent}}">
-                    <image bindtap="getShowimgs" wx:if="{{imgItem}}" data-item="{{imgItem}}" data-list="{{v.messagecontent}}" class="moveimges" mode='widthFix' src="{{imgItem}}"></image>
-                  </block>
-                </view> 
-              </view>
-                    <!-- <block wx:if="{{v.messagetype === 4}}">
+  <view class="message-content">
+    <view class="message-content-item right" wx:key="_anonIdx2" wx:for="{{messageList}}" wx:for-item="v" wx:for-index="_anonIdx2">
+      <image class="message-content-item_img" src="{{v.imgurl}}"></image>
+      <view class="message-content-item_msg">
+        <view class="triangle"></view>
+        <view class="message-content-title">
+          <text class="message-content-time">{{v.plantime}}</text>
+        </view>
+        <block wx:if="{{v.messagetype === 1}}">
+          <view class="message-content-msg">{{v.messagecontent}}</view>
+        </block>
+        <block wx:if="{{v.messagetype === 2}}">
+          <view class="message-content-voice" style="width:{{v.voicetime * 10}}px" bindtap="onPlayVoice" data-item="{{v}}">
+            <image class="message-content-play" src="{{v.state_temp4}}"></image>
+            <text class="message-content-length">{{v.voicetime}}"</text>
+          </view>
+        </block>
+        <block wx:if="{{v.messagetype === 3}}">
+          <view class="message-content-img">
+            <image class="message-content-img_img" mode="widthFix" src="{{v.messagecontent}}"></image>
+          </view>
+        </block>
+         <view wx:if="{{v.messagetype === 4 && v.messagestr != ''}}" class="message-content-msg" >
+             {{v.messagestr}} 
+            </view>
+            <view class="message-content-strimg {{v.messagestr == '' ? 'strimgtop':''}}" wx:if="{{v.messagecontent[0] != '' && v.messagetype === 4}}">
+                <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{v.messagecontent}}">
+                  <image bindtap="getShowimgs" wx:if="{{imgItem}}" data-item="{{imgItem}}" data-list="{{v.messagecontent}}" class="moveimges" mode='aspectFill' src="{{imgItem}}"></image>
+                </block> 
+            </view>
+        <!-- <view wx:if="{{v.messagetype === 4}}" class="{{v.messagecontent[0] != '' ? 'message-content-img' : 'message-content-msg'}}">
+          {{v.messagestr}}
+          <view wx:if="{{v.messagecontent[0] != ''}}">
+            <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{v.messagecontent}}">
+              <image bindtap="getShowimgs" wx:if="{{imgItem}}" data-item="{{imgItem}}" data-list="{{v.messagecontent}}" class="moveimges" mode='widthFix' src="{{imgItem}}"></image>
+            </block>
+          </view>
+        </view> -->
+        <!-- <block wx:if="{{v.messagetype === 4}}">
                          <view class="strMES">{{v.messagestr}}</view>
                         <view>
                           <block wx:for-index="imgIndex" wx:for-item="imgItem" wx:for="{{v.messagecontent}}">
@@ -36,7 +45,7 @@
                           </block>
                         </view> 
                     </block> -->
-                </view>
-            </view>
-        </view>
-    </view> 
+      </view>
+    </view>
+  </view>
+</view>

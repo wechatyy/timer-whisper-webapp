@@ -1,4 +1,5 @@
 import { API_HOST, API_QUERY_UN_SEND_LIST } from '../../utils/config.js'
+var innerAudioContext = wx.createInnerAudioContext()
 Page({
 
   /**
@@ -6,7 +7,7 @@ Page({
    */
   data: {
     messageList:[]
-  },
+  }, 
   //查看图片
   getShowimgs(e) {
     console.log(e)
@@ -57,7 +58,7 @@ timestampToTime(timestamp){
   let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
   let D = date.getDate() + '日';
   let  h = date.getHours() + ':';
-  let  m = date.getMinutes() + ':';
+  let  m = date.getMinutes();
   let  s = date.getSeconds();
     return "将于" + Y + M + D +" "+ h + m + "送达消息" ;//时分秒可以根据自己的需求加上
 
@@ -68,13 +69,24 @@ timestampToTime(timestamp){
     return timeStr.slice(0, 4) + '年' + timeStr.slice(4, 6) + '月' + timeStr.slice(6, 8) + '日 ' + timeStr.slice(8, 10) + ':' + timeStr.slice(10, 12);
   },
   onPlayVoice(e){ 
+    if (this.data.isPlayVoice == true) {
+      innerAudioContext.stop()
+      this.setData({
+        isPlayVoice: false
+      })
+      return false
+    } 
       let item = e.currentTarget.dataset.item
       let self = this
-      const innerAudioContext = wx.createInnerAudioContext()
+    this.setData({
+      isPlayVoice: true
+    }) 
       innerAudioContext.src = item.messagecontent;
       innerAudioContext.play();
-      innerAudioContext.onStop(res => {
-        console.log(res)
+    innerAudioContext.onEnded(res => {
+      self.setData({
+        isPlayVoice: false
+      })
       })
   },
   /**
@@ -102,7 +114,8 @@ timestampToTime(timestamp){
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
   },
 
   /**

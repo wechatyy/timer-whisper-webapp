@@ -15,7 +15,7 @@
       </view> -->
     </view>
   </view>
-  <view class="information-handle" bindtap="onSetCommen">
+  <view class="information-handle  clearTOP" bindtap="onSetCommen">
     <text>备注</text>
     <image class="xxright" src="/assets/images/common/right.png"></image> 
   </view>
@@ -57,6 +57,23 @@
       <image class="xinxi" src="/assets/images/common/xinxi.png"></image>
       <text>定时发送</text>
     </view>
+<!-- 消息拒收 -->
+<view class="weui-demo-dialog {{isRejectOpened ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="onActionClose"></view>
+    <view class="weui-actionsheet {{isRejectOpened ? 'weui-actionsheet_toggle' : ''}}" catchtap="stopEvent">
+      <view class="weui-actionsheet__title">
+        <view class="weui-actionsheet__title-text">开启之后，将不再接收该收话人给您发送的悄悄话</view>
+      </view>
+      <view class="weui-actionsheet__menu">
+        <view class="weui-actionsheet__cell weui-actionsheet__cell_warn" bindtap="rejectFriend">
+          确定
+        </view>
+      </view>
+      <view class="weui-actionsheet__action">
+        <view class="weui-actionsheet__cell" bindtap="onActionClose">取消</view>
+      </view>
+    </view>
+  </view>
   <!-- // 弹窗 -->
   <view class="weui-demo-dialog {{isDeleteOpened ? 'weui-demo-dialog_show' : ''}}">
     <view class="weui-mask" bindtap="onActionClose"></view>

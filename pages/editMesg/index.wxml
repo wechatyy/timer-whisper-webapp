@@ -12,7 +12,7 @@
     </view>
    
     <view class="move_img">
-      <van-uploader multiple="{{true}}"  file-list="{{ fileList }}" bind:delete="delImgs" bind:after-read="afterRead" max-count="9" />
+      <van-uploader multiple="{{true}}"  file-list="{{ fileList }}" bind:delete="delImgs" bind:after-read="afterRead" max-count="9" image-fit="aspectFill" />
     </view>
   </view>
 </view>

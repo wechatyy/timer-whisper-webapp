@@ -1,3 +1,13 @@
+.telte{
+  color: #999;
+  font-size: 26rpx;
+  text-align: center;
+  margin-top:20vh;
+}
+.texstle{
+  font-weight: 600;
+  text-align: center;
+}
 .login {
   height: 100%;
   width: 100%;
@@ -20,7 +30,7 @@
 .login image {
   width: 240rpx;
   height: 240rpx;
-  margin: 200rpx auto 0;
+  margin: 80rpx auto;
 }
 
 .login-line {
@@ -36,12 +46,11 @@
   margin-left: 100rpx;
 }
 
-.login-msg2 {
-  margin-top: 60rpx;
+.login-msg2 { 
   text-align: center;
   font-size: 28rpx;
   color: #bfbfbf;
-  margin-top: 40rpx;
+  margin-top: 20vh;
 }
 
 .login-button {
@@ -53,7 +62,7 @@
   line-height: 96rpx;
   color: #fff;
   font-size: 32rpx;
-  margin: 100rpx auto 0;
+  margin:14vh auto 0;
   padding: 0;
   display: block;
 }

@@ -8,3 +8,12 @@ page{
   color: #777;
   margin-bottom: 20rpx;
 }
+.setladra{
+  height: 50rpx;
+  font-size: 30rpx;
+}
+.van-field__input{
+  line-height: 60rpx !important;
+  font-size: 30rpx !important;
+
+}

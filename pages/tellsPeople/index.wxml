@@ -56,8 +56,8 @@
           </van-cell> 
         </view>  
       </van-index-bar> 
-      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length}}位朋友及联系人</view>
-      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。</view> 
+      <view class="desc" style="margin:20rpx auto 0 auto">{{list.length + isTopArr.length}}位收话人</view>
+      <view class="desxgz">关注“定时悄悄话”公众号之后，能够收到对方发送给你的定时悄悄话。</view> 
     </view>
   </view>
 </block>
@@ -147,7 +147,7 @@
     <view class="messageModal-body-timeTitle">送达时间</view> 
     <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{year}} 年 {{month}} 月 {{day
       < 10 ? '0' + day : day}} 日</view>
-        <view class="messageModal-body-timeTitle">{{weekDay}}</view>
+        <view class="messageModal-body-timeTitle">{{weekDayNew}}</view>
         <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{hh}}:{{mm}}</view>
 
 

@@ -14,6 +14,7 @@ let timenav = `${Year}年${Month + 1}月${Day}日`
 let weeknew = weekDay[date.getDay()]
 let timeHours = `${Hours}:${Minutes}:00`
 var recorderManager = wx.getRecorderManager();
+var innerAudioContext = wx.createInnerAudioContext()
 const years = []
 const months = []
 const days = []
@@ -21,7 +22,7 @@ const hours = []
 const minutes = []
 const hh = date.getHours();
 const mm = date.getMinutes();
-for (let i = date.getFullYear(); i <= date.getFullYear() + 10; i++) {
+for (let i = date.getFullYear(); i <= date.getFullYear() + 2; i++) {
   years.push(i)
 }
 for (let i = 1; i <= 12; i++) {
@@ -63,7 +64,7 @@ Page({
     hh: hh > 10 ? hh : "0" + hh,
     mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
-    yearValue: [0, Month - 1, Day - 1],
+    yearValue: [0, Month , Day - 1],
     years: years,
     months: months,
     days: days,
@@ -174,13 +175,13 @@ Page({
   onChangeYear(e) {
     let _this = this;
     let val = e.detail.value;
-    let newDate = new Date(_this.data.years[val[0]] + "-" + _this.data.months[val[1]] + "-" + _this.data.days[val[2]]).getDay();
+    let newDate = new Date(_this.data.years[val[0]] + "/" + _this.data.months[val[1]] + "/" + _this.data.days[val[2]]).getDay();
     _this.setData({
       year: _this.data.years[val[0]],
       month: _this.data.months[val[1]],
       day: _this.data.days[val[2]],
       value: val,
-      weekDay: weekDay[newDate]
+      weekDayNew: weekDay[newDate]
     });
   },
   onChangeTime(e) {
@@ -228,6 +229,8 @@ Page({
       friendName: '',
       inputValue:''
     })
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
   },
   //查看图片
   getShowimgs(e) {
@@ -423,7 +426,8 @@ Page({
         this.onMessageModal(false)
       },
       complete: (com) => {
-        console.log()
+        innerAudioContext.stop()
+        innerAudioContext.destroy();
       }
     });
     // this.props.onCancel();
@@ -442,8 +446,7 @@ Page({
     this.setData({
       isPlayVoice: true,
       inputValue: ""
-    })
-    const innerAudioContext = wx.createInnerAudioContext()
+    }) 
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
     innerAudioContext.onStop(res => {
@@ -455,14 +458,20 @@ Page({
   },
   playVoice() {
     let _this = this;
+    if (this.data.isPlayVoice == true) {
+      innerAudioContext.stop()
+      this.setData({
+        isPlayVoice: false
+      })
+      return false
+    } 
     this.setData({
       isPlayVoice: true
     });
-    console.log(123)
-    const InnerAudioContext = wx.createInnerAudioContext()
-    InnerAudioContext.src = this.data.voiceValue;
-    InnerAudioContext.play();
-    InnerAudioContext.onEnded(function () {
+    console.log(123) 
+    innerAudioContext.src = this.data.voiceValue;
+    innerAudioContext.play();
+    innerAudioContext.onEnded(function () {
       _this.setData({
         isPlayVoice: false
       });
@@ -759,7 +768,9 @@ Page({
     wx.saveImageToPhotosAlbum({
       filePath:'/assets/images/common/erwei.jpg',
       success(res) {
-        console.log('保存成功')
+        wx.showToast({
+          title: '已保存到系统相册',
+        })
        }
     })
   },
@@ -789,7 +800,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
   },
 
   /**

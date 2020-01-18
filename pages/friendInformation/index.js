@@ -9,6 +9,7 @@ Page({
     isOpened: false,
     isClearOpened: false,
     isDeleteOpened: false,
+    isRejectOpened: false,
     id: "",
     sex: "",
     imgurl: "",
@@ -230,12 +231,26 @@ Page({
       this.updateFriend();
     })
   },
-  onSwitchReject(e){
+  rejectFriend(){
     this.setData({
-      isreject: e.detail
+      isreject: true,
+      isRejectOpened:false
     }, () => {
       this.updateFriend();
     })
+  },
+  onSwitchReject(e){
+    if (e.detail){
+      this.setData({
+        isRejectOpened:true
+      })
+    }else{
+      this.setData({
+        isreject: e.detail
+      }, () => {
+        this.updateFriend();
+      })
+    } 
   },
   onActionCancel() {
     this.setData({
@@ -296,6 +311,7 @@ Page({
       isClearOpened: false,
       isDeleteOpened: false,
       isOpened: false,
+      isRejectOpened: false
     })
   },
 

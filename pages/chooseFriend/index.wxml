@@ -7,7 +7,7 @@
       <block wx:if="{{isTopArr.length !== 0}}">
         <view class="tells2-top">
           <view class="tells2-top-title">置顶收话人</view>
-          <view class="tells2-list-item" wx:key="friendid" bindtap="onItemClick" wx:for="{{isTopArr}}" wx:for-item="v" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
+          <view class="tells2-list-item" wx:key="friendid" bindtap="onItemClick" data-item="{{v}}" wx:for="{{isTopArr}}" wx:for-item="v" wx:for-index="_anonIdx2" data-e-tap-so="this" data-e-tap-a-a="{{v}}">
             <image class="list_img" src="{{v.imgurl}}"></image>
             <view class="list_msg">{{v.friendname}}</view>
           </view>

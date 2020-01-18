@@ -14,6 +14,7 @@ let timenav = `${Year}年${Month + 1}月${Day}日`
 let weeknew = weekDay[date.getDay()]
 let timeHours = `${Hours}:${Minutes}:00`
 var recorderManager = wx.getRecorderManager();
+var innerAudioContext = wx.createInnerAudioContext()
 const years = []
 const months = []
 const days = []
@@ -21,7 +22,7 @@ const hours = []
 const minutes = []
 const hh = date.getHours();
 const mm = date.getMinutes();
-for (let i = date.getFullYear(); i <= date.getFullYear() + 10; i++) {
+for (let i = date.getFullYear(); i <= date.getFullYear() + 2; i++) {
   years.push(i)
 }
 for (let i = 1; i <= 12; i++) {
@@ -59,7 +60,7 @@ Page({
     hh: hh > 10 ? hh : "0" + hh,
     mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
-    yearValue: [0, Month - 1, Day - 1],
+    yearValue: [0, Month , Day - 1],
     years: years,
     months: months,
     days: days,
@@ -111,7 +112,8 @@ Page({
     ismessageModal:false,
     msg4_input:"",
     msg4_imgs:[],
-    messagetype:4
+    messagetype:4,
+    isbf:true
   },
   updataTime() {
     let date = new Date();
@@ -153,13 +155,13 @@ Page({
   onChangeYear(e) {
     let _this = this;
     let val = e.detail.value;
-    let newDate = new Date(_this.data.years[val[0]] + "-" + _this.data.months[val[1]] + "-" + _this.data.days[val[2]]).getDay();
+    let newDate = new Date(_this.data.years[val[0]] + "/" + _this.data.months[val[1]] + "/" + _this.data.days[val[2]]).getDay();
     _this.setData({
       year: _this.data.years[val[0]],
       month: _this.data.months[val[1]],
       day: _this.data.days[val[2]],
       value: val,
-      weekDay: weekDay[newDate]
+      weekDayNew: weekDay[newDate]
     });
   },
   onChangeTime(e) {
@@ -259,44 +261,53 @@ Page({
         }
       })
   },
-  onPlayVoice(e) {
-    console.log(e);
+  onPlayVoice(e) {  
     let item = e.currentTarget.dataset.item
     let index = e.currentTarget.dataset.index
     let list = this.data.messageList
     let self =this
     let key = 'messageList[' + index +'].messagestatus'
+    if (this.data.isPlayVoice == true) {
+      innerAudioContext.stop()
+      this.setData({
+        isPlayVoice: false
+      })
+      return false
+    } 
     this.setData({
       isPlayVoice: true,
       inputValue: "",
       [key]:3
-    }) 
+    })
     this.modifyStutas(item.id);
-    const innerAudioContext = wx.createInnerAudioContext()
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
-    innerAudioContext.onStop(res => {
-      console.log(res)
+    innerAudioContext.onEnded(res => {
+      console.log(123)
       self.setData({
         isPlayVoice: false
       })
     })
-    setTimeout(()=>{
-      self.setData({
-        isPlayVoice: false
-      })
-    },3000)
+    innerAudioContext.onStop(()=>{
+      console.log("停止")
+    }) 
   },
   playVoice(){
     let _this = this; 
+    if (this.data.isPlayVoice == true) {
+      innerAudioContext.stop()
+      this.setData({
+        isPlayVoice: false
+      })
+      return false
+    } 
     this.setData({
       isPlayVoice: true
     }); 
-    console.log(123) 
-    const InnerAudioContext = wx.createInnerAudioContext()
-    InnerAudioContext.src = this.data.voiceValue;
-    InnerAudioContext.play();
-    InnerAudioContext.onEnded(function () {
+    console.log(123)  
+    innerAudioContext.src = this.data.voiceValue;
+    innerAudioContext.play();
+    innerAudioContext.onEnded(function () {
       _this.setData({
         isPlayVoice: false
       });
@@ -584,7 +595,8 @@ Page({
         this.onMessageModal(false)
       },
       complete:(com)=>{
-        console.log()
+        innerAudioContext.stop()
+        innerAudioContext.destroy();
       }
     });
     // this.props.onCancel();
@@ -608,8 +620,14 @@ Page({
   isModalhide() {
     this.setData({
       ismessageModal: false,
-      inputValue:''
+      inputValue:'',
+      isInputEnter: false,
+      isVoiceEnter: false,
+      isImageEnter: false,
+      isMsg4Enter: false
     })
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
   },
   handleRecordStart(e) {
     console.log(e)
@@ -781,14 +799,15 @@ onScrollTo(){
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+   
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    innerAudioContext.stop()
+    innerAudioContext.destroy();
   },
 
   /**

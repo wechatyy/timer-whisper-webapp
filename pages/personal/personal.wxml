@@ -36,15 +36,34 @@
       </view>
       <view class="mine-tool-item centerTesxts" bindtap="showMESGfc">
         <image class="xinxi" src="/assets/images/common/xinxi.png"></image>
-        <text class="sxinxi">发消息</text>
+        <text class="sxinxi">定时发送</text>
       </view>
     </view>
-    <view class="gzhao_tips">
+    <view class="tuwer">
+      <view class="werpanls">
+        <view class="erweipanl">
+          <image class="erweima" bindtap="bcimgs" src="/assets/images/common/erwei.jpg"></image>
+        </view>
+        <view class="text_panl">
+          <view class="tes1">微信搜一搜加关注</view>
+          <view class="tes2">公众号</view>
+          <view class="sobut">
+            <image class="soso" src="/assets/images/common/souss.png"></image>
+            <text>定时悄悄话</text>
+          </view>
+        </view>
+
+      </view>
+      <view class="gzhao_tips">
+        关注公众号之后，能够收到对方发送给你的定时悄悄话
+      </view>
+    </view>
+    <!-- <view class="gzhao_tips">
       关注“定时悄悄话”公众号之后，能够收到对方发送给您的定时悄悄话。
     </view>
     <view class="weview">
       <image class="erweima" bindtap="bcimgs" src="/assets/images/common/erwei.jpg"></image>
-    </view>
+    </view> -->
     <!-- <view class="mine-tool-box">
       <view class="mine-tool-item" style="padding:20rpx 0;align-items: center;justify-content: center;">
         <image mode="widthFix" style="disable:block;width:34rpx;margin: 0 25rpx 0 0;" src="/assets/images/common/send.png" role="img"></image>
@@ -188,7 +207,7 @@
     <!-- bindtap="openCalendar"  -->
     <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{year}} 年 {{month}} 月 {{day
       < 10 ? '0' + day : day}} 日</view>
-        <view class="messageModal-body-timeTitle">{{weekDay}}</view>
+        <view class="messageModal-body-timeTitle">{{weekDayNew}}</view>
         <view class="messageModal-body-time" bindtap="onSelectDateShow" data-e-tap-so="this">{{hh}}:{{mm}}</view>
 
 

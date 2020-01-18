@@ -31,7 +31,7 @@ page {
   font-size: 24rpx;
 }
 .tells-head {
-  padding-top: 64rpx;
+  padding-top: 58rpx;
 }
 .tells-nav-item {
   height: 106rpx;

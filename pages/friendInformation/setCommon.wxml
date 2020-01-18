@@ -5,9 +5,10 @@
         <view>设置备注</view>   {{isDone?'stlylv':'stlyhui'}}  -->
         <view class="onDoen stlylv" bindtap="okCommt">完成</view>
     </view>
-     <view class="titels">备注名</view>
+     <!-- <view class="titels">备注名</view> -->
       <view class="commoText">
       <van-field
+        input-class="setladra"
         value="{{ commVal }}"
         placeholder="请输入备注信息"
         border="{{ false }}"
