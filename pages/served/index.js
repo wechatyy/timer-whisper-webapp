@@ -22,7 +22,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options)
+    this.setData({
+      friendid: options.friendid
+    })
   },
   //查询未送达消息
   queryUnSendList(){
@@ -31,6 +34,9 @@ Page({
       method: "POST",
       header: {
         token: wx.getStorageSync('token')
+      },
+      data: {
+        friendID: this.data.friendid
       },
       success: res => {
         let messageList = res.data.data;

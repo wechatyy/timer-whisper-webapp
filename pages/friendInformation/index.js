@@ -23,7 +23,7 @@ Page({
   },
   onSearchMessage() {
     wx.navigateTo({
-      url: '/pages/served/index'
+      url: '/pages/served/index?friendid=' + this.data.friendid
       // url: "/pages/chatRecord/index"
     });
   },
