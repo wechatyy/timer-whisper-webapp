@@ -7,8 +7,6 @@
     "pages/editMesg/index",
     "pages/friendInformation/index",
     "pages/signin/index",
-    "pages/personal/openvip/index",
-    "pages/personal/devlop/index",
     "pages/message/index",
     "pages/served/index",
     "pages/choosePeople/index",
