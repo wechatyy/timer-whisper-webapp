@@ -17,7 +17,6 @@ Page({
   },
 
   postLogin(code, userData) {
-    console.log(userData);
     let _this = this
     const { avatarUrl, gender, nickName } = userData.userInfo;
     const {encryptedData,iv} = userData
@@ -59,7 +58,6 @@ Page({
         friendId: this.data.userId
       },
       success: res => {
-        console.log(res)
       }
     })
   }

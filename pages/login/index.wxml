@@ -6,6 +6,5 @@
         <view class="login-msg">登陆后开发者将会获取一些权限</view>
         <view class="login-msg2">· 获取的的公开信息（昵称、头像等）</view> -->
         <button class="login-button" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" >登录</button>
-
-        <navigator class="quit" openType="exit" target="miniProgram">拒绝并退出</navigator>
+        <navigator class="quit" openType="exit" target="miniProgram">取消登录</navigator>
     </view>

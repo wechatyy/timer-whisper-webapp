@@ -10,7 +10,7 @@ Page({
   }, 
   //查看图片
   getShowimgs(e) {
-    console.log(e)
+
     let usrIdex = e.currentTarget.dataset.item;
     let list = e.currentTarget.dataset.list;
     wx.previewImage({
@@ -22,7 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+
     this.setData({
       friendid: options.friendid
     })
@@ -40,7 +40,6 @@ Page({
       },
       success: res => {
         let messageList = res.data.data;
-        console.log(messageList)
         messageList.map((item,index)=>{
           if (item.messagetype == 4) {
             let strmesg = item.messagecontent.split(',')

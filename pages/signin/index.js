@@ -17,7 +17,6 @@ Page({
     userId:''
   },
   onItemClick(e) {
-    console.log(e)
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
       url: "/pages/message/index?friendID=" + item.friendid + "&friendName=" + item.friendname + "&imgUrl=" + item.imgurl + "&sex=" + item.sex+"&remarkname="+item.remarkname

@@ -1,16 +1,25 @@
-
-import { API_HOST, API_QUERY_MESSAGE_LIST, API_UPLOAD_FILE, API_INSTER_MESSAGE, API_MODIFY_VOICE} from '../../utils/config.js'
-import {toast} from '../../utils/modal'
-import { $wuxCalendar } from '../../components/wux/index'
+import {
+  API_HOST,
+  API_QUERY_MESSAGE_LIST,
+  API_UPLOAD_FILE,
+  API_INSTER_MESSAGE,
+  API_MODIFY_VOICE
+} from '../../utils/config.js'
+import {
+  toast
+} from '../../utils/modal'
+import {
+  $wuxCalendar
+} from '../../components/wux/index'
 let date = new Date();
 let Year = date.getFullYear();
-let Month = date.getMonth(); 
+let Month = date.getMonth();
 let Day = date.getDate();
 let Hours = date.getHours();
 let Minutes = date.getMinutes();
 let weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 let displayTime = `${Year}-${Month + 1}-${Day}`
-let timenav = `${Year}年${Month + 1}月${Day}日` 
+let timenav = `${Year}年${Month + 1}月${Day}日`
 let weeknew = weekDay[date.getDay()]
 let timeHours = `${Hours}:${Minutes}:00`
 var recorderManager = wx.getRecorderManager();
@@ -60,7 +69,7 @@ Page({
     hh: hh > 10 ? hh : "0" + hh,
     mm: mm > 10 ? mm : "0" + mm,
     timeValue: [hh, mm],
-    yearValue: [0, Month , Day - 1],
+    yearValue: [0, Month, Day - 1],
     years: years,
     months: months,
     days: days,
@@ -90,9 +99,9 @@ Page({
     startPoint: 0,
     voiceMsgVal: '说出悄悄话',
     autoFocus: false,
-    isShowTextarea: false, 
+    isShowTextarea: false,
     messageList: [],
-    userId: "", 
+    userId: "",
     duration: 0,
     insertFriendID: 0,
     insertImgUrl: "",
@@ -102,18 +111,18 @@ Page({
     isShowVoiceA: false,
     nowImage: "",
     length: 0,
-    options:{},
+    options: {},
     displayTime: displayTime,
     weekDayNew: weeknew,
     dateNew: timenav,
     timeHours: timeHours,
-    isCurDate:false,
-    bidisplayTime:'',
-    ismessageModal:false,
-    msg4_input:"",
-    msg4_imgs:[],
-    messagetype:4,
-    isbf:true
+    isCurDate: false,
+    bidisplayTime: '',
+    ismessageModal: false,
+    msg4_input: "",
+    msg4_imgs: [],
+    messagetype: 4,
+    isbf: true
   },
   updataTime() {
     let date = new Date();
@@ -173,7 +182,7 @@ Page({
       timeValue: val
     });
   },
-  ontextareaViewClick () {
+  ontextareaViewClick() {
     this.setData({
       isShowTextarea: true,
       autoFocus: true
@@ -188,7 +197,7 @@ Page({
     var minute = now.getMinutes();
     var second = now.getSeconds();
     return year + "年" + month + "月" + date + "日 " + hour + ":" + minute;
-  } ,
+  },
   queryMessageList() {
     let _this = this
     wx.request({
@@ -204,16 +213,16 @@ Page({
       },
       success: res => {
         if (res.data.code == 0) {
-          res.data.data.forEach((item,index)=>{
+          res.data.data.forEach((item, index) => {
             item.plantime = _this.formatDate(item.plantime)
-            if (item.messagetype == 3 ){
+            if (item.messagetype == 3) {
               item.messagecontent = item.messagecontent.split(',')
             }
             if (item.messagetype == 4) {
               let strmesg = item.messagecontent.split(',')
               item.messagestr = strmesg[0]
               item.messagecontent = strmesg.slice(1)
-              
+
             }
           })
           this.setData({
@@ -224,7 +233,7 @@ Page({
               length: res.data.data.length - 1
             })
           }, 200)
-        }else if(res.data.code === 50001){
+        } else if (res.data.code === 50001) {
           wx.navigateTo({
             url: '/pages/login/index',
           })
@@ -238,73 +247,71 @@ Page({
       }
     })
   },
-  getSystemInfo(){
+  getSystemInfo() {
     var systemInfo = wx.getSystemInfoSync();
     this.setData({
-        paddingTop: systemInfo.statusBarHeight,
-        systeminfo: systemInfo
-      });
+      paddingTop: systemInfo.statusBarHeight,
+      systeminfo: systemInfo
+    });
   },
-  modifyStutas(id){
-      let _this = this
-      wx.request({
-        url: `${API_HOST}${API_MODIFY_VOICE}?messageId=${id}`,
-        method: "POST",
-        header: {
-          token: wx.getStorageSync('token')
-        },
-        // data: {
-        //   messageId: id
-        // },
-        success: res => {
-           
-        }
-      })
+  modifyStutas(id) {
+    let _this = this
+    wx.request({
+      url: `${API_HOST}${API_MODIFY_VOICE}?messageId=${id}`,
+      method: "POST",
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      // data: {
+      //   messageId: id
+      // },
+      success: res => {
+
+      }
+    })
   },
-  onPlayVoice(e) {  
+  onPlayVoice(e) {
     let item = e.currentTarget.dataset.item
     let index = e.currentTarget.dataset.index
     let list = this.data.messageList
-    let self =this
-    let key = 'messageList[' + index +'].messagestatus'
+    let self = this
+    let key = 'messageList[' + index + '].messagestatus'
     if (this.data.isPlayVoice == true) {
       innerAudioContext.stop()
       this.setData({
         isPlayVoice: false
       })
       return false
-    } 
+    }
     this.setData({
       isPlayVoice: true,
       inputValue: "",
-      [key]:3
+      [key]: 3
     })
     this.modifyStutas(item.id);
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
     innerAudioContext.onEnded(res => {
-      console.log(123)
       self.setData({
         isPlayVoice: false
       })
     })
-    innerAudioContext.onStop(()=>{
+    innerAudioContext.onStop(() => {
       console.log("停止")
-    }) 
+    })
   },
-  playVoice(){
-    let _this = this; 
+  playVoice() {
+    let _this = this;
     if (this.data.isPlayVoice == true) {
       innerAudioContext.stop()
       this.setData({
         isPlayVoice: false
       })
       return false
-    } 
+    }
     this.setData({
       isPlayVoice: true
-    }); 
-    console.log(123)  
+    });
     innerAudioContext.src = this.data.voiceValue;
     innerAudioContext.play();
     innerAudioContext.onEnded(function () {
@@ -338,148 +345,143 @@ Page({
       url: `/pages/friendInformation/index?userid=${item.userid}&id=${item.id}&friendid=${item.friendid}&imgurl=${item.imgurl}&friendname=${item.friendname}&remarkname=${item.remarkname}&sex=${item.sex}&istop=${item.istop}&isreject=${item.isreject}&intimate=${item.intimate}&intimateid=${item.intimateid}&itemlist=${JSON.stringify(this.data.itemlist)}`
     })
   },
-    // input聚焦时触发
-    openKeyboard(e) {
-      let _this = this
-      setTimeout(function () {
-        var isFocus = true;
-       var bottomStyle = e.target.height + 'px'; //软键盘的高度
-        _this.setData({
-         bottomStyle: bottomStyle,
-          isFocus: isFocus,
-          isChoose: false
-        });
-      }, 1);
-      _this.onScrollTo();
-    },
-    //输入框失去焦点时触发
-    outKeyboard() {
-      const commentContent = this.data.commentContent
+  // input聚焦时触发
+  openKeyboard(e) {
+    let _this = this
+    setTimeout(function () {
+      var isFocus = true;
+      var bottomStyle = e.target.height + 'px'; //软键盘的高度
+      _this.setData({
+        bottomStyle: bottomStyle,
+        isFocus: isFocus,
+        isChoose: false
+      });
+    }, 1);
+    _this.onScrollTo();
+  },
+  //输入框失去焦点时触发
+  outKeyboard() {
+    const commentContent = this.data.commentContent
+    this.setData({
+      isFocus: false,
+      bottomStyle: 0,
+      isShowTextarea: false,
+      autoFocus: false,
+      textareaHeight: 60
+    })
+  },
+  onLineChange(e) {
+    this.setData({
+      textareaHeight: e.detail.height < 60 ? 60 : e.detail.height + 18
+    })
+  },
+  onConfirm() {
+    let _this = this;
+    if (this.data.inputValue.trim().length !== 0) {
       this.setData({
-        isFocus: false,
-        bottomStyle: 0,
+        isShowModal: true,
+        isInputEnter: true,
         isShowTextarea: false,
-        autoFocus: false,
-        textareaHeight: 60
-      })
-    },
-    onLineChange(e) {
-      this.setData({
-        textareaHeight: e.detail.height < 60 ? 60 : e.detail.height + 18
-      })
-    },
-    onConfirm() {
-      let _this = this;
-      if (this.data.inputValue.trim().length !== 0) {
-        this.setData({
-          isShowModal: true,
-          isInputEnter: true,
-          isShowTextarea: false,
-          isImageEnter:false,
-          isMsg4Enter: false,
-          autoFocus: false,
-          isVoice:true
-        },()=>{
-          _this.onMessageModal(true);
-        })
-      }
-    },
-  
-    onCancel(flag) {
-      this.setData({
-        isShowModal: false,
-        isInputEnter: false,
-        isVoiceEnter: false,
         isImageEnter: false,
         isMsg4Enter: false,
-        inputValue: '',
-        voiceValue: '',
-        imageValue: [],
+        autoFocus: false,
+        isVoice: true
+      }, () => {
+        _this.onMessageModal(true);
       })
-      if (flag) {
-        this.queryMessageList();
-      }
-    },
-    onInput(e) {
-      console.log(e)
-      this.setData({
-        inputValue: e.detail.value.slice(0, 200)
-      })
-    }, 
-    ontextareaViewClick() {
-      console.log(1321)
-      this.setData({
-        isShowTextarea: true,
-        autoFocus: true,
-      })
-    },
-    onShowImage() {
-      wx.navigateTo({
-        url: '/pages/editMesg/index',
-      })
-      // this.setData({
-      //   isChoose: !this.data.isChoose
-      // })
-    },
-    onImageToolClick(e) {
-      let _this = this;
-      let flag =e.currentTarget.dataset.flag
-      wx.chooseImage({
-        sourceType: [flag],
-        success: res => {
-          let successNum = 0;
-          // tempFilePath可以作为img标签的src属性显示图片
-          const tempFilePaths = res.tempFilePaths;
-          const urlArr = [];
-          for (var index in tempFilePaths) {
-            wx.uploadFile({
-              url: `${API_HOST}${API_UPLOAD_FILE}`,
-              filePath: tempFilePaths[index],
-              name: 'file',
-              header: {
-                token: wx.getStorageSync('token')
-              },
-              success: uploadRes => {
-                successNum++;
-                if (JSON.parse(uploadRes.data).code === 0) {
-                  const url = JSON.parse(uploadRes.data).url
-                  urlArr.push(`${API_HOST.replace('api', '')}/${url}`)
-                }
-              },
-              complete: () => {
-                if (successNum === tempFilePaths.length) {
-                  console.log(123)
-                  _this.setData({
-                    isInputEnter: false,
-                    isVoiceEnter: false, 
-                    isImageEnter: true, 
-                    isMsg4Enter: false,
-                    isShowModal: true,
-                    imageValue: urlArr
-                  },()=>{
-                    _this.isModalshow()
-                  })
-                }
+    }
+  },
+
+  onCancel(flag) {
+    this.setData({
+      isShowModal: false,
+      isInputEnter: false,
+      isVoiceEnter: false,
+      isImageEnter: false,
+      isMsg4Enter: false,
+      inputValue: '',
+      voiceValue: '',
+      imageValue: [],
+    })
+    if (flag) {
+      this.queryMessageList();
+    }
+  },
+  onInput(e) {
+    this.setData({
+      inputValue: e.detail.value.slice(0, 200)
+    })
+  },
+  ontextareaViewClick() {
+    this.setData({
+      isShowTextarea: true,
+      autoFocus: true,
+    })
+  },
+  onShowImage() {
+    wx.navigateTo({
+      url: '/pages/editMesg/index',
+    })
+    // this.setData({
+    //   isChoose: !this.data.isChoose
+    // })
+  },
+  onImageToolClick(e) {
+    let _this = this;
+    let flag = e.currentTarget.dataset.flag
+    wx.chooseImage({
+      sourceType: [flag],
+      success: res => {
+        let successNum = 0;
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths;
+        const urlArr = [];
+        for (var index in tempFilePaths) {
+          wx.uploadFile({
+            url: `${API_HOST}${API_UPLOAD_FILE}`,
+            filePath: tempFilePaths[index],
+            name: 'file',
+            header: {
+              token: wx.getStorageSync('token')
+            },
+            success: uploadRes => {
+              successNum++;
+              if (JSON.parse(uploadRes.data).code === 0) {
+                const url = JSON.parse(uploadRes.data).url
+                urlArr.push(`${API_HOST.replace('api', '')}/${url}`)
               }
-            })
-          };
-        }
-      })
-    },
-  timed(timeStr) { 
-    return  timeStr.slice(0, 4) + '年' + timeStr.slice(5, 7) + '月' + timeStr.slice(8, 10) + '日 ' 
-},
-  openCalendar(){
-    console.log(this.data.displayTime)
+            },
+            complete: () => {
+              if (successNum === tempFilePaths.length) {
+                _this.setData({
+                  isInputEnter: false,
+                  isVoiceEnter: false,
+                  isImageEnter: true,
+                  isMsg4Enter: false,
+                  isShowModal: true,
+                  imageValue: urlArr
+                }, () => {
+                  _this.isModalshow()
+                })
+              }
+            }
+          })
+        };
+      }
+    })
+  },
+  timed(timeStr) {
+    return timeStr.slice(0, 4) + '年' + timeStr.slice(5, 7) + '月' + timeStr.slice(8, 10) + '日 '
+  },
+  openCalendar() {
     var weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
     $wuxCalendar().open({
-      value:'',
+      value: '',
       minDate: this.data.displayTime,
       onChange: (values, displayValues) => {
         let newData = new Date(displayValues[0]).getDay()
         let weekDayNew = weekDay[newData]
         let dateNew = this.timed(displayValues[0])
-        console.log('onChange', values, displayValues)
         this.setData({
           bidisplayTime: displayValues[0],
           weekDayNew: weekDayNew,
@@ -489,21 +491,20 @@ Page({
       },
     })
   },
-  onCurrentDate(e){
+  onCurrentDate(e) {
     let val = e.detail
-    console.log(e);
     this.setData({
       timeHours: val,
       isCurDate: false
     })
   },
-  onCurrCel(){
+  onCurrCel() {
     this.setData({
       isCurDate: false
     })
   },
   onSendMessage() {
-    var _this = this; 
+    var _this = this;
     var messageContent = "";
     var messageType = "";
     if (this.data.isInputEnter) {
@@ -512,10 +513,10 @@ Page({
     } else if (this.data.isVoiceEnter) {
       messageContent = this.data.voiceValue;
       messageType = 2;
-    } else if (this.data.isImageEnter){
+    } else if (this.data.isImageEnter) {
       messageContent = this.data.imageValue.join(',');
       messageType = 3;
-    } else if (this.data.isMsg4Enter){
+    } else if (this.data.isMsg4Enter) {
       let inputStr = this.data.msg4_input;
       let imgsJoin = this.data.msg4_imgs.join(',');
       messageContent = inputStr + "," + imgsJoin
@@ -531,8 +532,6 @@ Page({
     var nowDate = new Date().getTime();
     var dataStr = year + "/" + (month < 10 ? '0' + month : month) + "/" + (day < 10 ? '0' + day : day) + " " + hh + ":" + mm;
     var selectDate = new Date(dataStr).getTime();
-    console.log(nowDate, selectDate, dataStr);
-    console.log(nowDate <= selectDate);
     if (selectDate <= nowDate) {
       wx.showToast({
         title: '请勿选择之前的时间',
@@ -544,7 +543,7 @@ Page({
       url: `${API_HOST}${API_INSTER_MESSAGE}`,
       method: "POST",
       header: {
-        token:wx.getStorageSync('token')
+        token: wx.getStorageSync('token')
       },
       data: {
         friendID: this.data.friendID,
@@ -557,7 +556,7 @@ Page({
         planTime: selectDate
       },
       success: function success(res) {
-        
+
         if (res.data.code == 0) {
           wx.showToast({
             title: '发送成功',
@@ -565,7 +564,7 @@ Page({
           _this.onMessageModal(false)
           _this.queryMessageList()
           _this.setData({
-            inputValue:'',
+            inputValue: '',
           })
           let NavigationBarTitle = _this.data.friendName
           if (_this.data.remarkname && _this.data.remarkname != 'null') {
@@ -576,7 +575,7 @@ Page({
           })
 
 
-        } else if (res.data.code == 500) {
+        } else if (res.data.code == 500 || res.data.code == 400) {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -594,7 +593,7 @@ Page({
         })
         this.onMessageModal(false)
       },
-      complete:(com)=>{
+      complete: (com) => {
         innerAudioContext.stop()
         innerAudioContext.destroy();
       }
@@ -620,7 +619,7 @@ Page({
   isModalhide() {
     this.setData({
       ismessageModal: false,
-      inputValue:'',
+      inputValue: '',
       isInputEnter: false,
       isVoiceEnter: false,
       isImageEnter: false,
@@ -630,7 +629,6 @@ Page({
     innerAudioContext.destroy();
   },
   handleRecordStart(e) {
-    console.log(e)
     wx.vibrateLong()
     this.setData({
       startPoint: e.touches[0],
@@ -639,7 +637,7 @@ Page({
       isShowVoiceA: true,
       is_clock: true
     })
-    
+
     // this.setData({
     //   is_clock: true,
     //   startPoint: e.touches[0],
@@ -653,7 +651,7 @@ Page({
     recorderManager.start(options);
   },
   handleTouchMove(e) {
-    console.log(e)
+
     // console.log(Math.abs(e.touches[e.touches.length - 1].clientY - this.state.startPoint.clientY) > 25)
     if (Math.abs(e.touches[e.touches.length - 1].clientY - this.data.startPoint.clientY) > 25) {
       this.setData({
@@ -664,7 +662,7 @@ Page({
     }
   },
   handleRecordStop(e) {
-    console.log(e)
+
     let _this = this;
     this.setData({
       touchEnd: e.timeStamp,
@@ -673,22 +671,22 @@ Page({
     })
     // let touchTimes = this.data.touchEnd - this.data.touchStart;
     recorderManager.stop();
-    if (this.data.is_clock){
+    if (this.data.is_clock) {
       recorderManager.onStop(function (res) {
         if (res.duration < 2000) {
-         wx.showToast({
+          wx.showToast({
             title: '录音时间太短，请长按录音',
             icon: 'none',
             duration: 2000
           });
         } else {
-          var tempFilePath = res.tempFilePath; 
-          console.log(tempFilePath);
-         wx.showLoading({
+          var tempFilePath = res.tempFilePath;
+
+          wx.showLoading({
             title: '语音检索中'
           });
           wx.uploadFile({
-            url: `${API_HOST}`+ "/uploadFile",
+            url: `${API_HOST}` + "/uploadFile",
             filePath: tempFilePath,
             name: 'file',
             header: {
@@ -696,7 +694,7 @@ Page({
             },
             success: function success(uploadRes) {
               setTimeout(function () {
-               wx.hideLoading();
+                wx.hideLoading();
               }, 500);
               var url = JSON.parse(uploadRes.data).url;
               _this.setData({
@@ -707,8 +705,8 @@ Page({
                 isImageEnter: false,
                 isShowModal: true,
                 isShowVoiceA: false,
-                duration: Math.ceil(res.duration/1000)
-              },()=>{
+                duration: Math.ceil(res.duration / 1000)
+              }, () => {
                 _this.isModalshow()
               });
             }
@@ -723,8 +721,8 @@ Page({
     });
   },
   //查看图片
-  getShowimgs(e){
-    console.log(e)
+  getShowimgs(e) {
+
     let usrIdex = e.currentTarget.dataset.item;
     let list = e.currentTarget.dataset.list;
     wx.previewImage({
@@ -736,9 +734,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options); 
+
     let NavigationBarTitle = options.friendName
-    if(options.remarkname && options.remarkname!='null'){
+    if (options.remarkname && options.remarkname != 'null') {
       NavigationBarTitle = options.remarkname
     }
     wx.setNavigationBarTitle({
@@ -752,54 +750,53 @@ Page({
       imgUrl: options.imgUrl,
       sex: options.sex,
       userId: wx.getStorageSync('userId'),
-      itemlist: JSON.parse(options.itemlist)  
+      itemlist: JSON.parse(options.itemlist)
     })
 
     this.queryMessageList()
 
   },
-onScrollTo(){
-  let _this = this;
-  wx.createSelectorQuery().select('#page').boundingClientRect(function (rect) {
-    if (rect) {
-      console.log(rect)
-      wx.pageScrollTo({
-        scrollTop: rect.height,
-        duration: 300
-      })
-    }
-  }).exec()
-},
+  onScrollTo() {
+    let _this = this;
+    wx.createSelectorQuery().select('#page').boundingClientRect(function (rect) {
+      if (rect) {
+        wx.pageScrollTo({
+          scrollTop: rect.height,
+          duration: 300
+        })
+      }
+    }).exec()
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
     let _this = this;
-    setTimeout(()=>{
+    setTimeout(() => {
       wx.createSelectorQuery().select('#page').boundingClientRect(function (rect) {
         if (rect) {
-          console.log(rect)
+
           wx.pageScrollTo({
             scrollTop: rect.height,
             duration: 300
           })
         }
-      }).exec() 
-    },300) 
+      }).exec()
+    }, 300)
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.updataTime() 
+    this.updataTime()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-   
+
   },
 
   /**

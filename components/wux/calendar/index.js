@@ -799,8 +799,6 @@ baseComponent({
             }
 
             this.$$setData(changedPath)
-console.log(changedPath);
-console.log(this.data.value);
             if (typeof this.fns.onChange === 'function' && this.data.value) {
                 this.fns.onChange.call(this, this.data.value, this.data.value.map((n) => this.formatDate(n)))
             }

@@ -35,7 +35,6 @@ Page({
       //   commVal:''
       // })
     } else {
-      console.log(444);
       this.setData({
         isOpens: false,
       })

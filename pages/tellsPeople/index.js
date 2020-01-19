@@ -408,7 +408,7 @@ Page({
             friendName: '',
             isTells:false
           })
-        } else if (res.data.code == 500){
+        } else if (res.data.code == 500 || res.data.code == 400){
           wx.showToast({
             title: res.data.msg,
             icon: 'none' 
@@ -441,7 +441,6 @@ Page({
     });
   },
   onPlayVoice(e) {
-    console.log(e);
     let item = e.currentTarget.dataset.item
     let self = this
     this.setData({
@@ -451,7 +450,6 @@ Page({
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
     innerAudioContext.onStop(res => {
-      console.log(res)
       this.setData({
         isPlayVoice: false,
       })
@@ -559,7 +557,6 @@ Page({
     }
   },
   onInput(e) {
-    console.log(e)
     this.setData({
       inputValue: e.detail.value.slice(0, 200)
     })
@@ -607,7 +604,6 @@ Page({
     }
   },
   handleRecordStop(e) {
-    console.log(123)
     let _this = this;
     this.setData({
       touchEnd: e.timeStamp,
@@ -618,7 +614,6 @@ Page({
     recorderManager.stop();
     if (this.data.is_clock) {
       recorderManager.onStop(function (res) {
-        console.log(321)
         if (res.duration < 2000) {
           wx.showToast({
             title: '录音时间太短，请长按录音',
@@ -627,7 +622,6 @@ Page({
           });
         } else {
           var tempFilePath = res.tempFilePath;
-          console.log(tempFilePath);
           wx.showLoading({
             title: '语音检索中'
           });
@@ -661,7 +655,6 @@ Page({
         }
       });
       recorderManager.onError(function (res) {
-        console.log(res)
       })
     }
   },
@@ -836,7 +829,6 @@ Page({
       cancelText:'取消',
       success(res) {
         if (res.confirm) {
-          console.log('用户点击确定')
           if (!wx.getStorageSync('token')){
             _this.setData({isAuth:false})
             _this.showModalfc()
@@ -884,7 +876,7 @@ Page({
           friendId: this.data.userId
         },
         success: res => {
-          console.log(res)
+
         }
       })
     },
@@ -899,7 +891,5 @@ Page({
     innerAudioContext.stop()
     innerAudioContext.destroy();
   }
-  // onScrolls(e){
-  //   console.log(e)
-  // }
+
 })

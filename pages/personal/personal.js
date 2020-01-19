@@ -277,7 +277,6 @@ Page({
             },
             complete: () => {
               if (successNum === tempFilePaths.length) {
-                console.log(123)
                 _this.setData({
                   isInputEnter: false,
                   isVoiceEnter: false,
@@ -299,7 +298,7 @@ Page({
     return timeStr.slice(0, 4) + '年' + timeStr.slice(5, 7) + '月' + timeStr.slice(8, 10) + '日 '
   },
   openCalendar() {
-    console.log(this.data.displayTime)
+    // console.log(this.data.displayTime)
     var weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
     $wuxCalendar().open({
       value: '',
@@ -308,7 +307,7 @@ Page({
         let newData = new Date(displayValues[0]).getDay()
         let weekDayNew = weekDay[newData]
         let dateNew = this.timed(displayValues[0])
-        console.log('onChange', values, displayValues)
+        // console.log('onChange', values, displayValues)
         this.setData({
           bidisplayTime: displayValues[0],
           weekDayNew: weekDayNew,
@@ -320,7 +319,6 @@ Page({
   },
   onCurrentDate(e) {
     let val = e.detail
-    console.log(e);
     this.setData({
       timeHours: val,
       isCurDate: false
@@ -367,8 +365,6 @@ Page({
     var nowDate = new Date().getTime();
     var dataStr = year + "/" + (month < 10 ? '0' + month : month) + "/" + (day < 10 ? '0' + day : day) + " " + hh + ":" + mm;
     var selectDate = new Date(dataStr).getTime();
-    console.log(nowDate, selectDate, dataStr);
-    console.log(nowDate <= selectDate);
     if (selectDate <= nowDate) {
       wx.showToast({
         title: '请勿选择之前的时间',
@@ -407,7 +403,7 @@ Page({
             friendID: '',
             friendName: ''
           })
-        } else if (res.data.code == 500) {
+        } else if (res.data.code == 500 || res.data.code == 400) {
           wx.showToast({
             title: res.data.msg,
             icon: 'none'
@@ -440,7 +436,7 @@ Page({
     });
   },
   onPlayVoice(e) {
-    console.log(e);
+    // console.log(e);
     let item = e.currentTarget.dataset.item
     let self = this
     this.setData({
@@ -450,7 +446,7 @@ Page({
     innerAudioContext.src = item.messagecontent;
     innerAudioContext.play();
     innerAudioContext.onStop(res => {
-      console.log(res)
+      // console.log(res)
       this.setData({
         isPlayVoice: false,
       })
@@ -468,7 +464,6 @@ Page({
     this.setData({
       isPlayVoice: true
     });
-    console.log(123) 
     innerAudioContext.src = this.data.voiceValue;
     innerAudioContext.play();
     innerAudioContext.onEnded(function () {
@@ -559,7 +554,6 @@ Page({
     }
   },
   onInput(e) {
-    console.log(e)
     this.setData({
       inputValue: e.detail.value.slice(0, 200)
     })
@@ -575,7 +569,6 @@ Page({
     return year + "-" + month + "-" + date + " " + hour + ":" + minute;
   },
   handleRecordStart(e) {
-    console.log(e)
     wx.vibrateLong()
     this.setData({
       startPoint: e.touches[0],
@@ -598,7 +591,7 @@ Page({
     recorderManager.start(options);
   },
   handleTouchMove(e) {
-    console.log(e)
+    // console.log(e)
     // console.log(Math.abs(e.touches[e.touches.length - 1].clientY - this.state.startPoint.clientY) > 25)
     if (Math.abs(e.touches[e.touches.length - 1].clientY - this.data.startPoint.clientY) > 25) {
       this.setData({
@@ -609,7 +602,7 @@ Page({
     }
   },
   handleRecordStop(e) {
-    console.log(e)
+    // console.log(e)
     let _this = this;
     this.setData({
       touchEnd: e.timeStamp,
@@ -628,7 +621,7 @@ Page({
           });
         } else {
           var tempFilePath = res.tempFilePath;
-          console.log(tempFilePath);
+          // console.log(tempFilePath);
           wx.showLoading({
             title: '语音检索中'
           });

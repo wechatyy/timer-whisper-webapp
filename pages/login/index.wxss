@@ -69,12 +69,17 @@
 .quit {
   position: absolute;
   bottom: 80rpx;
-  width: 200rpx;
   left: 50%;
-  margin-left: -100rpx;
-  text-decoration: underline;
-  font-size: 34rpx;
-  font-weight: bold;
-  color: #333;
-  line-height: 40rpx;
+  transform: translateX(-50%);
+  width: 368rpx;
+  height: 96rpx;
+  border-radius: 8rpx;
+  background: #f8f8f8;
+  text-align: center;
+  line-height: 96rpx;
+  color: #666;
+  font-size: 32rpx;
+  margin:14vh auto 0;
+  padding: 0;
+  display: block;
 }
